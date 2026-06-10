@@ -1,0 +1,1433 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>World Cup Sweeps</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+  <style>
+    /* ── DESIGN TOKENS ─────────────────────────────────────────────── */
+    :root {
+      --deep-stadium:   #0A1215;
+      --aisle-20:       #141E22;
+      --aisle-30:       #1C2830;
+      --spotlight:      #F0F4F8;
+      --data-grey:      #94A3B8;
+      --pitch-green:    #AEFF00;
+      --finals-purple:  #8E2EFF;
+      --std-blue:       #0055FF;
+      --kickoff-red:    #FF4230;
+      --champ-gold:     #E1C16E;
+      --border-subtle:  rgba(255,255,255,0.07);
+    }
+
+    [data-theme="light"] {
+      --deep-stadium:   #F0F4F8;
+      --aisle-20:       #E2E8F0;
+      --aisle-30:       #CBD5E1;
+      --spotlight:      #0F172A;
+      --data-grey:      #475569;
+      --border-subtle:  rgba(0,0,0,0.08);
+    }
+
+    /* ── BASE ───────────────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--deep-stadium);
+      color: var(--spotlight);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* Stadium arc watermark — 3% opacity arcs, never interferes with text */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 140% 60% at 50% -10%, rgba(174,255,0,0.035) 0%, transparent 60%),
+        radial-gradient(ellipse 100% 40% at 50% 110%, rgba(142,46,255,0.025) 0%, transparent 55%),
+        radial-gradient(ellipse 80% 30% at 50% 50%,  rgba(0,85,255,0.015)  0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    #app { position: relative; z-index: 1; }
+
+    /* ── TYPOGRAPHY ─────────────────────────────────────────────────── */
+    .font-display {
+      font-family: 'Inter', sans-serif;
+      font-weight: 800;
+      letter-spacing: -0.025em;
+      text-transform: uppercase;
+    }
+    .num { font-variant-numeric: tabular-nums; }
+
+    /* ── SCROLLBAR ──────────────────────────────────────────────────── */
+    ::-webkit-scrollbar { width: 4px; height: 4px; }
+    ::-webkit-scrollbar-track { background: var(--deep-stadium); }
+    ::-webkit-scrollbar-thumb { background: var(--aisle-30); border-radius: 2px; }
+
+    /* ── CARDS & SURFACES ───────────────────────────────────────────── */
+    .card {
+      background: var(--aisle-20);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+    }
+    .card-inner {
+      background: var(--deep-stadium);
+      border: 1px solid var(--border-subtle);
+      border-radius: 8px;
+    }
+
+    /* ── TABS ───────────────────────────────────────────────────────── */
+    .tab-btn {
+      flex: 1;
+      padding-bottom: 10px;
+      border-bottom: 2px solid transparent;
+      color: var(--data-grey);
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      transition: color 0.15s, border-color 0.15s;
+      cursor: pointer;
+      background: none;
+      border-top: none;
+      border-left: none;
+      border-right: none;
+    }
+    .tab-btn.active {
+      color: var(--pitch-green);
+      border-bottom-color: var(--pitch-green);
+    }
+    .tab-btn:not(.active):hover { color: var(--spotlight); }
+
+    /* ── STATUS CHIPS ───────────────────────────────────────────────── */
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      white-space: nowrap;
+    }
+    .chip-green  { background: rgba(174,255,0,0.12);  color: var(--pitch-green);   border: 1px solid rgba(174,255,0,0.25); }
+    .chip-red    { background: rgba(255,66,48,0.12);  color: var(--kickoff-red);   border: 1px solid rgba(255,66,48,0.25); }
+    .chip-blue   { background: rgba(0,85,255,0.12);   color: var(--std-blue);      border: 1px solid rgba(0,85,255,0.25); }
+    .chip-purple { background: rgba(142,46,255,0.12); color: var(--finals-purple); border: 1px solid rgba(142,46,255,0.25); }
+    .chip-gold   { background: rgba(225,193,110,0.15);color: var(--champ-gold);    border: 1px solid rgba(225,193,110,0.35); }
+    .chip-grey   { background: rgba(148,163,184,0.1); color: var(--data-grey);     border: 1px solid rgba(148,163,184,0.2); }
+
+    /* ── TEAM PILL (compact) ─────────────────────────────────────────── */
+    .team-pill {
+      display: inline-block;
+      padding: 2px 7px;
+      border-radius: 6px;
+      font-size: 10px;
+      max-width: 90px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      border: 1px solid var(--border-subtle);
+      color: var(--data-grey);
+      background: var(--deep-stadium);
+    }
+    .team-pill.alive   { color: var(--pitch-green);   background: rgba(174,255,0,0.07);  border-color: rgba(174,255,0,0.2); }
+    .team-pill.runnerup{ color: var(--finals-purple);  background: rgba(142,46,255,0.08); border-color: rgba(142,46,255,0.25); }
+    .team-pill.champion{ color: var(--champ-gold);    background: rgba(225,193,110,0.1); border-color: rgba(225,193,110,0.3); font-weight: 700; }
+
+    /* ── PRIZE TAG ──────────────────────────────────────────────────── */
+    .prize-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      padding: 2px 6px;
+      border-radius: 5px;
+      font-size: 9px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+    .prize-tag-lead     { background: rgba(174,255,0,0.1);  color: var(--pitch-green);  border: 1px solid rgba(174,255,0,0.2); }
+    .prize-tag-contested{ background: rgba(255,66,48,0.1);  color: var(--kickoff-red);  border: 1px solid rgba(255,66,48,0.2); }
+    .prize-tag-won      { background: rgba(225,193,110,0.1);color: var(--champ-gold);   border: 1px solid rgba(225,193,110,0.25); }
+
+    /* ── FILTER PILLS ───────────────────────────────────────────────── */
+    .filter-pill {
+      padding: 4px 12px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      cursor: pointer;
+      border: 1px solid var(--border-subtle);
+      background: var(--aisle-20);
+      color: var(--data-grey);
+      white-space: nowrap;
+      transition: all 0.15s;
+    }
+    .filter-pill.active {
+      background: var(--std-blue);
+      color: var(--spotlight);
+      border-color: var(--std-blue);
+    }
+    .filter-pill:not(.active):hover { border-color: var(--data-grey); color: var(--spotlight); }
+
+    /* ── BOTTOM DRAWER ──────────────────────────────────────────────── */
+    #detail-drawer {
+      position: fixed;
+      inset: 0;
+      background: rgba(10,18,21,0.75);
+      backdrop-filter: blur(6px);
+      z-index: 100;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s;
+    }
+    #detail-drawer.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+    #drawer-panel {
+      background: var(--aisle-20);
+      border: 1px solid var(--border-subtle);
+      border-radius: 20px 20px 0 0;
+      width: 100%;
+      max-width: 480px;
+      max-height: 88vh;
+      transform: translateY(100%);
+      transition: transform 0.3s cubic-bezier(0.32,0.72,0,1);
+      display: flex;
+      flex-direction: column;
+    }
+    #detail-drawer.open #drawer-panel {
+      transform: translateY(0);
+    }
+
+    /* ── ADMIN PANEL ────────────────────────────────────────────────── */
+    #admin-panel {
+      border: 2px dashed rgba(142,46,255,0.3);
+      border-radius: 12px;
+    }
+
+    /* ── VALIDATION ALERTS ──────────────────────────────────────────── */
+    .alert-item {
+      display: flex;
+      gap: 8px;
+      align-items: flex-start;
+      padding: 8px 10px;
+      border-radius: 8px;
+      font-size: 11px;
+    }
+    .alert-warn  { background: rgba(255,66,48,0.08);  border: 1px solid rgba(255,66,48,0.2); }
+    .alert-info  { background: rgba(0,85,255,0.08);   border: 1px solid rgba(0,85,255,0.2); }
+    .alert-ok    { background: rgba(174,255,0,0.06);  border: 1px solid rgba(174,255,0,0.15); }
+
+    /* ── LOADING / ERROR STATES ─────────────────────────────────────── */
+    #loading-screen, #error-screen {
+      position: fixed;
+      inset: 0;
+      background: var(--deep-stadium);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      z-index: 200;
+    }
+    .spinner {
+      width: 36px; height: 36px;
+      border: 3px solid var(--aisle-30);
+      border-top-color: var(--pitch-green);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .pulse-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--pitch-green);
+      animation: pulse 1.4s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50%       { opacity: 0.4; transform: scale(0.7); }
+    }
+
+    /* ── KPI CARDS ──────────────────────────────────────────────────── */
+    .kpi-card {
+      background: var(--aisle-20);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 12px;
+    }
+    .kpi-label {
+      font-size: 9px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: var(--data-grey);
+      display: block;
+      margin-bottom: 4px;
+    }
+    .kpi-value {
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1;
+      font-variant-numeric: tabular-nums;
+    }
+    .kpi-sub {
+      font-size: 10px;
+      color: var(--data-grey);
+      margin-top: 3px;
+      display: block;
+    }
+
+    /* ── CHAMPION GLOW ──────────────────────────────────────────────── */
+    .champion-card {
+      border-color: rgba(225,193,110,0.4) !important;
+      box-shadow: 0 0 20px rgba(225,193,110,0.08), inset 0 0 20px rgba(225,193,110,0.03);
+    }
+
+    /* ── STANDINGS CARD ─────────────────────────────────────────────── */
+    .standings-card {
+      background: var(--aisle-20);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 12px;
+      cursor: pointer;
+      transition: border-color 0.15s, transform 0.1s;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .standings-card:active { transform: scale(0.985); }
+    .standings-card:hover  { border-color: rgba(148,163,184,0.3); }
+
+    /* ── RESPONSIVE DESKTOP ─────────────────────────────────────────── */
+    @media (min-width: 768px) {
+      .desktop-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+      .desktop-grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+      #detail-drawer { align-items: center; padding: 24px; }
+      #drawer-panel  { border-radius: 20px; max-height: 80vh; }
+    }
+
+    /* ── SEARCH INPUT ───────────────────────────────────────────────── */
+    .search-wrap {
+      background: var(--aisle-20);
+      border: 1px solid var(--border-subtle);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 0 10px;
+      transition: border-color 0.15s;
+    }
+    .search-wrap:focus-within { border-color: rgba(0,85,255,0.5); }
+    .search-wrap input {
+      background: none;
+      border: none;
+      outline: none;
+      color: var(--spotlight);
+      font-size: 13px;
+      padding: 9px 0;
+      width: 100%;
+    }
+    .search-wrap input::placeholder { color: var(--data-grey); }
+
+    /* ── SELECT ─────────────────────────────────────────────────────── */
+    select {
+      appearance: none;
+      background: var(--deep-stadium);
+      color: var(--spotlight);
+      border: 1px solid var(--border-subtle);
+      border-radius: 6px;
+      padding: 6px 8px;
+      font-size: 12px;
+      width: 100%;
+      cursor: pointer;
+    }
+
+    /* ── MISC ───────────────────────────────────────────────────────── */
+    .divider { height: 1px; background: var(--border-subtle); margin: 12px 0; }
+    .section-label {
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--std-blue);
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    button { cursor: pointer; }
+
+    /* Stale data banner */
+    #stale-banner {
+      background: rgba(255,66,48,0.1);
+      border: 1px solid rgba(255,66,48,0.3);
+      border-radius: 8px;
+      padding: 8px 12px;
+      font-size: 11px;
+      color: var(--kickoff-red);
+      display: none;
+      align-items: center;
+      gap: 8px;
+    }
+    #stale-banner.show { display: flex; }
+
+    /* Rotate animation for refresh icon */
+    .spinning { animation: spin 0.7s linear infinite; }
+  </style>
+</head>
+<body>
+
+<!-- ─── LOADING SCREEN ──────────────────────────────────────────────────── -->
+<div id="loading-screen">
+  <div class="spinner"></div>
+  <span style="color:var(--data-grey);font-size:13px;letter-spacing:0.04em;">Loading tournament data…</span>
+</div>
+
+<!-- ─── ERROR SCREEN ───────────────────────────────────────────────────── -->
+<div id="error-screen" style="display:none">
+  <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--kickoff-red)" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+  <div style="text-align:center">
+    <div style="color:var(--spotlight);font-weight:700;margin-bottom:6px;">Couldn't load data</div>
+    <div id="error-msg" style="color:var(--data-grey);font-size:12px;max-width:240px;line-height:1.5;"></div>
+  </div>
+  <button onclick="loadData()" style="margin-top:8px;padding:10px 24px;background:var(--std-blue);color:var(--spotlight);border:none;border-radius:8px;font-weight:600;font-size:13px;">Try again</button>
+</div>
+
+<!-- ─── MAIN APP ────────────────────────────────────────────────────────── -->
+<div id="app" style="display:none; max-width:480px; margin:0 auto; padding:0 16px;">
+
+  <!-- ── HEADER ──────────────────────────────────────────────────────────── -->
+  <header style="position:sticky;top:0;z-index:40;background:rgba(10,18,21,0.94);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--border-subtle);padding:12px 0;margin:0 -16px;padding-left:16px;padding-right:16px;">
+    <div style="display:flex;align-items:center;justify-content:space-between;">
+      <div>
+        <div style="display:flex;align-items:center;gap:8px;">
+          <div class="pulse-dot"></div>
+          <span class="font-display" style="font-size:16px;color:var(--spotlight);">World Cup Sweeps</span>
+        </div>
+        <div style="font-size:10px;color:var(--data-grey);margin-top:1px;">Private friends tracker · 2026</div>
+      </div>
+      <div style="display:flex;gap:6px;align-items:center;">
+        <!-- Dark/light toggle -->
+        <button onclick="toggleTheme()" id="theme-btn" title="Toggle light/dark mode"
+          style="width:36px;height:36px;display:flex;align-items:center;justify-content:center;background:var(--aisle-20);border:1px solid var(--border-subtle);border-radius:8px;color:var(--data-grey);transition:color 0.15s;">
+          <i data-lucide="sun" id="theme-icon-sun" style="width:15px;height:15px;display:none;"></i>
+          <i data-lucide="moon" id="theme-icon-moon" style="width:15px;height:15px;"></i>
+        </button>
+        <!-- Admin toggle -->
+        <button onclick="toggleAdmin()" title="Admin overrides"
+          style="width:36px;height:36px;display:flex;align-items:center;justify-content:center;background:var(--aisle-20);border:1px solid var(--border-subtle);border-radius:8px;color:var(--data-grey);transition:color 0.15s;">
+          <i data-lucide="sliders-horizontal" style="width:15px;height:15px;"></i>
+        </button>
+        <!-- Refresh -->
+        <button onclick="reloadFromCache()" title="Reload cached data"
+          style="width:36px;height:36px;display:flex;align-items:center;justify-content:center;background:var(--aisle-20);border:1px solid var(--border-subtle);border-radius:8px;color:var(--data-grey);transition:color 0.15s;">
+          <i data-lucide="refresh-cw" id="refresh-icon" style="width:15px;height:15px;"></i>
+        </button>
+      </div>
+    </div>
+    <!-- Cache status row -->
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-top:8px;font-size:10px;color:var(--data-grey);">
+      <span>Last sync: <strong id="last-updated" style="color:var(--spotlight);">–</strong></span>
+      <span id="cache-status-chip"></span>
+    </div>
+  </header>
+
+  <div style="height:12px;"></div>
+
+  <!-- ── STALE DATA BANNER ────────────────────────────────────────────────── -->
+  <div id="stale-banner" style="margin-bottom:12px;">
+    <i data-lucide="alert-triangle" style="width:14px;height:14px;flex-shrink:0;"></i>
+    <span>Data is over 12 hours old — showing last cached state</span>
+  </div>
+
+  <!-- ── VALIDATION ALERTS ────────────────────────────────────────────────── -->
+  <div id="alerts-container" style="margin-bottom:12px;space-y:6px;"></div>
+
+  <!-- ── KPI CARDS ────────────────────────────────────────────────────────── -->
+  <section style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px;">
+    <div class="kpi-card">
+      <span class="kpi-label">Prize Pool</span>
+      <div class="kpi-value" style="color:var(--spotlight);">$350</div>
+      <span class="kpi-sub">7 entries @ $50</span>
+    </div>
+    <div class="kpi-card">
+      <span class="kpi-label">Prizes Settled</span>
+      <div class="kpi-value num" id="kpi-settled" style="color:var(--finals-purple);">–</div>
+      <span class="kpi-sub" id="kpi-contested">–</span>
+    </div>
+    <div class="kpi-card">
+      <span class="kpi-label">Teams Alive</span>
+      <div class="kpi-value num" id="kpi-alive" style="color:var(--pitch-green);">–</div>
+      <span class="kpi-sub" id="kpi-eliminated">–</span>
+    </div>
+    <div class="kpi-card">
+      <span class="kpi-label">Frontrunner</span>
+      <div class="kpi-value" id="kpi-leader" style="color:var(--spotlight);font-size:18px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">–</div>
+      <span class="kpi-sub" id="kpi-leader-sub">–</span>
+    </div>
+  </section>
+
+  <!-- ── TABS ─────────────────────────────────────────────────────────────── -->
+  <nav style="display:flex;border-bottom:1px solid var(--border-subtle);margin-bottom:16px;">
+    <button class="tab-btn active" id="tab-standings" onclick="switchTab('standings')">Standings</button>
+    <button class="tab-btn" id="tab-prizes" onclick="switchTab('prizes')">Prizes</button>
+    <button class="tab-btn" id="tab-teams" onclick="switchTab('teams')">Teams</button>
+    <button class="tab-btn" id="tab-alerts" onclick="switchTab('alerts')">
+      Alerts <span id="alert-count-badge" style="display:none;margin-left:3px;background:var(--kickoff-red);color:#fff;border-radius:999px;font-size:8px;padding:0 4px;line-height:1.6;">0</span>
+    </button>
+  </nav>
+
+  <!-- ══ TAB: STANDINGS ══════════════════════════════════════════════════════ -->
+  <section id="section-standings">
+    <div style="font-size:10px;color:var(--data-grey);margin-bottom:10px;display:flex;justify-content:space-between;">
+      <span>Sorted by projected winnings</span>
+      <span>Tap a name for details</span>
+    </div>
+    <div id="standings-list" style="display:flex;flex-direction:column;gap:10px;padding-bottom:80px;"></div>
+  </section>
+
+  <!-- ══ TAB: PRIZES ═════════════════════════════════════════════════════════ -->
+  <section id="section-prizes" style="display:none;">
+    <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--data-grey);margin-bottom:10px;">
+      <span>Total pool: $350</span>
+      <span style="color:var(--finals-purple);">7 categories</span>
+    </div>
+    <div id="prizes-list" style="display:flex;flex-direction:column;gap:10px;padding-bottom:80px;"></div>
+  </section>
+
+  <!-- ══ TAB: TEAMS ══════════════════════════════════════════════════════════ -->
+  <section id="section-teams" style="display:none;">
+    <div class="search-wrap" style="margin-bottom:10px;">
+      <i data-lucide="search" style="width:15px;height:15px;color:var(--data-grey);flex-shrink:0;"></i>
+      <input type="text" id="team-search" placeholder="Search teams, owners, status…">
+      <button id="clear-search-btn" onclick="clearTeamSearch()" style="display:none;background:none;border:none;color:var(--data-grey);padding:2px;line-height:0;">
+        <i data-lucide="x" style="width:14px;height:14px;"></i>
+      </button>
+    </div>
+    <div style="display:flex;gap:6px;overflow-x:auto;padding-bottom:8px;margin-bottom:4px;">
+      <button class="filter-pill active" id="fp-all"       onclick="setFilter('all')">All</button>
+      <button class="filter-pill"        id="fp-alive"     onclick="setFilter('alive')">Alive</button>
+      <button class="filter-pill"        id="fp-r16"       onclick="setFilter('r16')">R16+</button>
+      <button class="filter-pill"        id="fp-eliminated"onclick="setFilter('eliminated')">Out</button>
+    </div>
+    <div id="teams-list" style="display:flex;flex-direction:column;gap:8px;padding-bottom:80px;max-height:60vh;overflow-y:auto;padding-right:2px;"></div>
+  </section>
+
+  <!-- ══ TAB: ALERTS ═════════════════════════════════════════════════════════ -->
+  <section id="section-alerts" style="display:none;">
+    <div id="alerts-detail-list" style="display:flex;flex-direction:column;gap:8px;padding-bottom:80px;"></div>
+  </section>
+
+  <!-- ── ADMIN PANEL ──────────────────────────────────────────────────────── -->
+  <div id="admin-panel" style="display:none;margin-top:16px;padding:16px;background:var(--aisle-20);">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
+      <div style="display:flex;align-items:center;gap:6px;color:var(--finals-purple);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;">
+        <i data-lucide="sliders-horizontal" style="width:14px;height:14px;"></i>
+        Admin Simulator
+      </div>
+      <button onclick="toggleAdmin()" style="font-size:11px;color:var(--data-grey);background:none;border:none;">Hide</button>
+    </div>
+    <p style="font-size:11px;color:var(--data-grey);margin-bottom:12px;line-height:1.5;">
+      Simulate tournament outcomes to test prize calculations. Changes are local only and reset on page reload.
+    </p>
+
+    <div class="divider"></div>
+    <span class="section-label">Champion &amp; Runner-Up</span>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px;">
+      <div>
+        <div style="font-size:9px;color:var(--data-grey);margin-bottom:4px;">Champion</div>
+        <select id="sim-champion" onchange="applyAdmin()"></select>
+      </div>
+      <div>
+        <div style="font-size:9px;color:var(--data-grey);margin-bottom:4px;">Runner-Up</div>
+        <select id="sim-runnerup" onchange="applyAdmin()"></select>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+    <span class="section-label">Manual Prize Assignments</span>
+    <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:12px;">
+      <div>
+        <div style="font-size:9px;color:var(--data-grey);margin-bottom:4px;">Latest Goal — Team</div>
+        <select id="sim-latest-goal" onchange="applyAdmin()"><option value="">– Unresolved –</option></select>
+      </div>
+      <div>
+        <div style="font-size:9px;color:var(--data-grey);margin-bottom:4px;">Most Cautions — Team</div>
+        <select id="sim-cautions" onchange="applyAdmin()"><option value="">– Unresolved –</option></select>
+      </div>
+      <div>
+        <div style="font-size:9px;color:var(--data-grey);margin-bottom:4px;">Goal of Tournament — Team</div>
+        <select id="sim-got" onchange="applyAdmin()"><option value="">– Unresolved –</option></select>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+    <span class="section-label">Round of 16 — Toggle Teams</span>
+    <div id="admin-r16-grid" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;max-height:140px;overflow-y:auto;padding:4px;background:var(--deep-stadium);border-radius:8px;border:1px solid var(--border-subtle);margin-bottom:12px;"></div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+      <button onclick="resetAdmin()" style="padding:9px;background:var(--deep-stadium);border:1px solid var(--border-subtle);border-radius:8px;color:var(--data-grey);font-size:12px;font-weight:600;">Reset</button>
+      <button onclick="toggleAdmin()" style="padding:9px;background:var(--finals-purple);border:none;border-radius:8px;color:#fff;font-size:12px;font-weight:600;">Apply &amp; Close</button>
+    </div>
+  </div>
+
+  <!-- ── GITHUB ACTIONS FOOTER ────────────────────────────────────────────── -->
+  <section style="margin-top:24px;border-top:1px solid var(--border-subtle);padding-top:16px;padding-bottom:40px;">
+    <div style="display:flex;align-items:center;gap:6px;margin-bottom:8px;">
+      <i data-lucide="git-branch" style="width:14px;height:14px;color:var(--std-blue);"></i>
+      <span style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:var(--spotlight);">Auto-Update Architecture</span>
+    </div>
+    <p style="font-size:11px;color:var(--data-grey);line-height:1.6;margin-bottom:10px;">
+      This dashboard reads only from <code style="color:var(--pitch-green);">data/tournament.json</code>. A GitHub Actions workflow runs twice daily, fetches football-data.org, normalises the result, and commits the updated JSON. The API key never reaches the browser.
+    </p>
+    <div style="background:var(--deep-stadium);border:1px solid var(--border-subtle);border-radius:8px;padding:10px;">
+      <div style="display:flex;justify-content:space-between;font-size:10px;font-weight:600;color:var(--spotlight);margin-bottom:6px;">
+        <span>Schedule config</span>
+        <code style="color:var(--pitch-green);">.github/workflows/update-data.yml</code>
+      </div>
+      <pre style="font-size:10px;color:var(--data-grey);font-family:monospace;overflow-x:auto;line-height:1.6;margin:0;">on:
+  schedule:
+    - cron: '0 6 * * *'   # 06:00 UTC
+    - cron: '0 18 * * *'  # 18:00 UTC
+  workflow_dispatch:        # Manual run</pre>
+    </div>
+  </section>
+
+</div><!-- /#app -->
+
+<!-- ─── PARTICIPANT DETAIL DRAWER ──────────────────────────────────────── -->
+<div id="detail-drawer" onclick="drawerBackdropClick(event)">
+  <div id="drawer-panel">
+    <!-- Pull handle -->
+    <div style="display:flex;justify-content:center;padding:12px 0 4px;">
+      <div style="width:40px;height:4px;border-radius:2px;background:rgba(148,163,184,0.25);cursor:pointer;" onclick="closeDrawer()"></div>
+    </div>
+    <!-- Header -->
+    <div style="display:flex;align-items:flex-start;justify-content:space-between;padding:8px 18px 12px;">
+      <div>
+        <h3 id="drawer-name" class="font-display" style="font-size:18px;"></h3>
+        <p style="font-size:11px;color:var(--data-grey);margin-top:2px;">Team allocation &amp; prize performance</p>
+      </div>
+      <button onclick="closeDrawer()" style="width:32px;height:32px;display:flex;align-items:center;justify-content:center;background:var(--deep-stadium);border:1px solid var(--border-subtle);border-radius:50%;color:var(--data-grey);">
+        <i data-lucide="x" style="width:15px;height:15px;"></i>
+      </button>
+    </div>
+    <!-- Scrollable content -->
+    <div style="overflow-y:auto;padding:0 18px 24px;flex:1;" id="drawer-content"></div>
+  </div>
+</div>
+
+</body>
+</html>
+
+<script>
+// ════════════════════════════════════════════════════════════════════
+//  WORLD CUP SWEEPS — App Logic
+//  The dashboard reads ONLY from data/tournament.json (no API calls).
+// ════════════════════════════════════════════════════════════════════
+
+// ── STATE ────────────────────────────────────────────────────────────
+let RAW_DATA  = null;   // Raw JSON from cache file
+let state     = null;   // Derived/computed state used by renderers
+
+// Admin override values (local only, not persisted)
+let adm = {
+  champion:    null,
+  runnerUp:    null,
+  latestGoal:  null,
+  cautions:    null,
+  got:         null,
+};
+
+let activeTab  = 'standings';
+let teamFilter = 'all';
+let searchQuery= '';
+
+// ── BOOT ─────────────────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', () => {
+  loadData();
+});
+
+// ── DATA LOADING ─────────────────────────────────────────────────────
+// Fetches the pre-built local JSON cache. Never calls the football API.
+async function loadData() {
+  showScreen('loading');
+  try {
+    // Add cache-busting param to ensure we get the latest file
+    const res = await fetch('data/tournament.json?v=' + Date.now());
+    if (!res.ok) throw new Error(`HTTP ${res.status}: Could not load data/tournament.json`);
+    RAW_DATA = await res.json();
+    validateAndBoot();
+  } catch (err) {
+    showScreen('error');
+    document.getElementById('error-msg').textContent =
+      err.message + '\n\nMake sure data/tournament.json exists and is valid.';
+  }
+}
+
+function reloadFromCache() {
+  const icon = document.getElementById('refresh-icon');
+  icon.classList.add('spinning');
+  setTimeout(() => {
+    loadData().finally(() => icon.classList.remove('spinning'));
+  }, 400);
+}
+
+function showScreen(which) {
+  document.getElementById('loading-screen').style.display = which === 'loading' ? 'flex' : 'none';
+  document.getElementById('error-screen').style.display   = which === 'error'   ? 'flex' : 'none';
+  document.getElementById('app').style.display            = which === 'app'     ? 'block': 'none';
+}
+
+// ── VALIDATE & BOOT ───────────────────────────────────────────────────
+function validateAndBoot() {
+  const alerts = runValidation(RAW_DATA);
+  // Seed admin overrides from JSON manual overrides (if present)
+  for (const prize of RAW_DATA.prizes) {
+    if (prize.manualOverride) {
+      if (prize.key === 'latest_goal')    adm.latestGoal = prize.manualOverride;
+      if (prize.key === 'most_cautions_group') adm.cautions = prize.manualOverride;
+      if (prize.key === 'goal_of_tournament')  adm.got      = prize.manualOverride;
+      if (prize.key === 'final_winner')   adm.champion = prize.manualOverride;
+      if (prize.key === 'final_loser')    adm.runnerUp = prize.manualOverride;
+    }
+  }
+  // Use JSON champion/runnerUp if set in teams array
+  for (const t of RAW_DATA.teams) {
+    if (t.isChampion && !adm.champion) adm.champion = t.name;
+    if (t.isRunnerUp && !adm.runnerUp) adm.runnerUp = t.name;
+  }
+  compute();
+  populateAdminSelects();
+  renderAll(alerts);
+  checkStaleData();
+  showScreen('app');
+  lucide.createIcons();
+}
+
+// ── VALIDATION ────────────────────────────────────────────────────────
+function runValidation(data) {
+  const alerts = [];
+  const allTeamNames = new Set(data.teams.map(t => t.name));
+  const ownerCounts  = {};
+
+  for (const p of data.players) {
+    for (const tName of p.teams) {
+      if (!allTeamNames.has(tName)) {
+        alerts.push({ type: 'warn', msg: `Player "${p.name}" owns "${tName}" but it's not in the teams list.` });
+      }
+      ownerCounts[tName] = (ownerCounts[tName] || 0) + 1;
+    }
+  }
+
+  // Duplicate ownership
+  for (const [team, count] of Object.entries(ownerCounts)) {
+    if (count > 1) alerts.push({ type: 'warn', msg: `"${team}" is assigned to ${count} players — duplicate detected.` });
+  }
+
+  // Unassigned teams
+  const assignedTeams = new Set(data.players.flatMap(p => p.teams));
+  for (const t of data.teams) {
+    if (!assignedTeams.has(t.name)) {
+      alerts.push({ type: 'info', msg: `"${t.name}" has no owner assigned.` });
+    }
+  }
+
+  // Player team counts
+  for (const p of data.players) {
+    if (p.teams.length < 6) alerts.push({ type: 'warn', msg: `"${p.name}" only has ${p.teams.length} teams (expected 6–7).` });
+  }
+
+  // Manual prizes unresolved
+  for (const prize of data.prizes) {
+    if (!prize.autoCalculated && !prize.manualOverride) {
+      alerts.push({ type: 'info', msg: `"${prize.label}" is a manual prize and has no override set yet.` });
+    }
+  }
+
+  return alerts;
+}
+
+// ── STALE CHECK ───────────────────────────────────────────────────────
+function checkStaleData() {
+  const meta = RAW_DATA._meta;
+  if (!meta?.lastUpdated) return;
+
+  const updated  = new Date(meta.lastUpdated);
+  const ageHours = (Date.now() - updated) / 36e5;
+  const threshold = meta.staleThresholdHours ?? 12;
+
+  if (ageHours > threshold) {
+    document.getElementById('stale-banner').classList.add('show');
+  }
+
+  // Format timestamp
+  document.getElementById('last-updated').textContent = updated.toLocaleString('en-AU', {
+    day:'2-digit', month:'short', hour:'2-digit', minute:'2-digit',
+  });
+
+  // Cache status chip
+  const chipEl = document.getElementById('cache-status-chip');
+  if (meta.updateStatus === 'ok') {
+    chipEl.innerHTML = `<span class="chip chip-green"><span style="width:6px;height:6px;border-radius:50%;background:currentColor;display:inline-block;"></span> Updated</span>`;
+  } else {
+    chipEl.innerHTML = `<span class="chip chip-red">Stale</span>`;
+  }
+}
+
+// ── COMPUTE STATE ─────────────────────────────────────────────────────
+// All calculations live here. Renderers are pure display logic only.
+function compute() {
+  // Deep-clone raw data so we never mutate it
+  const teams   = JSON.parse(JSON.stringify(RAW_DATA.teams));
+  const players = JSON.parse(JSON.stringify(RAW_DATA.players));
+  const prizes  = JSON.parse(JSON.stringify(RAW_DATA.prizes));
+
+  // Build owner map
+  const teamOwner = {};
+  for (const p of players) {
+    for (const tName of p.teams) teamOwner[tName] = p.name;
+  }
+
+  // Apply admin overrides to team statuses
+  for (const t of teams) {
+    t.owner = teamOwner[t.name] || 'Unassigned';
+    if (t.name === adm.champion) {
+      t.isChampion = true; t.isRunnerUp = false; t.status = 'Champion'; t.reachedR16 = true;
+    } else if (t.name === adm.runnerUp) {
+      t.isChampion = false; t.isRunnerUp = true; t.status = 'Runner-Up'; t.reachedR16 = true;
+    } else {
+      t.isChampion = false; t.isRunnerUp = false;
+      if (!t.reachedR16) t.status = 'Eliminated';
+      else t.status = 'Active';
+    }
+  }
+
+  // ── PRIZE RESOLUTION ─────────────────────────────────────────────
+  const teamMap = Object.fromEntries(teams.map(t => [t.name, t]));
+
+  for (const prize of prizes) {
+    prize.leaders  = [];
+    prize.contested = false;
+    prize.resolved  = false;
+
+    if (prize.key === 'final_winner') {
+      if (adm.champion) {
+        const t = teamMap[adm.champion];
+        if (t) { prize.leaders = [{ team: t.name, owner: t.owner, detail: 'Champion' }]; prize.resolved = true; }
+      }
+    }
+
+    else if (prize.key === 'final_loser') {
+      if (adm.runnerUp) {
+        const t = teamMap[adm.runnerUp];
+        if (t) { prize.leaders = [{ team: t.name, owner: t.owner, detail: 'Runner-Up' }]; prize.resolved = true; }
+      }
+    }
+
+    else if (prize.key === 'lowest_ranked_r16') {
+      const r16 = teams.filter(t => t.reachedR16);
+      if (r16.length > 0) {
+        const maxRank = Math.max(...r16.map(t => t.fifaRankingStart));
+        const worst   = r16.filter(t => t.fifaRankingStart === maxRank);
+        prize.leaders   = worst.map(t => ({ team: t.name, owner: t.owner, detail: `Rank #${t.fifaRankingStart}` }));
+        prize.contested = worst.length > 1;
+        prize.resolved  = !prize.contested;
+      }
+    }
+
+    else if (prize.key === 'most_goals_conceded_group') {
+      const maxGoals = Math.max(...teams.map(t => t.groupGoalsConceded));
+      const winners  = teams.filter(t => t.groupGoalsConceded === maxGoals);
+      prize.leaders   = winners.map(t => ({ team: t.name, owner: t.owner, detail: `${t.groupGoalsConceded} goals` }));
+      prize.contested = winners.length > 1;
+      prize.resolved  = !prize.contested;
+    }
+
+    else if (prize.key === 'most_cautions_group') {
+      // Semi-auto: if admin has set a winner, use it; else find max from data
+      const override = adm.cautions || prize.manualOverride;
+      if (override) {
+        const t = teamMap[override];
+        if (t) { prize.leaders = [{ team: t.name, owner: t.owner, detail: 'Manual assignment' }]; prize.resolved = true; }
+      } else {
+        const maxPts = Math.max(...teams.map(t => t.cautionsScore));
+        const candidates = teams.filter(t => t.cautionsScore === maxPts);
+        prize.leaders    = candidates.map(t => ({ team: t.name, owner: t.owner, detail: `${t.cautionsScore} pts` }));
+        prize.contested  = candidates.length > 1;
+        prize.resolved   = false; // Always "Manual Check Required" until explicitly set
+      }
+    }
+
+    else if (prize.key === 'latest_goal') {
+      const override = adm.latestGoal || prize.manualOverride;
+      if (override) {
+        const t = teamMap[override];
+        if (t) { prize.leaders = [{ team: t.name, owner: t.owner, detail: 'Regular + stoppage' }]; prize.resolved = true; }
+      }
+    }
+
+    else if (prize.key === 'goal_of_tournament') {
+      const override = adm.got || prize.manualOverride;
+      if (override) {
+        const t = teamMap[override];
+        if (t) { prize.leaders = [{ team: t.name, owner: t.owner, detail: 'Group consensus' }]; prize.resolved = true; }
+      }
+    }
+  }
+
+  // ── PLAYER STATS ─────────────────────────────────────────────────
+  for (const p of players) {
+    const myTeams = p.teams.map(n => teamMap[n]).filter(Boolean);
+
+    p.teamsAlive     = myTeams.filter(t => t.status !== 'Eliminated').length;
+    p.confirmedWin   = 0;
+    p.projectedWin   = 0;
+    p.maxUpside      = 0;
+    p.leadingPrizes  = [];
+    p.wonPrizes      = [];
+
+    for (const prize of prizes) {
+      const isLeading = prize.leaders.some(l => l.owner === p.name);
+      if (isLeading) {
+        const share = prize.value / prize.leaders.length;
+        p.leadingPrizes.push({ ...prize, share, contested: prize.contested });
+        p.projectedWin += share;
+        if (prize.resolved && !prize.contested) {
+          p.confirmedWin += share;
+          p.wonPrizes.push({ ...prize, share });
+        }
+      }
+    }
+
+    // Max upside: confirmed + all prizes still winnable
+    p.maxUpside = p.confirmedWin;
+    for (const prize of prizes) {
+      const isLeading = prize.leaders.some(l => l.owner === p.name);
+      if (isLeading) {
+        // Already included in confirmed if settled, else add share
+        if (!(prize.resolved && !prize.contested)) {
+          p.maxUpside += prize.value / prize.leaders.length;
+        }
+      } else {
+        // Could this player win this prize via a live team?
+        const stillOpen = !prize.resolved || prize.contested;
+        if (stillOpen) {
+          const canWin = prize.key === 'final_winner' || prize.key === 'final_loser'
+            ? p.teamsAlive > 0
+            : true; // any team could theoretically win manual prizes
+          if (canWin) p.maxUpside += prize.value;
+        }
+      }
+    }
+  }
+
+  // Sort players by projected winnings
+  players.sort((a, b) => b.projectedWin - a.projectedWin || b.teamsAlive - a.teamsAlive);
+
+  state = { teams, players, prizes, meta: RAW_DATA._meta };
+}
+
+// ── RENDER ALL ─────────────────────────────────────────────────────────
+function renderAll(alerts) {
+  renderKPIs();
+  renderStandings();
+  renderPrizes();
+  renderTeams();
+  renderAlerts(alerts || []);
+  // Update alert badge
+  const count = (alerts || []).filter(a => a.type === 'warn').length;
+  const badge = document.getElementById('alert-count-badge');
+  if (count > 0) { badge.style.display = 'inline'; badge.textContent = count; }
+  else badge.style.display = 'none';
+}
+
+// ── KPIs ──────────────────────────────────────────────────────────────
+function renderKPIs() {
+  const { teams, players, prizes } = state;
+  const alive    = teams.filter(t => t.status !== 'Eliminated').length;
+  const elim     = teams.length - alive;
+  const settled  = prizes.filter(p => p.resolved && !p.contested).length;
+  const contested= prizes.filter(p => p.contested).length;
+  const leader   = players[0];
+
+  document.getElementById('kpi-alive').textContent     = `${alive} / ${teams.length}`;
+  document.getElementById('kpi-eliminated').textContent= `${elim} eliminated`;
+  document.getElementById('kpi-settled').textContent   = `${settled} / ${prizes.length}`;
+  document.getElementById('kpi-contested').textContent = `${contested} tied/contested`;
+  document.getElementById('kpi-leader').textContent    = leader?.name || '–';
+  document.getElementById('kpi-leader-sub').textContent= leader ? `$${leader.projectedWin.toFixed(2)} projected` : '–';
+}
+
+// ── STANDINGS ─────────────────────────────────────────────────────────
+function renderStandings() {
+  const list = document.getElementById('standings-list');
+  list.innerHTML = '';
+
+  state.players.forEach((p, idx) => {
+    const isChampPlayer = p.wonPrizes.some(w => w.key === 'final_winner');
+    const card = document.createElement('div');
+    card.className = 'standings-card' + (isChampPlayer ? ' champion-card' : '');
+    card.setAttribute('role', 'button');
+    card.setAttribute('tabindex', '0');
+    card.setAttribute('aria-label', `View details for ${p.name}`);
+    card.onclick = () => openDrawer(p.name);
+    card.onkeydown = e => { if (e.key === 'Enter' || e.key === ' ') openDrawer(p.name); };
+
+    // Position medal colours
+    const rankColor = idx === 0 ? 'var(--champ-gold)' : idx === 1 ? 'var(--data-grey)' : idx === 2 ? '#cd7f32' : 'var(--data-grey)';
+
+    // Team pills
+    const pillsHTML = p.teams.map(tName => {
+      const t = state.teams.find(tm => tm.name === tName);
+      let cls = 'team-pill';
+      if (t?.isChampion) cls += ' champion';
+      else if (t?.isRunnerUp) cls += ' runnerup';
+      else if (t?.status !== 'Eliminated') cls += ' alive';
+      return `<span class="${cls}" title="${tName}">${tName}</span>`;
+    }).join('');
+
+    // Prize tags (leading)
+    const prizeTagsHTML = p.leadingPrizes.map(lp => {
+      const cls = lp.share !== lp.value ? 'prize-tag prize-tag-contested' :
+                  (lp.resolved && !lp.contested) ? 'prize-tag prize-tag-won' : 'prize-tag prize-tag-lead';
+      const label = lp.label.length > 22 ? lp.label.substring(0, 22) + '…' : lp.label;
+      return `<span class="${cls}">${label} <strong>$${lp.share.toFixed(0)}</strong></span>`;
+    }).join('');
+
+    card.innerHTML = `
+      <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:8px;">
+        <div style="display:flex;align-items:center;gap:10px;">
+          <span style="font-size:13px;font-weight:800;color:${rankColor};min-width:20px;font-variant-numeric:tabular-nums;">#${idx + 1}</span>
+          <div>
+            <div style="display:flex;align-items:center;gap:6px;">
+              <span style="font-weight:700;font-size:14px;color:var(--spotlight);">${p.name}</span>
+              ${isChampPlayer ? '<i data-lucide="trophy" style="width:13px;height:13px;color:var(--champ-gold);flex-shrink:0;"></i>' : ''}
+            </div>
+            <div style="font-size:10px;color:var(--data-grey);margin-top:1px;">
+              Alive: <strong style="color:var(--pitch-green);">${p.teamsAlive}</strong> / ${p.teams.length} teams
+            </div>
+          </div>
+        </div>
+        <div style="text-align:right;flex-shrink:0;">
+          <div style="font-size:10px;color:var(--data-grey);">Projected</div>
+          <div style="font-size:16px;font-weight:800;color:var(--pitch-green);font-variant-numeric:tabular-nums;">$${p.projectedWin.toFixed(2)}</div>
+          ${p.confirmedWin > 0 ? `<div style="font-size:9px;color:var(--champ-gold);">$${p.confirmedWin.toFixed(2)} confirmed</div>` : ''}
+        </div>
+      </div>
+      <div style="display:flex;gap:4px;flex-wrap:wrap;margin-top:10px;">${pillsHTML}</div>
+      ${prizeTagsHTML ? `<div style="display:flex;flex-wrap:wrap;gap:4px;margin-top:8px;">${prizeTagsHTML}</div>` : ''}
+    `;
+    list.appendChild(card);
+  });
+  lucide.createIcons();
+}
+
+// ── PRIZES ────────────────────────────────────────────────────────────
+function renderPrizes() {
+  const list = document.getElementById('prizes-list');
+  list.innerHTML = '';
+
+  for (const prize of state.prizes) {
+    const isChampPrize = prize.key === 'final_winner';
+    const card = document.createElement('div');
+    card.className = 'card' + (isChampPrize && prize.resolved ? ' champion-card' : '');
+    card.style.padding = '12px';
+
+    // Status chip
+    let statusChip;
+    if (prize.resolved && !prize.contested) {
+      statusChip = `<span class="chip chip-green">Settled</span>`;
+    } else if (prize.contested) {
+      statusChip = `<span class="chip chip-red">Tied (${prize.leaders.length})</span>`;
+    } else if (!prize.autoCalculated && prize.leaders.length === 0) {
+      statusChip = `<span class="chip chip-grey">Manual</span>`;
+    } else {
+      statusChip = `<span class="chip chip-blue">In Progress</span>`;
+    }
+
+    // Leaders rows
+    let leadersHTML;
+    if (prize.leaders.length === 0) {
+      leadersHTML = `<div style="font-size:11px;color:var(--data-grey);font-style:italic;">No data yet</div>`;
+    } else {
+      leadersHTML = prize.leaders.map(l => {
+        const isChampT = prize.key === 'final_winner' && l.team === adm.champion;
+        return `
+          <div class="card-inner" style="display:flex;align-items:center;justify-content:space-between;padding:7px 10px;">
+            <span style="font-weight:700;font-size:12px;color:${isChampT ? 'var(--champ-gold)' : 'var(--spotlight)'};display:flex;align-items:center;gap:5px;">
+              ${isChampT ? '<i data-lucide="trophy" style="width:12px;height:12px;color:var(--champ-gold);"></i>' : ''}
+              ${l.team}
+            </span>
+            <span style="font-size:11px;color:var(--data-grey);">${l.owner} <span style="color:var(--std-blue);">(${l.detail})</span></span>
+          </div>`;
+      }).join('');
+    }
+
+    card.innerHTML = `
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px;margin-bottom:8px;">
+        <div style="flex:1;">
+          <div style="font-weight:700;font-size:13px;color:${isChampPrize && prize.resolved ? 'var(--champ-gold)' : 'var(--spotlight)'};">${prize.label}</div>
+          <div style="font-size:10px;color:var(--data-grey);margin-top:3px;line-height:1.4;">${prize.rule}</div>
+        </div>
+        <div style="text-align:right;flex-shrink:0;">
+          <div style="font-size:9px;color:var(--data-grey);text-transform:uppercase;letter-spacing:0.05em;">Value</div>
+          <div style="font-size:16px;font-weight:800;color:var(--pitch-green);">$${prize.value}</div>
+        </div>
+      </div>
+      <div style="border-top:1px solid var(--border-subtle);padding-top:8px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+          <span style="font-size:9px;color:var(--data-grey);text-transform:uppercase;letter-spacing:0.05em;">Current leader</span>
+          ${statusChip}
+        </div>
+        <div style="display:flex;flex-direction:column;gap:4px;">${leadersHTML}</div>
+      </div>
+    `;
+    list.appendChild(card);
+  }
+  lucide.createIcons();
+}
+
+// ── TEAMS ─────────────────────────────────────────────────────────────
+function renderTeams() {
+  const list = document.getElementById('teams-list');
+  list.innerHTML = '';
+  const q = searchQuery.trim().toLowerCase();
+
+  const clearBtn = document.getElementById('clear-search-btn');
+  clearBtn.style.display = q ? 'block' : 'none';
+
+  const filtered = state.teams.filter(t => {
+    const matchesQ = !q || t.name.toLowerCase().includes(q)
+                          || t.owner.toLowerCase().includes(q)
+                          || t.status.toLowerCase().includes(q);
+    if (!matchesQ) return false;
+    if (teamFilter === 'alive')     return t.status !== 'Eliminated';
+    if (teamFilter === 'r16')       return t.reachedR16;
+    if (teamFilter === 'eliminated')return t.status === 'Eliminated';
+    return true;
+  });
+
+  if (filtered.length === 0) {
+    list.innerHTML = `<div style="text-align:center;padding:24px;font-size:12px;color:var(--data-grey);">No teams match your search</div>`;
+    return;
+  }
+
+  // Sort: champions first, then runners-up, then alive, then eliminated by rank
+  filtered.sort((a, b) => {
+    if (a.isChampion && !b.isChampion) return -1;
+    if (b.isChampion && !a.isChampion) return 1;
+    if (a.isRunnerUp && !b.isRunnerUp) return -1;
+    if (b.isRunnerUp && !a.isRunnerUp) return 1;
+    if (a.status !== 'Eliminated' && b.status === 'Eliminated') return -1;
+    if (b.status !== 'Eliminated' && a.status === 'Eliminated') return 1;
+    return a.fifaRankingStart - b.fifaRankingStart;
+  });
+
+  for (const t of filtered) {
+    let statusChip;
+    if (t.isChampion)                statusChip = `<span class="chip chip-gold"><i data-lucide="award" style="width:10px;height:10px;"></i> Champion</span>`;
+    else if (t.isRunnerUp)           statusChip = `<span class="chip chip-purple">Runner-Up</span>`;
+    else if (t.status === 'Eliminated') statusChip = `<span class="chip chip-grey">${t.eliminatedRound || 'Out'}</span>`;
+    else if (t.reachedR16)           statusChip = `<span class="chip chip-green">R16+</span>`;
+    else                             statusChip = `<span class="chip chip-green">Alive</span>`;
+
+    const card = document.createElement('div');
+    card.className = 'card' + (t.isChampion ? ' champion-card' : '');
+    card.style.cssText = 'padding:10px 12px;display:flex;align-items:center;justify-content:space-between;gap:8px;';
+
+    card.innerHTML = `
+      <div style="display:flex;align-items:center;gap:10px;">
+        <div class="card-inner" style="text-align:center;padding:4px 8px;min-width:44px;">
+          <div style="font-size:8px;color:var(--data-grey);text-transform:uppercase;letter-spacing:0.05em;">Rank</div>
+          <div style="font-size:14px;font-weight:800;color:var(--spotlight);font-variant-numeric:tabular-nums;">${t.fifaRankingStart}</div>
+        </div>
+        <div>
+          <div style="font-weight:700;font-size:13px;color:${t.isChampion ? 'var(--champ-gold)' : 'var(--spotlight)'};display:flex;align-items:center;gap:4px;">
+            ${t.isChampion ? '<i data-lucide="trophy" style="width:12px;height:12px;color:var(--champ-gold);"></i>' : ''}
+            ${t.name}
+          </div>
+          <div style="font-size:10px;color:var(--data-grey);margin-top:1px;">
+            <span style="color:var(--spotlight);font-weight:600;">${t.owner}</span>
+          </div>
+        </div>
+      </div>
+      <div style="text-align:right;">
+        ${statusChip}
+        <div style="font-size:9px;color:var(--data-grey);margin-top:4px;">Conceded: <strong style="color:var(--spotlight);">${t.groupGoalsConceded}</strong></div>
+      </div>
+    `;
+    list.appendChild(card);
+  }
+  lucide.createIcons();
+}
+
+// ── ALERTS TAB ────────────────────────────────────────────────────────
+function renderAlerts(alerts) {
+  const list  = document.getElementById('alerts-detail-list');
+  const topEl = document.getElementById('alerts-container');
+  list.innerHTML = '';
+  topEl.innerHTML = '';
+
+  if (alerts.length === 0) {
+    list.innerHTML = `
+      <div class="alert-item alert-ok" style="justify-content:center;gap:8px;">
+        <i data-lucide="check-circle" style="width:14px;height:14px;color:var(--pitch-green);flex-shrink:0;"></i>
+        <span style="color:var(--pitch-green);">No issues detected — data looks clean</span>
+      </div>`;
+    lucide.createIcons();
+    return;
+  }
+
+  // Show first warning in top banner
+  const firstWarn = alerts.find(a => a.type === 'warn');
+  if (firstWarn) {
+    topEl.innerHTML = `<div class="alert-item alert-warn" style="margin-bottom:8px;">
+      <i data-lucide="alert-triangle" style="width:14px;height:14px;color:var(--kickoff-red);flex-shrink:0;"></i>
+      <span style="color:var(--kickoff-red);">${firstWarn.msg}</span>
+    </div>`;
+  }
+
+  // Full list in alerts tab
+  for (const a of alerts) {
+    const cls = a.type === 'warn' ? 'alert-warn' : a.type === 'ok' ? 'alert-ok' : 'alert-info';
+    const iconName = a.type === 'warn' ? 'alert-triangle' : a.type === 'ok' ? 'check-circle' : 'info';
+    const col = a.type === 'warn' ? 'var(--kickoff-red)' : a.type === 'ok' ? 'var(--pitch-green)' : 'var(--std-blue)';
+    const el = document.createElement('div');
+    el.className = `alert-item ${cls}`;
+    el.innerHTML = `<i data-lucide="${iconName}" style="width:14px;height:14px;color:${col};flex-shrink:0;margin-top:1px;"></i>
+      <span style="color:${col};">${a.msg}</span>`;
+    list.appendChild(el);
+  }
+  lucide.createIcons();
+}
+
+// ── DETAIL DRAWER ─────────────────────────────────────────────────────
+function openDrawer(playerName) {
+  const p = state.players.find(pl => pl.name === playerName);
+  if (!p) return;
+
+  document.getElementById('drawer-name').textContent = p.name;
+
+  const content = document.getElementById('drawer-content');
+  // Financials
+  const finHTML = `
+    <div class="card-inner" style="display:grid;grid-template-columns:1fr 1fr 1fr;text-align:center;padding:12px;margin-bottom:16px;gap:8px;">
+      <div>
+        <div style="font-size:9px;color:var(--data-grey);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:4px;">Confirmed</div>
+        <div style="font-size:17px;font-weight:800;color:var(--pitch-green);font-variant-numeric:tabular-nums;">$${p.confirmedWin.toFixed(2)}</div>
+      </div>
+      <div>
+        <div style="font-size:9px;color:var(--data-grey);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:4px;">Projected</div>
+        <div style="font-size:17px;font-weight:800;color:var(--spotlight);font-variant-numeric:tabular-nums;">$${p.projectedWin.toFixed(2)}</div>
+      </div>
+      <div>
+        <div style="font-size:9px;color:var(--data-grey);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:4px;">Max Upside</div>
+        <div style="font-size:17px;font-weight:800;color:var(--finals-purple);font-variant-numeric:tabular-nums;">$${p.maxUpside.toFixed(2)}</div>
+      </div>
+    </div>`;
+
+  // Teams grid
+  const teamsHTML = p.teams.map(tName => {
+    const t = state.teams.find(tm => tm.name === tName);
+    let borderCol = 'var(--border-subtle)';
+    let statusText = '–';
+    let statusCol  = 'var(--data-grey)';
+    if (t?.isChampion)    { borderCol = 'rgba(225,193,110,0.4)'; statusText = '🏆 Champion'; statusCol = 'var(--champ-gold)'; }
+    else if (t?.isRunnerUp){ borderCol = 'rgba(142,46,255,0.3)'; statusText = '🥈 Runner-Up'; statusCol = 'var(--finals-purple)'; }
+    else if (t?.reachedR16){ borderCol = 'rgba(174,255,0,0.25)'; statusText = '🟢 Active'; statusCol = 'var(--pitch-green)'; }
+    else if (t)            { statusText = t.eliminatedRound || 'Eliminated'; }
+    return `
+      <div class="card-inner" style="padding:10px;border-color:${borderCol};">
+        <div style="font-weight:700;font-size:12px;color:var(--spotlight);">${tName}</div>
+        <div style="display:flex;justify-content:space-between;margin-top:5px;">
+          <span style="font-size:9px;color:var(--data-grey);">Rank #${t?.fifaRankingStart ?? '–'}</span>
+          <span style="font-size:9px;color:${statusCol};font-weight:600;">${statusText}</span>
+        </div>
+      </div>`;
+  }).join('');
+
+  // Prize chances
+  const prizesHTML = p.leadingPrizes.length === 0
+    ? `<div style="font-size:11px;color:var(--data-grey);font-style:italic;">Not currently leading any prize</div>`
+    : p.leadingPrizes.map(lp => {
+        const chip = lp.contested
+          ? `<span class="chip chip-red">Tied</span>`
+          : lp.resolved
+            ? `<span class="chip chip-green">Settled</span>`
+            : `<span class="chip chip-blue">Leading</span>`;
+        return `
+          <div class="card-inner" style="padding:9px 12px;display:flex;justify-content:space-between;align-items:center;">
+            <div>
+              <div style="font-size:12px;font-weight:600;color:var(--spotlight);">${lp.label}</div>
+              <div style="margin-top:3px;">${chip}</div>
+            </div>
+            <div style="font-size:16px;font-weight:800;color:var(--pitch-green);font-variant-numeric:tabular-nums;">$${lp.share.toFixed(2)}</div>
+          </div>`;
+      }).join('');
+
+  content.innerHTML = `
+    ${finHTML}
+    <span class="section-label">Team Allocation</span>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px;">${teamsHTML}</div>
+    <span class="section-label">Prize Standings</span>
+    <div style="display:flex;flex-direction:column;gap:6px;">${prizesHTML}</div>
+  `;
+
+  const drawer = document.getElementById('detail-drawer');
+  drawer.classList.add('open');
+  document.body.style.overflow = 'hidden';
+  lucide.createIcons();
+}
+
+function closeDrawer() {
+  document.getElementById('detail-drawer').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function drawerBackdropClick(e) {
+  if (e.target === document.getElementById('detail-drawer')) closeDrawer();
+}
+
+// ── TABS ──────────────────────────────────────────────────────────────
+function switchTab(id) {
+  ['standings', 'prizes', 'teams', 'alerts'].forEach(t => {
+    document.getElementById(`section-${t}`).style.display  = t === id ? '' : 'none';
+    const btn = document.getElementById(`tab-${t}`);
+    btn.classList.toggle('active', t === id);
+  });
+  activeTab = id;
+  if (id === 'teams') renderTeams();
+}
+
+// ── TEAM FILTER & SEARCH ──────────────────────────────────────────────
+function setFilter(f) {
+  teamFilter = f;
+  ['all','alive','r16','eliminated'].forEach(id => {
+    document.getElementById(`fp-${id}`).classList.toggle('active', id === f);
+  });
+  renderTeams();
+}
+
+document.getElementById('team-search').addEventListener('input', e => {
+  searchQuery = e.target.value;
+  renderTeams();
+});
+
+function clearTeamSearch() {
+  document.getElementById('team-search').value = '';
+  searchQuery = '';
+  renderTeams();
+}
+
+// ── ADMIN PANEL ───────────────────────────────────────────────────────
+function toggleAdmin() {
+  const panel = document.getElementById('admin-panel');
+  panel.style.display = panel.style.display === 'none' ? 'block' : 'none';
+}
+
+function populateAdminSelects() {
+  const teams = [...RAW_DATA.teams].sort((a, b) => a.name.localeCompare(b.name));
+  const selIds = ['sim-champion', 'sim-runnerup', 'sim-latest-goal', 'sim-cautions', 'sim-got'];
+
+  for (const selId of selIds) {
+    const el = document.getElementById(selId);
+    const hasBlank = selId !== 'sim-champion' && selId !== 'sim-runnerup';
+    el.innerHTML = hasBlank ? '<option value="">– Unresolved –</option>' : '';
+    for (const t of teams) {
+      const opt = document.createElement('option');
+      opt.value = t.name;
+      opt.textContent = t.name;
+      el.appendChild(opt);
+    }
+  }
+
+  // Set current values
+  if (adm.champion)   document.getElementById('sim-champion').value   = adm.champion;
+  if (adm.runnerUp)   document.getElementById('sim-runnerup').value   = adm.runnerUp;
+  if (adm.latestGoal) document.getElementById('sim-latest-goal').value= adm.latestGoal;
+  if (adm.cautions)   document.getElementById('sim-cautions').value   = adm.cautions;
+  if (adm.got)        document.getElementById('sim-got').value        = adm.got;
+
+  // R16 checkboxes
+  const grid = document.getElementById('admin-r16-grid');
+  grid.innerHTML = '';
+  for (const t of teams) {
+    const label = document.createElement('label');
+    label.style.cssText = 'display:flex;align-items:center;gap:4px;padding:4px 6px;background:var(--deep-stadium);border-radius:6px;font-size:10px;color:var(--spotlight);cursor:pointer;';
+    const cb = document.createElement('input');
+    cb.type = 'checkbox';
+    cb.value = t.name;
+    cb.checked = t.reachedR16;
+    cb.style.accentColor = 'var(--pitch-green)';
+    cb.onchange = () => {
+      const found = RAW_DATA.teams.find(tm => tm.name === t.name);
+      if (found) found.reachedR16 = cb.checked;
+      applyAdmin();
+    };
+    label.appendChild(cb);
+    label.appendChild(document.createTextNode(t.name));
+    grid.appendChild(label);
+  }
+}
+
+function applyAdmin() {
+  adm.champion   = document.getElementById('sim-champion').value   || null;
+  adm.runnerUp   = document.getElementById('sim-runnerup').value   || null;
+  adm.latestGoal = document.getElementById('sim-latest-goal').value|| null;
+  adm.cautions   = document.getElementById('sim-cautions').value   || null;
+  adm.got        = document.getElementById('sim-got').value        || null;
+  compute();
+  renderAll([]);
+}
+
+function resetAdmin() {
+  // Restore original R16 values
+  const orig = RAW_DATA.teams;
+  for (const t of orig) {
+    const cb = document.querySelector(`#admin-r16-grid input[value="${t.name}"]`);
+    // Re-read from pristine INITIAL data — we use a flag set on first load
+    if (cb) cb.checked = t._origR16 ?? t.reachedR16;
+    t.reachedR16 = t._origR16 ?? t.reachedR16;
+  }
+  adm = { champion: null, runnerUp: null, latestGoal: null, cautions: null, got: null };
+  // Reset JSON champion/runnerUp state
+  for (const t of RAW_DATA.teams) {
+    if (t.isChampion) adm.champion = t.name;
+    if (t.isRunnerUp) adm.runnerUp = t.name;
+  }
+  populateAdminSelects();
+  compute();
+  renderAll([]);
+}
+
+// ── THEME TOGGLE ──────────────────────────────────────────────────────
+function toggleTheme() {
+  const html = document.documentElement;
+  const isDark = html.getAttribute('data-theme') === 'dark';
+  html.setAttribute('data-theme', isDark ? 'light' : 'dark');
+  document.getElementById('theme-icon-sun').style.display  = isDark ? 'block' : 'none';
+  document.getElementById('theme-icon-moon').style.display = isDark ? 'none'  : 'block';
+}
+</script>
