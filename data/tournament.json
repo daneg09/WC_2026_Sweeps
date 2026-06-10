@@ -1,160 +1,703 @@
 {
-"_meta": {
-"lastUpdated": "2026-06-10T12:00:00Z",
-"source": "football-data.org (Cached)",
-"updateStatus": "ok",
-"cacheAgeMinutes": 0,
-"staleThresholdHours": 12,
-"version": "1.0.0"
-},
-
-"settings": {
-"totalPrizePool": 350,
-"entryFee": 50,
-"tournamentName": "FIFA World Cup 2026",
-"updateCadenceHours": 12
-},
-
-"aliases": {
-"IR Iran": "Iran",
-"Iran (Islamic Republic of)": "Iran",
-"Korea Republic": "South Korea",
-"Republic of Korea": "South Korea",
-"Turkey": "Türkiye",
-"Ivory Coast": "Côte d'Ivoire",
-"US": "United States",
-"USA": "United States",
-"Czechia": "Czechia",
-"Czech Republic": "Czechia",
-"Bosnia": "Bosnia & Herzegovina",
-"Cape Verde": "Cabo Verde"
-},
-
-"players": [
-{ "name": "Rach",     "teams": ["England","Croatia","Iran","Algeria","Saudi Arabia","Uzbekistan","Türkiye"] },
-{ "name": "Dane",     "teams": ["Netherlands","Uruguay","Paraguay","Côte d'Ivoire","DR Congo","Jordan","Japan"] },
-{ "name": "Robbie",   "teams": ["Brazil","Colombia","Ecuador","Qatar","Panama","New Zealand","Norway"] },
-{ "name": "Christian","teams": ["Argentina","Switzerland","Sweden","Australia","Ghana","Haiti","United States"] },
-{ "name": "Jackson",  "teams": ["France","Belgium","Czechia","South Africa","Bosnia & Herzegovina","Cabo Verde","South Korea"] },
-{ "name": "Matt",     "teams": ["Portugal","Germany","Canada","Egypt","Iraq","Curaçao","Senegal"] },
-{ "name": "Dec",      "teams": ["Spain","Morocco","Mexico","Austria","Tunisia","Scotland"] }
-],
-
-"teams": [
-{ "name": "England",            "fifaRankingStart": 5,   "groupGoalsConceded": 0,  "cautionsScore": 0, "status": "Alive",      "reachedR16": false, "eliminatedRound": null, "isChampion": false, "isRunnerUp": false },
-{ "name": "Croatia",            "fifaRankingStart": 10,  "groupGoalsConceded": 0,  "cautionsScore": 0, "status": "Alive",      "reachedR16": false, "eliminatedRound": null, "isChampion": false, "isRunnerUp": false },
-{ "name": "Iran",               "fifaRankingStart": 20,  "groupGoalsConceded": 0,  "cautionsScore": 0, "status": "Alive",      "reachedR16": false, "eliminatedRound": null, "isChampion": false, "isRunnerUp": false },
-{ "name": "Algeria",            "fifaRankingStart": 30,  "groupGoalsConceded": 0,  "cautionsScore": 0, "status": "Alive",      "reachedR16": false, "eliminatedRound": null, "isChampion": false, "isRunnerUp": false },
-{ "name": "Saudi Arabia",       "fifaRankingStart": 53,  "groupGoalsConceded": 0,  "cautionsScore": 0, "status": "Alive",      "reachedR16": false, "eliminatedRound": null, "isChampion": false, "isRunnerUp": false },
-{ "name": "Uzbekistan",         "fifaRankingStart": 68,  "groupGoalsConceded": 0,  "cautionsScore": 0, "status": "Alive",      "reachedR16": false, "eliminatedRound": null, "isChampion": false, "isRunnerUp": false },
-{ "name": "Türkiye",            "fifaRankingStart": 35,  "groupGoalsConceded": 0,  "cautionsScore": 0, "status": "Alive",      "reachedR16": false, "eliminatedRound": null, "isChampion": false, "isRunnerUp": false },
-
-{ "name": "Netherlands",        "fifaRankingStart": 7,   "groupGoalsConceded": 0,  "cautionsScore": 0, "status": "Alive",      "reachedR16": false, "eliminatedRound": null, "isChampion": false, "isRunnerUp": false },
-{ "name": "Uruguay",            "fifaRankingStart": 11,  "groupGoalsConceded": 0,  "cautionsScore": 0, "status": "Alive",      "reachedR16": false, "eliminatedRound": null, "isChampion": false, "isRunnerUp": false },
-{ "name": "Paraguay",           "fifaRankingStart": 56,  "groupGoalsConceded": 0,  "cautionsScore": 0, "status": "Alive",      "reachedR16": false, "eliminatedRound": null, "isChampion": false, "isRunnerUp": false },
-{ "name": "Côte d'Ivoire",      "fifaRankingStart": 38,  "groupGoalsConceded": 0,  "cautionsScore": 0, "status": "Alive",      "reachedR16": false, "eliminatedRound": null, "isChampion": false, "isRunnerUp": false },
-{ "name": "DR Congo",           "fifaRankingStart": 61,  "groupGoalsConceded": 0,  "cautionsScore": 0, "status": "Alive",      "reachedR16": false, "eliminatedRound": null, "isChampion": false, "isRunnerUp": false },
-{ "name": "Jordan",             "fifaRankingStart": 71,  "groupGoalsConceded": 0,  "cautionsScore": 0, "status": "Alive",      "reachedR16": false, "eliminatedRound": null, "isChampion": false, "isRunnerUp": false },
-{ "name": "Japan",              "fifaRankingStart": 18,  "groupGoalsConceded": 0,  "cautionsScore": 0, "status": "Alive",      "reachedR16": false, "eliminatedRound": null, "isChampion": false, "isRunnerUp": false },
-
-{ "name": "Brazil",             "fifaRankingStart": 4,   "groupGoalsConceded": 0,  "cautionsScore": 0, "status": "Alive",      "reachedR16": false, "eliminatedRound": null, "isChampion": false, "isRunnerUp": false },
-{ "name": "Colombia",           "fifaRankingStart": 12,  "groupGoalsConceded": 0,  "cautionsScore": 0, "status": "Alive",      "reachedR16": false, "eliminatedRound": null, "isChampion": false, "isRunnerUp": false },
-{ "name": "Ecuador",            "fifaRankingStart": 31,  "groupGoalsConceded": 0,  "cautionsScore": 0, "status": "Alive",      "reachedR16": false, "eliminatedRound": null, "isChampion": false, "isRunnerUp": false },
-{ "name": "Qatar",              "fifaRankingStart": 58,  "groupGoalsConceded": 0,  "cautionsScore": 0, "status": "Alive",      "reachedR16": false, "eliminatedRound": null, "isChampion": false, "isRunnerUp": false },
-{ "name": "Panama",             "fifaRankingStart": 41,  "groupGoalsConceded": 0,  "cautionsScore": 0, "status": "Alive",      "reachedR16": false, "eliminatedRound": null, "isChampion": false, "isRunnerUp": false },
-{ "name": "New Zealand",        "fifaRankingStart": 104, "groupGoalsConceded": 0,  "cautionsScore": 0, "status": "Alive",      "reachedR16": false, "eliminatedRound": null, "isChampion": false, "isRunnerUp": false },
-{ "name": "Norway",             "fifaRankingStart": 44,  "groupGoalsConceded": 0,  "cautionsScore": 0, "status": "Alive",      "reachedR16": false, "eliminatedRound": null, "isChampion": false, "isRunnerUp": false },
-
-{ "name": "Argentina",          "fifaRankingStart": 1,   "groupGoalsConceded": 0,  "cautionsScore": 0, "status": "Alive",      "reachedR16": false, "eliminatedRound": null, "isChampion": false, "isRunnerUp": false },
-{ "name": "Switzerland",        "fifaRankingStart": 19,  "groupGoalsConceded": 0,  "cautionsScore": 0, "status": "Alive",      "reachedR16": false, "eliminatedRound": null, "isChampion": false, "isRunnerUp": false },
-{ "name": "Sweden",             "fifaRankingStart": 23,  "groupGoalsConceded": 0,  "cautionsScore": 0, "status": "Alive",      "reachedR16": false, "eliminatedRound": null, "isChampion": false, "isRunnerUp": false },
-{ "name": "Australia",          "fifaRankingStart": 25,  "groupGoalsConceded": 0,  "cautionsScore": 0, "status": "Alive",      "reachedR16": false, "eliminatedRound": null, "isChampion": false, "isRunnerUp": false },
-{ "name": "Ghana",              "fifaRankingStart": 64,  "groupGoalsConceded": 0,  "cautionsScore": 0, "status": "Alive",      "reachedR16": false, "eliminatedRound": null, "isChampion": false, "isRunnerUp": false },
-{ "name": "Haiti",              "fifaRankingStart": 85,  "groupGoalsConceded": 0,  "cautionsScore": 0, "status": "Alive",      "reachedR16": false, "eliminatedRound": null, "isChampion": false, "isRunnerUp": false },
-{ "name": "United States",      "fifaRankingStart": 13,  "groupGoalsConceded": 0,  "cautionsScore": 0, "status": "Alive",      "reachedR16": false, "eliminatedRound": null, "isChampion": false, "isRunnerUp": false },
-
-{ "name": "France",             "fifaRankingStart": 2,   "groupGoalsConceded": 0,  "cautionsScore": 0, "status": "Alive",      "reachedR16": false, "eliminatedRound": null, "isChampion": false, "isRunnerUp": false },
-{ "name": "Belgium",            "fifaRankingStart": 3,   "groupGoalsConceded": 0,  "cautionsScore": 0, "status": "Alive",      "reachedR16": false, "eliminatedRound": null, "isChampion": false, "isRunnerUp": false },
-{ "name": "Czechia",            "fifaRankingStart": 36,  "groupGoalsConceded": 0,  "cautionsScore": 0, "status": "Alive",      "reachedR16": false, "eliminatedRound": null, "isChampion": false, "isRunnerUp": false },
-{ "name": "South Africa",       "fifaRankingStart": 59,  "groupGoalsConceded": 0,  "cautionsScore": 0, "status": "Alive",      "reachedR16": false, "eliminatedRound": null, "isChampion": false, "isRunnerUp": false },
-{ "name": "Bosnia & Herzegovina","fifaRankingStart": 74, "groupGoalsConceded": 0,  "cautionsScore": 0, "status": "Alive",      "reachedR16": false, "eliminatedRound": null, "isChampion": false, "isRunnerUp": false },
-{ "name": "Cabo Verde",         "fifaRankingStart": 65,  "groupGoalsConceded": 0,  "cautionsScore": 0, "status": "Alive",      "reachedR16": false, "eliminatedRound": null, "isChampion": false, "isRunnerUp": false },
-{ "name": "South Korea",        "fifaRankingStart": 22,  "groupGoalsConceded": 0,  "cautionsScore": 0, "status": "Alive",      "reachedR16": false, "eliminatedRound": null, "isChampion": false, "isRunnerUp": false },
-
-{ "name": "Portugal",           "fifaRankingStart": 6,   "groupGoalsConceded": 0,  "cautionsScore": 0, "status": "Alive",      "reachedR16": false, "eliminatedRound": null, "isChampion": false, "isRunnerUp": false },
-{ "name": "Germany",            "fifaRankingStart": 16,  "groupGoalsConceded": 0,  "cautionsScore": 0, "status": "Alive",      "reachedR16": false, "eliminatedRound": null, "isChampion": false, "isRunnerUp": false },
-{ "name": "Canada",             "fifaRankingStart": 40,  "groupGoalsConceded": 0,  "cautionsScore": 0, "status": "Alive",      "reachedR16": false, "eliminatedRound": null, "isChampion": false, "isRunnerUp": false },
-{ "name": "Egypt",              "fifaRankingStart": 34,  "groupGoalsConceded": 0,  "cautionsScore": 0, "status": "Alive",      "reachedR16": false, "eliminatedRound": null, "isChampion": false, "isRunnerUp": false },
-{ "name": "Iraq",               "fifaRankingStart": 55,  "groupGoalsConceded": 0,  "cautionsScore": 0, "status": "Alive",      "reachedR16": false, "eliminatedRound": null, "isChampion": false, "isRunnerUp": false },
-{ "name": "Curaçao",            "fifaRankingStart": 88,  "groupGoalsConceded": 0,  "cautionsScore": 0, "status": "Alive",      "reachedR16": false, "eliminatedRound": null, "isChampion": false, "isRunnerUp": false },
-{ "name": "Senegal",            "fifaRankingStart": 17,  "groupGoalsConceded": 0,  "cautionsScore": 0, "status": "Alive",      "reachedR16": false, "eliminatedRound": null, "isChampion": false, "isRunnerUp": false },
-
-{ "name": "Spain",              "fifaRankingStart": 8,   "groupGoalsConceded": 0,  "cautionsScore": 0, "status": "Alive",      "reachedR16": false, "eliminatedRound": null, "isChampion": false, "isRunnerUp": false },
-{ "name": "Morocco",            "fifaRankingStart": 14,  "groupGoalsConceded": 0,  "cautionsScore": 0, "status": "Alive",      "reachedR16": false, "eliminatedRound": null, "isChampion": false, "isRunnerUp": false },
-{ "name": "Mexico",             "fifaRankingStart": 15,  "groupGoalsConceded": 0,  "cautionsScore": 0, "status": "Alive",      "reachedR16": false, "eliminatedRound": null, "isChampion": false, "isRunnerUp": false },
-{ "name": "Austria",            "fifaRankingStart": 24,  "groupGoalsConceded": 0,  "cautionsScore": 0, "status": "Alive",      "reachedR16": false, "eliminatedRound": null, "isChampion": false, "isRunnerUp": false },
-{ "name": "Tunisia",            "fifaRankingStart": 28,  "groupGoalsConceded": 0,  "cautionsScore": 0, "status": "Alive",      "reachedR16": false, "eliminatedRound": null, "isChampion": false, "isRunnerUp": false },
-{ "name": "Scotland",           "fifaRankingStart": 39,  "groupGoalsConceded": 0,  "cautionsScore": 0, "status": "Alive",      "reachedR16": false, "eliminatedRound": null, "isChampion": false, "isRunnerUp": false }
-
-
-],
-
-"prizes": [
-{
-"key": "lowest_ranked_r16",
-"label": "Lowest ranked team in Round of 16",
-"value": 25,
-"rule": "Uses official world ranking at start of tournament. The lowest-ranked (highest number) team to qualify for the R16 wins.",
-"autoCalculated": true,
-"manualOverride": null
-},
-{
-"key": "most_cautions_group",
-"label": "Most cautions in Group Stage",
-"value": 25,
-"rule": "Yellow = 1 pt, 2nd Yellow = 2 pts, Straight Red = 4 pts. Tiebreaker: most straight reds.",
-"autoCalculated": false,
-"manualOverride": null
-},
-{
-"key": "latest_goal",
-"label": "Team with the latest goal",
-"value": 25,
-"rule": "Goals scored in regular time + stoppage time only. Extra time does not count.",
-"autoCalculated": false,
-"manualOverride": null
-},
-{
-"key": "most_goals_conceded_group",
-"label": "Most goals conceded in Group Stage",
-"value": 25,
-"rule": "The team conceding the most goals across all group stage matches wins.",
-"autoCalculated": true,
-"manualOverride": null
-},
-{
-"key": "goal_of_tournament",
-"label": "Goal of the tournament",
-"value": 25,
-"rule": "Manual assignment by group consensus after the tournament ends.",
-"autoCalculated": false,
-"manualOverride": null
-},
-{
-"key": "final_loser",
-"label": "Final loser (Runner-up)",
-"value": 75,
-"rule": "Owner of the runner-up team wins this prize.",
-"autoCalculated": true,
-"manualOverride": null
-},
-{
-"key": "final_winner",
-"label": "Final winner (Champion)",
-"value": 150,
-"rule": "Owner of the tournament champion wins this prize.",
-"autoCalculated": true,
-"manualOverride": null
-}
-]
+  "_meta": {
+    "lastUpdated": "2026-06-10T17:44:59.763Z",
+    "source": "football-data.org (Cached)",
+    "updateStatus": "ok",
+    "cacheAgeMinutes": 0,
+    "staleThresholdHours": 12,
+    "version": "1.0.0"
+  },
+  "settings": {
+    "totalPrizePool": 350,
+    "entryFee": 50,
+    "tournamentName": "FIFA World Cup 2026",
+    "updateCadenceHours": 12
+  },
+  "aliases": {
+    "IR Iran": "Iran",
+    "Iran (Islamic Republic of)": "Iran",
+    "Korea Republic": "South Korea",
+    "Republic of Korea": "South Korea",
+    "Turkey": "Türkiye",
+    "Ivory Coast": "Côte d'Ivoire",
+    "US": "United States",
+    "USA": "United States",
+    "Czechia": "Czechia",
+    "Czech Republic": "Czechia",
+    "Bosnia": "Bosnia & Herzegovina",
+    "Cape Verde": "Cabo Verde"
+  },
+  "players": [
+    {
+      "name": "Rach",
+      "teams": [
+        "England",
+        "Croatia",
+        "Iran",
+        "Algeria",
+        "Saudi Arabia",
+        "Uzbekistan",
+        "Türkiye"
+      ]
+    },
+    {
+      "name": "Dane",
+      "teams": [
+        "Netherlands",
+        "Uruguay",
+        "Paraguay",
+        "Côte d'Ivoire",
+        "DR Congo",
+        "Jordan",
+        "Japan"
+      ]
+    },
+    {
+      "name": "Robbie",
+      "teams": [
+        "Brazil",
+        "Colombia",
+        "Ecuador",
+        "Qatar",
+        "Panama",
+        "New Zealand",
+        "Norway"
+      ]
+    },
+    {
+      "name": "Christian",
+      "teams": [
+        "Argentina",
+        "Switzerland",
+        "Sweden",
+        "Australia",
+        "Ghana",
+        "Haiti",
+        "United States"
+      ]
+    },
+    {
+      "name": "Jackson",
+      "teams": [
+        "France",
+        "Belgium",
+        "Czechia",
+        "South Africa",
+        "Bosnia & Herzegovina",
+        "Cabo Verde",
+        "South Korea"
+      ]
+    },
+    {
+      "name": "Matt",
+      "teams": [
+        "Portugal",
+        "Germany",
+        "Canada",
+        "Egypt",
+        "Iraq",
+        "Curaçao",
+        "Senegal"
+      ]
+    },
+    {
+      "name": "Dec",
+      "teams": [
+        "Spain",
+        "Morocco",
+        "Mexico",
+        "Austria",
+        "Tunisia",
+        "Scotland"
+      ]
+    }
+  ],
+  "teams": [
+    {
+      "name": "England",
+      "fifaRankingStart": 5,
+      "groupGoalsConceded": 0,
+      "cautionsScore": 0,
+      "status": "Alive",
+      "reachedR16": false,
+      "eliminatedRound": null,
+      "isChampion": false,
+      "isRunnerUp": false
+    },
+    {
+      "name": "Croatia",
+      "fifaRankingStart": 10,
+      "groupGoalsConceded": 0,
+      "cautionsScore": 0,
+      "status": "Alive",
+      "reachedR16": false,
+      "eliminatedRound": null,
+      "isChampion": false,
+      "isRunnerUp": false
+    },
+    {
+      "name": "Iran",
+      "fifaRankingStart": 20,
+      "groupGoalsConceded": 0,
+      "cautionsScore": 0,
+      "status": "Alive",
+      "reachedR16": false,
+      "eliminatedRound": null,
+      "isChampion": false,
+      "isRunnerUp": false
+    },
+    {
+      "name": "Algeria",
+      "fifaRankingStart": 30,
+      "groupGoalsConceded": 0,
+      "cautionsScore": 0,
+      "status": "Alive",
+      "reachedR16": false,
+      "eliminatedRound": null,
+      "isChampion": false,
+      "isRunnerUp": false
+    },
+    {
+      "name": "Saudi Arabia",
+      "fifaRankingStart": 53,
+      "groupGoalsConceded": 0,
+      "cautionsScore": 0,
+      "status": "Alive",
+      "reachedR16": false,
+      "eliminatedRound": null,
+      "isChampion": false,
+      "isRunnerUp": false
+    },
+    {
+      "name": "Uzbekistan",
+      "fifaRankingStart": 68,
+      "groupGoalsConceded": 0,
+      "cautionsScore": 0,
+      "status": "Alive",
+      "reachedR16": false,
+      "eliminatedRound": null,
+      "isChampion": false,
+      "isRunnerUp": false
+    },
+    {
+      "name": "Türkiye",
+      "fifaRankingStart": 35,
+      "groupGoalsConceded": 0,
+      "cautionsScore": 0,
+      "status": "Alive",
+      "reachedR16": false,
+      "eliminatedRound": null,
+      "isChampion": false,
+      "isRunnerUp": false
+    },
+    {
+      "name": "Netherlands",
+      "fifaRankingStart": 7,
+      "groupGoalsConceded": 0,
+      "cautionsScore": 0,
+      "status": "Alive",
+      "reachedR16": false,
+      "eliminatedRound": null,
+      "isChampion": false,
+      "isRunnerUp": false
+    },
+    {
+      "name": "Uruguay",
+      "fifaRankingStart": 11,
+      "groupGoalsConceded": 0,
+      "cautionsScore": 0,
+      "status": "Alive",
+      "reachedR16": false,
+      "eliminatedRound": null,
+      "isChampion": false,
+      "isRunnerUp": false
+    },
+    {
+      "name": "Paraguay",
+      "fifaRankingStart": 56,
+      "groupGoalsConceded": 0,
+      "cautionsScore": 0,
+      "status": "Alive",
+      "reachedR16": false,
+      "eliminatedRound": null,
+      "isChampion": false,
+      "isRunnerUp": false
+    },
+    {
+      "name": "Côte d'Ivoire",
+      "fifaRankingStart": 38,
+      "groupGoalsConceded": 0,
+      "cautionsScore": 0,
+      "status": "Alive",
+      "reachedR16": false,
+      "eliminatedRound": null,
+      "isChampion": false,
+      "isRunnerUp": false
+    },
+    {
+      "name": "DR Congo",
+      "fifaRankingStart": 61,
+      "groupGoalsConceded": 0,
+      "cautionsScore": 0,
+      "status": "Alive",
+      "reachedR16": false,
+      "eliminatedRound": null,
+      "isChampion": false,
+      "isRunnerUp": false
+    },
+    {
+      "name": "Jordan",
+      "fifaRankingStart": 71,
+      "groupGoalsConceded": 0,
+      "cautionsScore": 0,
+      "status": "Alive",
+      "reachedR16": false,
+      "eliminatedRound": null,
+      "isChampion": false,
+      "isRunnerUp": false
+    },
+    {
+      "name": "Japan",
+      "fifaRankingStart": 18,
+      "groupGoalsConceded": 0,
+      "cautionsScore": 0,
+      "status": "Alive",
+      "reachedR16": false,
+      "eliminatedRound": null,
+      "isChampion": false,
+      "isRunnerUp": false
+    },
+    {
+      "name": "Brazil",
+      "fifaRankingStart": 4,
+      "groupGoalsConceded": 0,
+      "cautionsScore": 0,
+      "status": "Alive",
+      "reachedR16": false,
+      "eliminatedRound": null,
+      "isChampion": false,
+      "isRunnerUp": false
+    },
+    {
+      "name": "Colombia",
+      "fifaRankingStart": 12,
+      "groupGoalsConceded": 0,
+      "cautionsScore": 0,
+      "status": "Alive",
+      "reachedR16": false,
+      "eliminatedRound": null,
+      "isChampion": false,
+      "isRunnerUp": false
+    },
+    {
+      "name": "Ecuador",
+      "fifaRankingStart": 31,
+      "groupGoalsConceded": 0,
+      "cautionsScore": 0,
+      "status": "Alive",
+      "reachedR16": false,
+      "eliminatedRound": null,
+      "isChampion": false,
+      "isRunnerUp": false
+    },
+    {
+      "name": "Qatar",
+      "fifaRankingStart": 58,
+      "groupGoalsConceded": 0,
+      "cautionsScore": 0,
+      "status": "Alive",
+      "reachedR16": false,
+      "eliminatedRound": null,
+      "isChampion": false,
+      "isRunnerUp": false
+    },
+    {
+      "name": "Panama",
+      "fifaRankingStart": 41,
+      "groupGoalsConceded": 0,
+      "cautionsScore": 0,
+      "status": "Alive",
+      "reachedR16": false,
+      "eliminatedRound": null,
+      "isChampion": false,
+      "isRunnerUp": false
+    },
+    {
+      "name": "New Zealand",
+      "fifaRankingStart": 104,
+      "groupGoalsConceded": 0,
+      "cautionsScore": 0,
+      "status": "Alive",
+      "reachedR16": false,
+      "eliminatedRound": null,
+      "isChampion": false,
+      "isRunnerUp": false
+    },
+    {
+      "name": "Norway",
+      "fifaRankingStart": 44,
+      "groupGoalsConceded": 0,
+      "cautionsScore": 0,
+      "status": "Alive",
+      "reachedR16": false,
+      "eliminatedRound": null,
+      "isChampion": false,
+      "isRunnerUp": false
+    },
+    {
+      "name": "Argentina",
+      "fifaRankingStart": 1,
+      "groupGoalsConceded": 0,
+      "cautionsScore": 0,
+      "status": "Alive",
+      "reachedR16": false,
+      "eliminatedRound": null,
+      "isChampion": false,
+      "isRunnerUp": false
+    },
+    {
+      "name": "Switzerland",
+      "fifaRankingStart": 19,
+      "groupGoalsConceded": 0,
+      "cautionsScore": 0,
+      "status": "Alive",
+      "reachedR16": false,
+      "eliminatedRound": null,
+      "isChampion": false,
+      "isRunnerUp": false
+    },
+    {
+      "name": "Sweden",
+      "fifaRankingStart": 23,
+      "groupGoalsConceded": 0,
+      "cautionsScore": 0,
+      "status": "Alive",
+      "reachedR16": false,
+      "eliminatedRound": null,
+      "isChampion": false,
+      "isRunnerUp": false
+    },
+    {
+      "name": "Australia",
+      "fifaRankingStart": 25,
+      "groupGoalsConceded": 0,
+      "cautionsScore": 0,
+      "status": "Alive",
+      "reachedR16": false,
+      "eliminatedRound": null,
+      "isChampion": false,
+      "isRunnerUp": false
+    },
+    {
+      "name": "Ghana",
+      "fifaRankingStart": 64,
+      "groupGoalsConceded": 0,
+      "cautionsScore": 0,
+      "status": "Alive",
+      "reachedR16": false,
+      "eliminatedRound": null,
+      "isChampion": false,
+      "isRunnerUp": false
+    },
+    {
+      "name": "Haiti",
+      "fifaRankingStart": 85,
+      "groupGoalsConceded": 0,
+      "cautionsScore": 0,
+      "status": "Alive",
+      "reachedR16": false,
+      "eliminatedRound": null,
+      "isChampion": false,
+      "isRunnerUp": false
+    },
+    {
+      "name": "United States",
+      "fifaRankingStart": 13,
+      "groupGoalsConceded": 0,
+      "cautionsScore": 0,
+      "status": "Alive",
+      "reachedR16": false,
+      "eliminatedRound": null,
+      "isChampion": false,
+      "isRunnerUp": false
+    },
+    {
+      "name": "France",
+      "fifaRankingStart": 2,
+      "groupGoalsConceded": 0,
+      "cautionsScore": 0,
+      "status": "Alive",
+      "reachedR16": false,
+      "eliminatedRound": null,
+      "isChampion": false,
+      "isRunnerUp": false
+    },
+    {
+      "name": "Belgium",
+      "fifaRankingStart": 3,
+      "groupGoalsConceded": 0,
+      "cautionsScore": 0,
+      "status": "Alive",
+      "reachedR16": false,
+      "eliminatedRound": null,
+      "isChampion": false,
+      "isRunnerUp": false
+    },
+    {
+      "name": "Czechia",
+      "fifaRankingStart": 36,
+      "groupGoalsConceded": 0,
+      "cautionsScore": 0,
+      "status": "Alive",
+      "reachedR16": false,
+      "eliminatedRound": null,
+      "isChampion": false,
+      "isRunnerUp": false
+    },
+    {
+      "name": "South Africa",
+      "fifaRankingStart": 59,
+      "groupGoalsConceded": 0,
+      "cautionsScore": 0,
+      "status": "Alive",
+      "reachedR16": false,
+      "eliminatedRound": null,
+      "isChampion": false,
+      "isRunnerUp": false
+    },
+    {
+      "name": "Bosnia & Herzegovina",
+      "fifaRankingStart": 74,
+      "groupGoalsConceded": 0,
+      "cautionsScore": 0,
+      "status": "Alive",
+      "reachedR16": false,
+      "eliminatedRound": null,
+      "isChampion": false,
+      "isRunnerUp": false
+    },
+    {
+      "name": "Cabo Verde",
+      "fifaRankingStart": 65,
+      "groupGoalsConceded": 0,
+      "cautionsScore": 0,
+      "status": "Alive",
+      "reachedR16": false,
+      "eliminatedRound": null,
+      "isChampion": false,
+      "isRunnerUp": false
+    },
+    {
+      "name": "South Korea",
+      "fifaRankingStart": 22,
+      "groupGoalsConceded": 0,
+      "cautionsScore": 0,
+      "status": "Alive",
+      "reachedR16": false,
+      "eliminatedRound": null,
+      "isChampion": false,
+      "isRunnerUp": false
+    },
+    {
+      "name": "Portugal",
+      "fifaRankingStart": 6,
+      "groupGoalsConceded": 0,
+      "cautionsScore": 0,
+      "status": "Alive",
+      "reachedR16": false,
+      "eliminatedRound": null,
+      "isChampion": false,
+      "isRunnerUp": false
+    },
+    {
+      "name": "Germany",
+      "fifaRankingStart": 16,
+      "groupGoalsConceded": 0,
+      "cautionsScore": 0,
+      "status": "Alive",
+      "reachedR16": false,
+      "eliminatedRound": null,
+      "isChampion": false,
+      "isRunnerUp": false
+    },
+    {
+      "name": "Canada",
+      "fifaRankingStart": 40,
+      "groupGoalsConceded": 0,
+      "cautionsScore": 0,
+      "status": "Alive",
+      "reachedR16": false,
+      "eliminatedRound": null,
+      "isChampion": false,
+      "isRunnerUp": false
+    },
+    {
+      "name": "Egypt",
+      "fifaRankingStart": 34,
+      "groupGoalsConceded": 0,
+      "cautionsScore": 0,
+      "status": "Alive",
+      "reachedR16": false,
+      "eliminatedRound": null,
+      "isChampion": false,
+      "isRunnerUp": false
+    },
+    {
+      "name": "Iraq",
+      "fifaRankingStart": 55,
+      "groupGoalsConceded": 0,
+      "cautionsScore": 0,
+      "status": "Alive",
+      "reachedR16": false,
+      "eliminatedRound": null,
+      "isChampion": false,
+      "isRunnerUp": false
+    },
+    {
+      "name": "Curaçao",
+      "fifaRankingStart": 88,
+      "groupGoalsConceded": 0,
+      "cautionsScore": 0,
+      "status": "Alive",
+      "reachedR16": false,
+      "eliminatedRound": null,
+      "isChampion": false,
+      "isRunnerUp": false
+    },
+    {
+      "name": "Senegal",
+      "fifaRankingStart": 17,
+      "groupGoalsConceded": 0,
+      "cautionsScore": 0,
+      "status": "Alive",
+      "reachedR16": false,
+      "eliminatedRound": null,
+      "isChampion": false,
+      "isRunnerUp": false
+    },
+    {
+      "name": "Spain",
+      "fifaRankingStart": 8,
+      "groupGoalsConceded": 0,
+      "cautionsScore": 0,
+      "status": "Alive",
+      "reachedR16": false,
+      "eliminatedRound": null,
+      "isChampion": false,
+      "isRunnerUp": false
+    },
+    {
+      "name": "Morocco",
+      "fifaRankingStart": 14,
+      "groupGoalsConceded": 0,
+      "cautionsScore": 0,
+      "status": "Alive",
+      "reachedR16": false,
+      "eliminatedRound": null,
+      "isChampion": false,
+      "isRunnerUp": false
+    },
+    {
+      "name": "Mexico",
+      "fifaRankingStart": 15,
+      "groupGoalsConceded": 0,
+      "cautionsScore": 0,
+      "status": "Alive",
+      "reachedR16": false,
+      "eliminatedRound": null,
+      "isChampion": false,
+      "isRunnerUp": false
+    },
+    {
+      "name": "Austria",
+      "fifaRankingStart": 24,
+      "groupGoalsConceded": 0,
+      "cautionsScore": 0,
+      "status": "Alive",
+      "reachedR16": false,
+      "eliminatedRound": null,
+      "isChampion": false,
+      "isRunnerUp": false
+    },
+    {
+      "name": "Tunisia",
+      "fifaRankingStart": 28,
+      "groupGoalsConceded": 0,
+      "cautionsScore": 0,
+      "status": "Alive",
+      "reachedR16": false,
+      "eliminatedRound": null,
+      "isChampion": false,
+      "isRunnerUp": false
+    },
+    {
+      "name": "Scotland",
+      "fifaRankingStart": 39,
+      "groupGoalsConceded": 0,
+      "cautionsScore": 0,
+      "status": "Alive",
+      "reachedR16": false,
+      "eliminatedRound": null,
+      "isChampion": false,
+      "isRunnerUp": false
+    }
+  ],
+  "prizes": [
+    {
+      "key": "lowest_ranked_r16",
+      "label": "Lowest ranked team in Round of 16",
+      "value": 25,
+      "rule": "Uses official world ranking at start of tournament. The lowest-ranked (highest number) team to qualify for the R16 wins.",
+      "autoCalculated": true,
+      "manualOverride": null
+    },
+    {
+      "key": "most_cautions_group",
+      "label": "Most cautions in Group Stage",
+      "value": 25,
+      "rule": "Yellow = 1 pt, 2nd Yellow = 2 pts, Straight Red = 4 pts. Tiebreaker: most straight reds.",
+      "autoCalculated": false,
+      "manualOverride": null
+    },
+    {
+      "key": "latest_goal",
+      "label": "Team with the latest goal",
+      "value": 25,
+      "rule": "Goals scored in regular time + stoppage time only. Extra time does not count.",
+      "autoCalculated": false,
+      "manualOverride": null
+    },
+    {
+      "key": "most_goals_conceded_group",
+      "label": "Most goals conceded in Group Stage",
+      "value": 25,
+      "rule": "The team conceding the most goals across all group stage matches wins.",
+      "autoCalculated": true,
+      "manualOverride": null
+    },
+    {
+      "key": "goal_of_tournament",
+      "label": "Goal of the tournament",
+      "value": 25,
+      "rule": "Manual assignment by group consensus after the tournament ends.",
+      "autoCalculated": false,
+      "manualOverride": null
+    },
+    {
+      "key": "final_loser",
+      "label": "Final loser (Runner-up)",
+      "value": 75,
+      "rule": "Owner of the runner-up team wins this prize.",
+      "autoCalculated": true,
+      "manualOverride": null
+    },
+    {
+      "key": "final_winner",
+      "label": "Final winner (Champion)",
+      "value": 150,
+      "rule": "Owner of the tournament champion wins this prize.",
+      "autoCalculated": true,
+      "manualOverride": null
+    }
+  ]
 }
