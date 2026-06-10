@@ -1,0 +1,53 @@
+name: Update Tournament Data
+
+# ─────────────────────────────────────────────────────────────────
+# SCHEDULE: Runs automatically twice daily during the tournament.
+# Can also be triggered manually from the GitHub Actions tab.
+# Normal public viewers CANNOT trigger this – it only runs on
+# schedule or via the GitHub UI by repo collaborators.
+# ─────────────────────────────────────────────────────────────────
+on:
+  schedule:
+    - cron: '0 6 * * *'   # 06:00 UTC daily  (morning update)
+    - cron: '0 18 * * *'  # 18:00 UTC daily  (evening update)
+  workflow_dispatch:        # Manual trigger from GitHub Actions tab
+
+jobs:
+  update-data:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # ── FETCH & NORMALISE ─────────────────────────────────────────
+      # The API key is stored as a GitHub Secret (Settings → Secrets).
+      # It is NEVER written to the public repository or exposed to
+      # the front-end dashboard. The dashboard only reads the output
+      # JSON files, never calls the API directly.
+      # ─────────────────────────────────────────────────────────────
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm install node-fetch
+
+      - name: Fetch and normalise tournament data
+        env:
+          FOOTBALL_DATA_API_KEY: ${{ secrets.FOOTBALL_DATA_API_KEY }}
+        run: node scripts/fetch-tournament-data.js
+
+      # ── COMMIT RESULT ─────────────────────────────────────────────
+      # If the script succeeded and changed the data, commit it.
+      # If there's no change (same data), the commit is skipped.
+      # If the script failed, the old cached data is untouched.
+      # ─────────────────────────────────────────────────────────────
+      - name: Commit updated data
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add data/tournament.json
+          git diff --staged --quiet || git commit -m "chore: auto-update tournament data [$(date -u '+%Y-%m-%d %H:%M UTC')]"
+          git push
