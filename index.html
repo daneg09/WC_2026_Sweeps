@@ -6,10 +6,13 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <title>World Cup Sweeps</title>
+  <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Lucide Icons -->
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+  
   <style>
-    /* ── DESIGN TOKENS ─────────────────────────────────────────────── */
+    /* ── DESIGN SYSTEM TOKENS ────────────────────────────────────────── */
     :root {
       --deep-stadium:   #0A1215;
       --aisle-20:       #141E22;
@@ -21,7 +24,7 @@
       --std-blue:       #0055FF;
       --kickoff-red:    #FF4230;
       --champ-gold:     #E1C16E;
-      --border-subtle:  rgba(255,255,255,0.07);
+      --border-subtle:  rgba(255, 255, 255, 0.07);
     }
 
     [data-theme="light"] {
@@ -30,21 +33,29 @@
       --aisle-30:       #CBD5E1;
       --spotlight:      #0F172A;
       --data-grey:      #475569;
-      --border-subtle:  rgba(0,0,0,0.08);
+      --border-subtle:  rgba(0, 0, 0, 0.08);
     }
 
-    /* ── BASE ───────────────────────────────────────────────────────── */
-    *, *::before, *::after { box-sizing: border-box; }
-
-    html { scroll-behavior: smooth; }
-
+    /* ── CRITICAL ANTI-ALIASING (FIXES FUZZY BOLD HEADERS) ─────────── */
     body {
       background: var(--deep-stadium);
       color: var(--spotlight);
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      -webkit-font-smoothing: antialiased;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      -webkit-font-smoothing: antialiased; /* Forces smooth grayscale rendering over subpixel noise */
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility; /* Activates ligature and kerning precision */
       min-height: 100vh;
       overflow-x: hidden;
+    }
+
+    /* Crisp Header Specific Tweaks */
+    .font-display {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      text-transform: uppercase;
+      -webkit-font-smoothing: antialiased;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.4);
     }
 
     /* Stadium arc watermark — 3% opacity arcs, never interferes with text */
@@ -53,25 +64,17 @@
       position: fixed;
       inset: 0;
       background:
-        radial-gradient(ellipse 140% 60% at 50% -10%, rgba(174,255,0,0.035) 0%, transparent 60%),
-        radial-gradient(ellipse 100% 40% at 50% 110%, rgba(142,46,255,0.025) 0%, transparent 55%),
-        radial-gradient(ellipse 80% 30% at 50% 50%,  rgba(0,85,255,0.015)  0%, transparent 70%);
+        radial-gradient(ellipse 140% 60% at 50% -10%, rgba(174, 255, 0, 0.03) 0%, transparent 60%),
+        radial-gradient(ellipse 100% 40% at 50% 110%, rgba(142, 46, 255, 0.02) 0%, transparent 55%),
+        radial-gradient(ellipse 80% 30% at 50% 50%,  rgba(0, 85, 255, 0.01)  0%, transparent 70%);
       pointer-events: none;
       z-index: 0;
     }
 
     #app { position: relative; z-index: 1; }
-
-    /* ── TYPOGRAPHY ─────────────────────────────────────────────────── */
-    .font-display {
-      font-family: 'Inter', sans-serif;
-      font-weight: 800;
-      letter-spacing: -0.025em;
-      text-transform: uppercase;
-    }
     .num { font-variant-numeric: tabular-nums; }
 
-    /* ── SCROLLBAR ──────────────────────────────────────────────────── */
+    /* Custom scrollbar to keep layout premium */
     ::-webkit-scrollbar { width: 4px; height: 4px; }
     ::-webkit-scrollbar-track { background: var(--deep-stadium); }
     ::-webkit-scrollbar-thumb { background: var(--aisle-30); border-radius: 2px; }
@@ -101,9 +104,7 @@
       transition: color 0.15s, border-color 0.15s;
       cursor: pointer;
       background: none;
-      border-top: none;
-      border-left: none;
-      border-right: none;
+      border: none;
     }
     .tab-btn.active {
       color: var(--pitch-green);
@@ -124,12 +125,12 @@
       letter-spacing: 0.04em;
       white-space: nowrap;
     }
-    .chip-green  { background: rgba(174,255,0,0.12);  color: var(--pitch-green);   border: 1px solid rgba(174,255,0,0.25); }
-    .chip-red    { background: rgba(255,66,48,0.12);  color: var(--kickoff-red);   border: 1px solid rgba(255,66,48,0.25); }
-    .chip-blue   { background: rgba(0,85,255,0.12);   color: var(--std-blue);      border: 1px solid rgba(0,85,255,0.25); }
-    .chip-purple { background: rgba(142,46,255,0.12); color: var(--finals-purple); border: 1px solid rgba(142,46,255,0.25); }
-    .chip-gold   { background: rgba(225,193,110,0.15);color: var(--champ-gold);    border: 1px solid rgba(225,193,110,0.35); }
-    .chip-grey   { background: rgba(148,163,184,0.1); color: var(--data-grey);     border: 1px solid rgba(148,163,184,0.2); }
+    .chip-green  { background: rgba(174, 255, 0, 0.12);  color: var(--pitch-green);   border: 1px solid rgba(174, 255, 0, 0.25); }
+    .chip-red    { background: rgba(255, 66, 48, 0.12);  color: var(--kickoff-red);   border: 1px solid rgba(255, 66, 48, 0.25); }
+    .chip-blue   { background: rgba(0, 85, 255, 0.12);   color: var(--std-blue);      border: 1px solid rgba(0, 85, 255, 0.25); }
+    .chip-purple { background: rgba(142, 46, 255, 0.12); color: var(--finals-purple); border: 1px solid rgba(142, 46, 255, 0.25); }
+    .chip-gold   { background: rgba(225, 193, 110, 0.15);color: var(--champ-gold);    border: 1px solid rgba(225, 193, 110, 0.35); }
+    .chip-grey   { background: rgba(148, 163, 184, 0.1); color: var(--data-grey);     border: 1px solid rgba(148, 163, 184, 0.2); }
 
     /* ── TEAM PILL (compact) ─────────────────────────────────────────── */
     .team-pill {
@@ -145,9 +146,9 @@
       color: var(--data-grey);
       background: var(--deep-stadium);
     }
-    .team-pill.alive   { color: var(--pitch-green);   background: rgba(174,255,0,0.07);  border-color: rgba(174,255,0,0.2); }
-    .team-pill.runnerup{ color: var(--finals-purple);  background: rgba(142,46,255,0.08); border-color: rgba(142,46,255,0.25); }
-    .team-pill.champion{ color: var(--champ-gold);    background: rgba(225,193,110,0.1); border-color: rgba(225,193,110,0.3); font-weight: 700; }
+    .team-pill.alive   { color: var(--pitch-green);   background: rgba(174, 255, 0, 0.07);  border-color: rgba(174, 255, 0, 0.2); }
+    .team-pill.runnerup{ color: var(--finals-purple);  background: rgba(142, 46, 255, 0.08); border-color: rgba(142, 46, 255, 0.25); }
+    .team-pill.champion{ color: var(--champ-gold);    background: rgba(225, 193, 110, 0.1); border-color: rgba(225, 193, 110, 0.3); font-weight: 700; }
 
     /* ── PRIZE TAG ──────────────────────────────────────────────────── */
     .prize-tag {
@@ -161,9 +162,9 @@
       text-transform: uppercase;
       letter-spacing: 0.03em;
     }
-    .prize-tag-lead     { background: rgba(174,255,0,0.1);  color: var(--pitch-green);  border: 1px solid rgba(174,255,0,0.2); }
-    .prize-tag-contested{ background: rgba(255,66,48,0.1);  color: var(--kickoff-red);  border: 1px solid rgba(255,66,48,0.2); }
-    .prize-tag-won      { background: rgba(225,193,110,0.1);color: var(--champ-gold);   border: 1px solid rgba(225,193,110,0.25); }
+    .prize-tag-lead     { background: rgba(174, 255, 0, 0.1);  color: var(--pitch-green);  border: 1px solid rgba(174, 255, 0, 0.2); }
+    .prize-tag-contested{ background: rgba(255, 66, 48, 0.1);  color: var(--kickoff-red);  border: 1px solid rgba(255, 66, 48, 0.2); }
+    .prize-tag-won      { background: rgba(225, 193, 110, 0.1);color: var(--champ-gold);   border: 1px solid rgba(225, 193, 110, 0.25); }
 
     /* ── FILTER PILLS ───────────────────────────────────────────────── */
     .filter-pill {
@@ -191,7 +192,7 @@
     #detail-drawer {
       position: fixed;
       inset: 0;
-      background: rgba(10,18,21,0.75);
+      background: rgba(10, 18, 21, 0.75);
       backdrop-filter: blur(6px);
       z-index: 100;
       display: flex;
@@ -213,7 +214,7 @@
       max-width: 480px;
       max-height: 88vh;
       transform: translateY(100%);
-      transition: transform 0.3s cubic-bezier(0.32,0.72,0,1);
+      transition: transform 0.3s cubic-bezier(0.32, 0.72, 0, 1);
       display: flex;
       flex-direction: column;
     }
@@ -223,7 +224,7 @@
 
     /* ── ADMIN PANEL ────────────────────────────────────────────────── */
     #admin-panel {
-      border: 2px dashed rgba(142,46,255,0.3);
+      border: 2px dashed rgba(142, 46, 255, 0.3);
       border-radius: 12px;
     }
 
@@ -236,9 +237,9 @@
       border-radius: 8px;
       font-size: 11px;
     }
-    .alert-warn  { background: rgba(255,66,48,0.08);  border: 1px solid rgba(255,66,48,0.2); }
-    .alert-info  { background: rgba(0,85,255,0.08);   border: 1px solid rgba(0,85,255,0.2); }
-    .alert-ok    { background: rgba(174,255,0,0.06);  border: 1px solid rgba(174,255,0,0.15); }
+    .alert-warn  { background: rgba(255, 66, 48, 0.08);  border: 1px solid rgba(255, 66, 48, 0.2); }
+    .alert-info  { background: rgba(0, 85, 255, 0.08);   border: 1px solid rgba(0, 85, 255, 0.2); }
+    .alert-ok    { background: rgba(174, 255, 0, 0.06);  border: 1px solid rgba(174, 255, 0, 0.15); }
 
     /* ── LOADING / ERROR STATES ─────────────────────────────────────── */
     #loading-screen, #error-screen {
@@ -303,8 +304,8 @@
 
     /* ── CHAMPION GLOW ──────────────────────────────────────────────── */
     .champion-card {
-      border-color: rgba(225,193,110,0.4) !important;
-      box-shadow: 0 0 20px rgba(225,193,110,0.08), inset 0 0 20px rgba(225,193,110,0.03);
+      border-color: rgba(225, 193, 110, 0.4) !important;
+      box-shadow: 0 0 20px rgba(225, 193, 110, 0.08), inset 0 0 20px rgba(225, 193, 110, 0.03);
     }
 
     /* ── STANDINGS CARD ─────────────────────────────────────────────── */
@@ -318,9 +319,8 @@
       -webkit-tap-highlight-color: transparent;
     }
     .standings-card:active { transform: scale(0.985); }
-    .standings-card:hover  { border-color: rgba(148,163,184,0.3); }
+    .standings-card:hover  { border-color: rgba(148, 163, 184, 0.3); }
 
-    /* ── RESPONSIVE DESKTOP ─────────────────────────────────────────── */
     @media (min-width: 768px) {
       .desktop-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
       .desktop-grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
@@ -339,7 +339,7 @@
       padding: 0 10px;
       transition: border-color 0.15s;
     }
-    .search-wrap:focus-within { border-color: rgba(0,85,255,0.5); }
+    .search-wrap:focus-within { border-color: rgba(0, 85, 255, 0.5); }
     .search-wrap input {
       background: none;
       border: none;
@@ -364,7 +364,6 @@
       cursor: pointer;
     }
 
-    /* ── MISC ───────────────────────────────────────────────────────── */
     .divider { height: 1px; background: var(--border-subtle); margin: 12px 0; }
     .section-label {
       font-size: 9px;
@@ -376,23 +375,6 @@
       display: block;
     }
 
-    button { cursor: pointer; }
-
-    /* Stale data banner */
-    #stale-banner {
-      background: rgba(255,66,48,0.1);
-      border: 1px solid rgba(255,66,48,0.3);
-      border-radius: 8px;
-      padding: 8px 12px;
-      font-size: 11px;
-      color: var(--kickoff-red);
-      display: none;
-      align-items: center;
-      gap: 8px;
-    }
-    #stale-banner.show { display: flex; }
-
-    /* Rotate animation for refresh icon */
     .spinning { animation: spin 0.7s linear infinite; }
   </style>
 </head>
@@ -411,7 +393,7 @@
     <div style="color:var(--spotlight);font-weight:700;margin-bottom:6px;">Couldn't load data</div>
     <div id="error-msg" style="color:var(--data-grey);font-size:12px;max-width:240px;line-height:1.5;"></div>
   </div>
-  <button onclick="loadData()" style="margin-top:8px;padding:10px 24px;background:var(--std-blue);color:var(--spotlight);border:none;border-radius:8px;font-weight:600;font-size:13px;">Try again</button>
+  <button onclick="loadData(true)" style="margin-top:8px;padding:10px 24px;background:var(--std-blue);color:var(--spotlight);border:none;border-radius:8px;font-weight:600;font-size:13px;">Try Local Simulation</button>
 </div>
 
 <!-- ─── MAIN APP ────────────────────────────────────────────────────────── -->
@@ -423,30 +405,27 @@
       <div>
         <div style="display:flex;align-items:center;gap:8px;">
           <div class="pulse-dot"></div>
-          <span class="font-display" style="font-size:16px;color:var(--spotlight);">World Cup Sweeps</span>
+          <!-- Crispy anti-aliased header text -->
+          <span class="font-display text-spotlight" style="font-size:17px; letter-spacing: -0.02em;">World Cup Sweeps</span>
         </div>
         <div style="font-size:10px;color:var(--data-grey);margin-top:1px;">Private friends tracker · 2026</div>
       </div>
       <div style="display:flex;gap:6px;align-items:center;">
-        <!-- Dark/light toggle -->
         <button onclick="toggleTheme()" id="theme-btn" title="Toggle light/dark mode"
           style="width:36px;height:36px;display:flex;align-items:center;justify-content:center;background:var(--aisle-20);border:1px solid var(--border-subtle);border-radius:8px;color:var(--data-grey);transition:color 0.15s;">
           <i data-lucide="sun" id="theme-icon-sun" style="width:15px;height:15px;display:none;"></i>
           <i data-lucide="moon" id="theme-icon-moon" style="width:15px;height:15px;"></i>
         </button>
-        <!-- Admin toggle -->
         <button onclick="toggleAdmin()" title="Admin overrides"
           style="width:36px;height:36px;display:flex;align-items:center;justify-content:center;background:var(--aisle-20);border:1px solid var(--border-subtle);border-radius:8px;color:var(--data-grey);transition:color 0.15s;">
           <i data-lucide="sliders-horizontal" style="width:15px;height:15px;"></i>
         </button>
-        <!-- Refresh -->
         <button onclick="reloadFromCache()" title="Reload cached data"
           style="width:36px;height:36px;display:flex;align-items:center;justify-content:center;background:var(--aisle-20);border:1px solid var(--border-subtle);border-radius:8px;color:var(--data-grey);transition:color 0.15s;">
           <i data-lucide="refresh-cw" id="refresh-icon" style="width:15px;height:15px;"></i>
         </button>
       </div>
     </div>
-    <!-- Cache status row -->
     <div style="display:flex;align-items:center;justify-content:space-between;margin-top:8px;font-size:10px;color:var(--data-grey);">
       <span>Last sync: <strong id="last-updated" style="color:var(--spotlight);">–</strong></span>
       <span id="cache-status-chip"></span>
@@ -599,7 +578,7 @@
       <span style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:var(--spotlight);">Auto-Update Architecture</span>
     </div>
     <p style="font-size:11px;color:var(--data-grey);line-height:1.6;margin-bottom:10px;">
-      This dashboard reads only from <code style="color:var(--pitch-green);">data/tournament.json</code>. A GitHub Actions workflow runs twice daily, fetches football-data.org, normalises the result, and commits the updated JSON. The API key never reaches the browser.
+      This dashboard reads from <code style="color:var(--pitch-green);">data/tournament.json</code>. A GitHub Actions workflow runs twice daily, fetches football-data.org, normalises the result, and commits the updated JSON. The API key never reaches the browser.
     </p>
     <div style="background:var(--deep-stadium);border:1px solid var(--border-subtle);border-radius:8px;padding:10px;">
       <div style="display:flex;justify-content:space-between;font-size:10px;font-weight:600;color:var(--spotlight);margin-bottom:6px;">
@@ -619,11 +598,9 @@
 <!-- ─── PARTICIPANT DETAIL DRAWER ──────────────────────────────────────── -->
 <div id="detail-drawer" onclick="drawerBackdropClick(event)">
   <div id="drawer-panel">
-    <!-- Pull handle -->
     <div style="display:flex;justify-content:center;padding:12px 0 4px;">
       <div style="width:40px;height:4px;border-radius:2px;background:rgba(148,163,184,0.25);cursor:pointer;" onclick="closeDrawer()"></div>
     </div>
-    <!-- Header -->
     <div style="display:flex;align-items:flex-start;justify-content:space-between;padding:8px 18px 12px;">
       <div>
         <h3 id="drawer-name" class="font-display" style="font-size:18px;"></h3>
@@ -633,801 +610,913 @@
         <i data-lucide="x" style="width:15px;height:15px;"></i>
       </button>
     </div>
-    <!-- Scrollable content -->
     <div style="overflow-y:auto;padding:0 18px 24px;flex:1;" id="drawer-content"></div>
   </div>
 </div>
 
-</body>
-</html>
-
+<!-- ======================================================================= -->
+<!--                             JAVASCRIPT CORE                             -->
+<!-- ======================================================================= -->
 <script>
-// ════════════════════════════════════════════════════════════════════
-//  WORLD CUP SWEEPS — App Logic
-//  The dashboard reads ONLY from data/tournament.json (no API calls).
-// ════════════════════════════════════════════════════════════════════
+  
+  // Clean, Pristine Backup Local Database matching pre-kickoff state
+  const EMBEDDED_FALLBACK_DATA = {
+    "_meta": {
+      "lastUpdated": "2026-06-10T12:00:00Z",
+      "source": "football-data.org (Simulated Cache)",
+      "updateStatus": "ok",
+      "cacheAgeMinutes": 0,
+      "staleThresholdHours": 12,
+      "version": "1.0.0"
+    },
+    "settings": {
+      "totalPrizePool": 350,
+      "entryFee": 50,
+      "tournamentName": "FIFA World Cup 2026",
+      "updateCadenceHours": 12
+    },
+    "aliases": {
+      "IR Iran": "Iran",
+      "Iran (Islamic Republic of)": "Iran",
+      "Korea Republic": "South Korea",
+      "Republic of Korea": "South Korea",
+      "Turkey": "Türkiye",
+      "Ivory Coast": "Côte d'Ivoire",
+      "US": "United States",
+      "USA": "United States",
+      "Czechia": "Czechia",
+      "Czech Republic": "Czechia",
+      "Bosnia": "Bosnia & Herzegovina",
+      "Cape Verde": "Cabo Verde"
+    },
+    "players": [
+      { "name": "Rach",     "teams": ["England","Croatia","Iran","Algeria","Saudi Arabia","Uzbekistan","Türkiye"] },
+      { "name": "Dane",     "teams": ["Netherlands","Uruguay","Paraguay","Côte d'Ivoire","DR Congo","Jordan","Japan"] },
+      { "name": "Robbie",   "teams": ["Brazil","Colombia","Ecuador","Qatar","Panama","New Zealand","Norway"] },
+      { "name": "Christian","teams": ["Argentina","Switzerland","Sweden","Australia","Ghana","Haiti","United States"] },
+      { "name": "Jackson",  "teams": ["France","Belgium","Czechia","South Africa","Bosnia & Herzegovina","Cabo Verde","South Korea"] },
+      { "name": "Matt",     "teams": ["Portugal","Germany","Canada","Egypt","Iraq","Curaçao","Senegal"] },
+      { "name": "Dec",      "teams": ["Spain","Morocco","Mexico","Austria","Tunisia","Scotland"] }
+    ],
+    "teams": [
+      { "name": "England",            "fifaRankingStart": 5,   "groupGoalsConceded": 0,  "cautionsScore": 0, "status": "Alive",      "reachedR16": false, "eliminatedRound": null, "isChampion": false, "isRunnerUp": false },
+      { "name": "Croatia",            "fifaRankingStart": 10,  "groupGoalsConceded": 0,  "cautionsScore": 0, "status": "Alive",      "reachedR16": false, "eliminatedRound": null, "isChampion": false, "isRunnerUp": false },
+      { "name": "Iran",               "fifaRankingStart": 20,  "groupGoalsConceded": 0,  "cautionsScore": 0, "status": "Alive",      "reachedR16": false, "eliminatedRound": null, "isChampion": false, "isRunnerUp": false },
+      { "name": "Algeria",            "fifaRankingStart": 30,  "groupGoalsConceded": 0,  "cautionsScore": 0, "status": "Alive",      "reachedR16": false, "eliminatedRound": null, "isChampion": false, "isRunnerUp": false },
+      { "name": "Saudi Arabia",       "fifaRankingStart": 53,  "groupGoalsConceded": 0,  "cautionsScore": 0, "status": "Alive",      "reachedR16": false, "eliminatedRound": null, "isChampion": false, "isRunnerUp": false },
+      { "name": "Uzbekistan",         "fifaRankingStart": 68,  "groupGoalsConceded": 0,  "cautionsScore": 0, "status": "Alive",      "reachedR16": false, "eliminatedRound": null, "isChampion": false, "isRunnerUp": false },
+      { "name": "Türkiye",            "fifaRankingStart": 35,  "groupGoalsConceded": 0,  "cautionsScore": 0, "status": "Alive",      "reachedR16": false, "eliminatedRound": null, "isChampion": false, "isRunnerUp": false },
 
-// ── STATE ────────────────────────────────────────────────────────────
-let RAW_DATA  = null;   // Raw JSON from cache file
-let state     = null;   // Derived/computed state used by renderers
+      { "name": "Netherlands",        "fifaRankingStart": 7,   "groupGoalsConceded": 0,  "cautionsScore": 0, "status": "Alive",      "reachedR16": false, "eliminatedRound": null, "isChampion": false, "isRunnerUp": false },
+      { "name": "Uruguay",            "fifaRankingStart": 11,  "groupGoalsConceded": 0,  "cautionsScore": 0, "status": "Alive",      "reachedR16": false, "eliminatedRound": null, "isChampion": false, "isRunnerUp": false },
+      { "name": "Paraguay",           "fifaRankingStart": 56,  "groupGoalsConceded": 0,  "cautionsScore": 0, "status": "Alive",      "reachedR16": false, "eliminatedRound": null, "isChampion": false, "isRunnerUp": false },
+      { "name": "Côte d'Ivoire",      "fifaRankingStart": 38,  "groupGoalsConceded": 0,  "cautionsScore": 0, "status": "Alive",      "reachedR16": false, "eliminatedRound": null, "isChampion": false, "isRunnerUp": false },
+      { "name": "DR Congo",           "fifaRankingStart": 61,  "groupGoalsConceded": 0,  "cautionsScore": 0, "status": "Alive",      "reachedR16": false, "eliminatedRound": null, "isChampion": false, "isRunnerUp": false },
+      { "name": "Jordan",             "fifaRankingStart": 71,  "groupGoalsConceded": 0,  "cautionsScore": 0, "status": "Alive",      "reachedR16": false, "eliminatedRound": null, "isChampion": false, "isRunnerUp": false },
+      { "name": "Japan",              "fifaRankingStart": 18,  "groupGoalsConceded": 0,  "cautionsScore": 0, "status": "Alive",      "reachedR16": false, "eliminatedRound": null, "isChampion": false, "isRunnerUp": false },
 
-// Admin override values (local only, not persisted)
-let adm = {
-  champion:    null,
-  runnerUp:    null,
-  latestGoal:  null,
-  cautions:    null,
-  got:         null,
-};
+      { "name": "Brazil",             "fifaRankingStart": 4,   "groupGoalsConceded": 0,  "cautionsScore": 0, "status": "Alive",      "reachedR16": false, "eliminatedRound": null, "isChampion": false, "isRunnerUp": false },
+      { "name": "Colombia",           "fifaRankingStart": 12,  "groupGoalsConceded": 0,  "cautionsScore": 0, "status": "Alive",      "reachedR16": false, "eliminatedRound": null, "isChampion": false, "isRunnerUp": false },
+      { "name": "Ecuador",            "fifaRankingStart": 31,  "groupGoalsConceded": 0,  "cautionsScore": 0, "status": "Alive",      "reachedR16": false, "eliminatedRound": null, "isChampion": false, "isRunnerUp": false },
+      { "name": "Qatar",              "fifaRankingStart": 58,  "groupGoalsConceded": 0,  "cautionsScore": 0, "status": "Alive",      "reachedR16": false, "eliminatedRound": null, "isChampion": false, "isRunnerUp": false },
+      { "name": "Panama",             "fifaRankingStart": 41,  "groupGoalsConceded": 0,  "cautionsScore": 0, "status": "Alive",      "reachedR16": false, "eliminatedRound": null, "isChampion": false, "isRunnerUp": false },
+      { "name": "New Zealand",        "fifaRankingStart": 104, "groupGoalsConceded": 0,  "cautionsScore": 0, "status": "Alive",      "reachedR16": false, "eliminatedRound": null, "isChampion": false, "isRunnerUp": false },
+      { "name": "Norway",             "fifaRankingStart": 44,  "groupGoalsConceded": 0,  "cautionsScore": 0, "status": "Alive",      "reachedR16": false, "eliminatedRound": null, "isChampion": false, "isRunnerUp": false },
 
-let activeTab  = 'standings';
-let teamFilter = 'all';
-let searchQuery= '';
+      { "name": "Argentina",          "fifaRankingStart": 1,   "groupGoalsConceded": 0,  "cautionsScore": 0, "status": "Alive",      "reachedR16": false, "eliminatedRound": null, "isChampion": false, "isRunnerUp": false },
+      { "name": "Switzerland",        "fifaRankingStart": 19,  "groupGoalsConceded": 0,  "cautionsScore": 0, "status": "Alive",      "reachedR16": false, "eliminatedRound": null, "isChampion": false, "isRunnerUp": false },
+      { "name": "Sweden",             "fifaRankingStart": 23,  "groupGoalsConceded": 0,  "cautionsScore": 0, "status": "Alive",      "reachedR16": false, "eliminatedRound": null, "isChampion": false, "isRunnerUp": false },
+      { "name": "Australia",          "fifaRankingStart": 25,  "groupGoalsConceded": 0,  "cautionsScore": 0, "status": "Alive",      "reachedR16": false, "eliminatedRound": null, "isChampion": false, "isRunnerUp": false },
+      { "name": "Ghana",              "fifaRankingStart": 64,  "groupGoalsConceded": 0,  "cautionsScore": 0, "status": "Alive",      "reachedR16": false, "eliminatedRound": null, "isChampion": false, "isRunnerUp": false },
+      { "name": "Haiti",              "fifaRankingStart": 85,  "groupGoalsConceded": 0,  "cautionsScore": 0, "status": "Alive",      "reachedR16": false, "eliminatedRound": null, "isChampion": false, "isRunnerUp": false },
+      { "name": "United States",      "fifaRankingStart": 13,  "groupGoalsConceded": 0,  "cautionsScore": 0, "status": "Alive",      "reachedR16": false, "eliminatedRound": null, "isChampion": false, "isRunnerUp": false },
 
-// ── BOOT ─────────────────────────────────────────────────────────────
-document.addEventListener('DOMContentLoaded', () => {
-  loadData();
-});
+      { "name": "France",             "fifaRankingStart": 2,   "groupGoalsConceded": 0,  "cautionsScore": 0, "status": "Alive",      "reachedR16": false, "eliminatedRound": null, "isChampion": false, "isRunnerUp": false },
+      { "name": "Belgium",            "fifaRankingStart": 3,   "groupGoalsConceded": 0,  "cautionsScore": 0, "status": "Alive",      "reachedR16": false, "eliminatedRound": null, "isChampion": false, "isRunnerUp": false },
+      { "name": "Czechia",            "fifaRankingStart": 36,  "groupGoalsConceded": 0,  "cautionsScore": 0, "status": "Alive",      "reachedR16": false, "eliminatedRound": null, "isChampion": false, "isRunnerUp": false },
+      { "name": "South Africa",       "fifaRankingStart": 59,  "groupGoalsConceded": 0,  "cautionsScore": 0, "status": "Alive",      "reachedR16": false, "eliminatedRound": null, "isChampion": false, "isRunnerUp": false },
+      { "name": "Bosnia & Herzegovina","fifaRankingStart": 74, "groupGoalsConceded": 0,  "cautionsScore": 0, "status": "Alive",      "reachedR16": false, "eliminatedRound": null, "isChampion": false, "isRunnerUp": false },
+      { "name": "Cabo Verde",         "fifaRankingStart": 65,  "groupGoalsConceded": 0,  "cautionsScore": 0, "status": "Alive",      "reachedR16": false, "eliminatedRound": null, "isChampion": false, "isRunnerUp": false },
+      { "name": "South Korea",        "fifaRankingStart": 22,  "groupGoalsConceded": 0,  "cautionsScore": 0, "status": "Alive",      "reachedR16": false, "eliminatedRound": null, "isChampion": false, "isRunnerUp": false },
 
-// ── DATA LOADING ─────────────────────────────────────────────────────
-// Fetches the pre-built local JSON cache. Never calls the football API.
-async function loadData() {
-  showScreen('loading');
-  try {
-    // Add cache-busting param to ensure we get the latest file
-    const res = await fetch('data/tournament.json?v=' + Date.now());
-    if (!res.ok) throw new Error(`HTTP ${res.status}: Could not load data/tournament.json`);
-    RAW_DATA = await res.json();
+      { "name": "Portugal",           "fifaRankingStart": 6,   "groupGoalsConceded": 0,  "cautionsScore": 0, "status": "Alive",      "reachedR16": false, "eliminatedRound": null, "isChampion": false, "isRunnerUp": false },
+      { "name": "Germany",            "fifaRankingStart": 16,  "groupGoalsConceded": 0,  "cautionsScore": 0, "status": "Alive",      "reachedR16": false, "eliminatedRound": null, "isChampion": false, "isRunnerUp": false },
+      { "name": "Canada",             "fifaRankingStart": 40,  "groupGoalsConceded": 0,  "cautionsScore": 0, "status": "Alive",      "reachedR16": false, "eliminatedRound": null, "isChampion": false, "isRunnerUp": false },
+      { "name": "Egypt",              "fifaRankingStart": 34,  "groupGoalsConceded": 0,  "cautionsScore": 0, "status": "Alive",      "reachedR16": false, "eliminatedRound": null, "isChampion": false, "isRunnerUp": false },
+      { "name": "Iraq",               "fifaRankingStart": 55,  "groupGoalsConceded": 0,  "cautionsScore": 0, "status": "Alive",      "reachedR16": false, "eliminatedRound": null, "isChampion": false, "isRunnerUp": false },
+      { "name": "Curaçao",            "fifaRankingStart": 88,  "groupGoalsConceded": 0,  "cautionsScore": 0, "status": "Alive",      "reachedR16": false, "eliminatedRound": null, "isChampion": false, "isRunnerUp": false },
+      { "name": "Senegal",            "fifaRankingStart": 17,  "groupGoalsConceded": 0,  "cautionsScore": 0, "status": "Alive",      "reachedR16": false, "eliminatedRound": null, "isChampion": false, "isRunnerUp": false },
+
+      { "name": "Spain",              "fifaRankingStart": 8,   "groupGoalsConceded": 0,  "cautionsScore": 0, "status": "Alive",      "reachedR16": false, "eliminatedRound": null, "isChampion": false, "isRunnerUp": false },
+      { "name": "Morocco",            "fifaRankingStart": 14,  "groupGoalsConceded": 0,  "cautionsScore": 0, "status": "Alive",      "reachedR16": false, "eliminatedRound": null, "isChampion": false, "isRunnerUp": false },
+      { "name": "Mexico",             "fifaRankingStart": 15,  "groupGoalsConceded": 0,  "cautionsScore": 0, "status": "Alive",      "reachedR16": false, "eliminatedRound": null, "isChampion": false, "isRunnerUp": false },
+      { "name": "Austria",            "fifaRankingStart": 24,  "groupGoalsConceded": 0,  "cautionsScore": 0, "status": "Alive",      "reachedR16": false, "eliminatedRound": null, "isChampion": false, "isRunnerUp": false },
+      { "name": "Tunisia",            "fifaRankingStart": 28,  "groupGoalsConceded": 0,  "cautionsScore": 0, "status": "Alive",      "reachedR16": false, "eliminatedRound": null, "isChampion": false, "isRunnerUp": false },
+      { "name": "Scotland",           "fifaRankingStart": 39,  "groupGoalsConceded": 0,  "cautionsScore": 0, "status": "Alive",      "reachedR16": false, "eliminatedRound": null, "isChampion": false, "isRunnerUp": false }
+    ],
+    "prizes": [
+      {
+        "key": "lowest_ranked_r16",
+        "label": "Lowest ranked team in Round of 16",
+        "value": 25,
+        "rule": "Uses official world ranking at start of tournament. The lowest-ranked (highest number) team to qualify for the R16 wins.",
+        "autoCalculated": true,
+        "manualOverride": null
+      },
+      {
+        "key": "most_cautions_group",
+        "label": "Most cautions in Group Stage",
+        "value": 25,
+        "rule": "Yellow = 1 pt, 2nd Yellow = 2 pts, Straight Red = 4 pts. Tiebreaker: most straight reds.",
+        "autoCalculated": false,
+        "manualOverride": null
+      },
+      {
+        "key": "latest_goal",
+        "label": "Team with the latest goal",
+        "value": 25,
+        "rule": "Goals scored in regular time + stoppage time only. Extra time does not count.",
+        "autoCalculated": false,
+        "manualOverride": null
+      },
+      {
+        "key": "most_goals_conceded_group",
+        "label": "Most goals conceded in Group Stage",
+        "value": 25,
+        "rule": "The team conceding the most goals across all group stage matches wins.",
+        "autoCalculated": true,
+        "manualOverride": null
+      },
+      {
+        "key": "goal_of_tournament",
+        "label": "Goal of the tournament",
+        "value": 25,
+        "rule": "Manual assignment by group consensus after the tournament ends.",
+        "autoCalculated": false,
+        "manualOverride": null
+      },
+      {
+        "key": "final_loser",
+        "label": "Final loser (Runner-up)",
+        "value": 75,
+        "rule": "Owner of the runner-up team wins this prize.",
+        "autoCalculated": true,
+        "manualOverride": null
+      },
+      {
+        "key": "final_winner",
+        "label": "Final winner (Champion)",
+        "value": 150,
+        "rule": "Owner of the tournament champion wins this prize.",
+        "autoCalculated": true,
+        "manualOverride": null
+      }
+    ]
+  };
+
+  let RAW_DATA  = null;   
+  let state     = null;   
+
+  let adm = {
+    champion:    null,
+    runnerUp:    null,
+    latestGoal:  null,
+    cautions:    null,
+    got:         null,
+  };
+
+  let activeTab  = 'standings';
+  let teamFilter = 'all';
+  let searchQuery= '';
+
+  async function loadData(forceFallback = false) {
+    showScreen('loading');
+    if (forceFallback) {
+      useFallback();
+      return;
+    }
+    try {
+      const res = await fetch('data/tournament.json?v=' + Date.now());
+      if (!res.ok) throw new Error(`HTTP ${res.status}: Could not load data/tournament.json`);
+      RAW_DATA = await res.json();
+      validateAndBoot();
+    } catch (err) {
+      console.warn("External tournament.json fetch failed, using pristine local fallback cache.", err);
+      useFallback();
+    }
+  }
+
+  function useFallback() {
+    RAW_DATA = JSON.parse(JSON.stringify(EMBEDDED_FALLBACK_DATA));
     validateAndBoot();
-  } catch (err) {
-    showScreen('error');
-    document.getElementById('error-msg').textContent =
-      err.message + '\n\nMake sure data/tournament.json exists and is valid.';
   }
-}
 
-function reloadFromCache() {
-  const icon = document.getElementById('refresh-icon');
-  icon.classList.add('spinning');
-  setTimeout(() => {
-    loadData().finally(() => icon.classList.remove('spinning'));
-  }, 400);
-}
-
-function showScreen(which) {
-  document.getElementById('loading-screen').style.display = which === 'loading' ? 'flex' : 'none';
-  document.getElementById('error-screen').style.display   = which === 'error'   ? 'flex' : 'none';
-  document.getElementById('app').style.display            = which === 'app'     ? 'block': 'none';
-}
-
-// ── VALIDATE & BOOT ───────────────────────────────────────────────────
-function validateAndBoot() {
-  const alerts = runValidation(RAW_DATA);
-  // Seed admin overrides from JSON manual overrides (if present)
-  for (const prize of RAW_DATA.prizes) {
-    if (prize.manualOverride) {
-      if (prize.key === 'latest_goal')    adm.latestGoal = prize.manualOverride;
-      if (prize.key === 'most_cautions_group') adm.cautions = prize.manualOverride;
-      if (prize.key === 'goal_of_tournament')  adm.got      = prize.manualOverride;
-      if (prize.key === 'final_winner')   adm.champion = prize.manualOverride;
-      if (prize.key === 'final_loser')    adm.runnerUp = prize.manualOverride;
-    }
+  function reloadFromCache() {
+    const icon = document.getElementById('refresh-icon');
+    icon.classList.add('spinning');
+    setTimeout(() => {
+      loadData(false).finally(() => icon.classList.remove('spinning'));
+    }, 400);
   }
-  // Use JSON champion/runnerUp if set in teams array
-  for (const t of RAW_DATA.teams) {
-    if (t.isChampion && !adm.champion) adm.champion = t.name;
-    if (t.isRunnerUp && !adm.runnerUp) adm.runnerUp = t.name;
+
+  function showScreen(which) {
+    document.getElementById('loading-screen').style.display = which === 'loading' ? 'flex' : 'none';
+    document.getElementById('error-screen').style.display   = which === 'error'   ? 'flex' : 'none';
+    document.getElementById('app').style.display            = which === 'app'     ? 'block': 'none';
   }
-  compute();
-  populateAdminSelects();
-  renderAll(alerts);
-  checkStaleData();
-  showScreen('app');
-  lucide.createIcons();
-}
 
-// ── VALIDATION ────────────────────────────────────────────────────────
-function runValidation(data) {
-  const alerts = [];
-  const allTeamNames = new Set(data.teams.map(t => t.name));
-  const ownerCounts  = {};
+  function validateAndBoot() {
+    const alerts = runValidation(RAW_DATA);
+    
+    // Seed initial original state flags for reliable simulator resets
+    RAW_DATA.teams.forEach(t => {
+      if (t._origR16 === undefined) t._origR16 = t.reachedR16;
+    });
 
-  for (const p of data.players) {
-    for (const tName of p.teams) {
-      if (!allTeamNames.has(tName)) {
-        alerts.push({ type: 'warn', msg: `Player "${p.name}" owns "${tName}" but it's not in the teams list.` });
+    for (const prize of RAW_DATA.prizes) {
+      if (prize.manualOverride) {
+        if (prize.key === 'latest_goal')         adm.latestGoal = prize.manualOverride;
+        if (prize.key === 'most_cautions_group') adm.cautions = prize.manualOverride;
+        if (prize.key === 'goal_of_tournament')  adm.got      = prize.manualOverride;
+        if (prize.key === 'final_winner')        adm.champion = prize.manualOverride;
+        if (prize.key === 'final_loser')         adm.runnerUp = prize.manualOverride;
       }
-      ownerCounts[tName] = (ownerCounts[tName] || 0) + 1;
     }
-  }
 
-  // Duplicate ownership
-  for (const [team, count] of Object.entries(ownerCounts)) {
-    if (count > 1) alerts.push({ type: 'warn', msg: `"${team}" is assigned to ${count} players — duplicate detected.` });
-  }
-
-  // Unassigned teams
-  const assignedTeams = new Set(data.players.flatMap(p => p.teams));
-  for (const t of data.teams) {
-    if (!assignedTeams.has(t.name)) {
-      alerts.push({ type: 'info', msg: `"${t.name}" has no owner assigned.` });
+    for (const t of RAW_DATA.teams) {
+      if (t.isChampion && !adm.champion) adm.champion = t.name;
+      if (t.isRunnerUp && !adm.runnerUp) adm.runnerUp = t.name;
     }
+    
+    compute();
+    populateAdminSelects();
+    renderAll(alerts);
+    checkStaleData();
+    showScreen('app');
+    lucide.createIcons();
   }
 
-  // Player team counts
-  for (const p of data.players) {
-    if (p.teams.length < 6) alerts.push({ type: 'warn', msg: `"${p.name}" only has ${p.teams.length} teams (expected 6–7).` });
-  }
+  function runValidation(data) {
+    const alerts = [];
+    const allTeamNames = new Set(data.teams.map(t => t.name));
+    const ownerCounts  = {};
 
-  // Manual prizes unresolved
-  for (const prize of data.prizes) {
-    if (!prize.autoCalculated && !prize.manualOverride) {
-      alerts.push({ type: 'info', msg: `"${prize.label}" is a manual prize and has no override set yet.` });
+    for (const p of data.players) {
+      for (const tName of p.teams) {
+        if (!allTeamNames.has(tName)) {
+          alerts.push({ type: 'warn', msg: `Player "${p.name}" owns "${tName}" but it's not in the teams list.` });
+        }
+        ownerCounts[tName] = (ownerCounts[tName] || 0) + 1;
+      }
     }
+
+    for (const [team, count] of Object.entries(ownerCounts)) {
+      if (count > 1) alerts.push({ type: 'warn', msg: `"${team}" is assigned to ${count} players — duplicate detected.` });
+    }
+
+    const assignedTeams = new Set(data.players.flatMap(p => p.teams));
+    for (const t of data.teams) {
+      if (!assignedTeams.has(t.name)) {
+        alerts.push({ type: 'info', msg: `"${t.name}" has no owner assigned.` });
+      }
+    }
+
+    for (const p of data.players) {
+      if (p.teams.length < 6) alerts.push({ type: 'warn', msg: `"${p.name}" only has ${p.teams.length} teams (expected 6–7).` });
+    }
+
+    return alerts;
   }
 
-  return alerts;
-}
+  function checkStaleData() {
+    const meta = RAW_DATA._meta;
+    if (!meta?.lastUpdated) return;
 
-// ── STALE CHECK ───────────────────────────────────────────────────────
-function checkStaleData() {
-  const meta = RAW_DATA._meta;
-  if (!meta?.lastUpdated) return;
+    const updated  = new Date(meta.lastUpdated);
+    const ageHours = (Date.now() - updated) / 36e5;
+    const threshold = meta.staleThresholdHours ?? 12;
 
-  const updated  = new Date(meta.lastUpdated);
-  const ageHours = (Date.now() - updated) / 36e5;
-  const threshold = meta.staleThresholdHours ?? 12;
+    if (ageHours > threshold) {
+      document.getElementById('stale-banner').classList.add('show');
+    }
 
-  if (ageHours > threshold) {
-    document.getElementById('stale-banner').classList.add('show');
-  }
+    document.getElementById('last-updated').textContent = updated.toLocaleString('en-AU', {
+      day:'2-digit', month:'short', hour:'2-digit', minute:'2-digit',
+    });
 
-  // Format timestamp
-  document.getElementById('last-updated').textContent = updated.toLocaleString('en-AU', {
-    day:'2-digit', month:'short', hour:'2-digit', minute:'2-digit',
-  });
-
-  // Cache status chip
-  const chipEl = document.getElementById('cache-status-chip');
-  if (meta.updateStatus === 'ok') {
-    chipEl.innerHTML = `<span class="chip chip-green"><span style="width:6px;height:6px;border-radius:50%;background:currentColor;display:inline-block;"></span> Updated</span>`;
-  } else {
-    chipEl.innerHTML = `<span class="chip chip-red">Stale</span>`;
-  }
-}
-
-// ── COMPUTE STATE ─────────────────────────────────────────────────────
-// All calculations live here. Renderers are pure display logic only.
-function compute() {
-  // Deep-clone raw data so we never mutate it
-  const teams   = JSON.parse(JSON.stringify(RAW_DATA.teams));
-  const players = JSON.parse(JSON.stringify(RAW_DATA.players));
-  const prizes  = JSON.parse(JSON.stringify(RAW_DATA.prizes));
-
-  // Build owner map
-  const teamOwner = {};
-  for (const p of players) {
-    for (const tName of p.teams) teamOwner[tName] = p.name;
-  }
-
-  // Apply admin overrides to team statuses
-  for (const t of teams) {
-    t.owner = teamOwner[t.name] || 'Unassigned';
-    if (t.name === adm.champion) {
-      t.isChampion = true; t.isRunnerUp = false; t.status = 'Champion'; t.reachedR16 = true;
-    } else if (t.name === adm.runnerUp) {
-      t.isChampion = false; t.isRunnerUp = true; t.status = 'Runner-Up'; t.reachedR16 = true;
+    const chipEl = document.getElementById('cache-status-chip');
+    if (meta.updateStatus === 'ok') {
+      chipEl.innerHTML = `<span class="chip chip-green"><span style="width:6px;height:6px;border-radius:50%;background:currentColor;display:inline-block;"></span> Updated</span>`;
     } else {
-      t.isChampion = false; t.isRunnerUp = false;
-      if (!t.reachedR16) t.status = 'Eliminated';
-      else t.status = 'Active';
+      chipEl.innerHTML = `<span class="chip chip-red">Stale</span>`;
     }
   }
 
-  // ── PRIZE RESOLUTION ─────────────────────────────────────────────
-  const teamMap = Object.fromEntries(teams.map(t => [t.name, t]));
+  function compute() {
+    const teams   = JSON.parse(JSON.stringify(RAW_DATA.teams));
+    const players = JSON.parse(JSON.stringify(RAW_DATA.players));
+    const prizes  = JSON.parse(JSON.stringify(RAW_DATA.prizes));
 
-  for (const prize of prizes) {
-    prize.leaders  = [];
-    prize.contested = false;
-    prize.resolved  = false;
-
-    if (prize.key === 'final_winner') {
-      if (adm.champion) {
-        const t = teamMap[adm.champion];
-        if (t) { prize.leaders = [{ team: t.name, owner: t.owner, detail: 'Champion' }]; prize.resolved = true; }
-      }
+    const teamOwner = {};
+    for (const p of players) {
+      for (const tName of p.teams) teamOwner[tName] = p.name;
     }
 
-    else if (prize.key === 'final_loser') {
-      if (adm.runnerUp) {
-        const t = teamMap[adm.runnerUp];
-        if (t) { prize.leaders = [{ team: t.name, owner: t.owner, detail: 'Runner-Up' }]; prize.resolved = true; }
-      }
-    }
-
-    else if (prize.key === 'lowest_ranked_r16') {
-      const r16 = teams.filter(t => t.reachedR16);
-      if (r16.length > 0) {
-        const maxRank = Math.max(...r16.map(t => t.fifaRankingStart));
-        const worst   = r16.filter(t => t.fifaRankingStart === maxRank);
-        prize.leaders   = worst.map(t => ({ team: t.name, owner: t.owner, detail: `Rank #${t.fifaRankingStart}` }));
-        prize.contested = worst.length > 1;
-        prize.resolved  = !prize.contested;
-      }
-    }
-
-    else if (prize.key === 'most_goals_conceded_group') {
-      const maxGoals = Math.max(...teams.map(t => t.groupGoalsConceded));
-      const winners  = teams.filter(t => t.groupGoalsConceded === maxGoals);
-      prize.leaders   = winners.map(t => ({ team: t.name, owner: t.owner, detail: `${t.groupGoalsConceded} goals` }));
-      prize.contested = winners.length > 1;
-      prize.resolved  = !prize.contested;
-    }
-
-    else if (prize.key === 'most_cautions_group') {
-      // Semi-auto: if admin has set a winner, use it; else find max from data
-      const override = adm.cautions || prize.manualOverride;
-      if (override) {
-        const t = teamMap[override];
-        if (t) { prize.leaders = [{ team: t.name, owner: t.owner, detail: 'Manual assignment' }]; prize.resolved = true; }
+    for (const t of teams) {
+      t.owner = teamOwner[t.name] || 'Unassigned';
+      if (t.name === adm.champion) {
+        t.isChampion = true; t.isRunnerUp = false; t.status = 'Champion'; t.reachedR16 = true;
+      } else if (t.name === adm.runnerUp) {
+        t.isChampion = false; t.isRunnerUp = true; t.status = 'Runner-Up'; t.reachedR16 = true;
       } else {
-        const maxPts = Math.max(...teams.map(t => t.cautionsScore));
-        const candidates = teams.filter(t => t.cautionsScore === maxPts);
-        prize.leaders    = candidates.map(t => ({ team: t.name, owner: t.owner, detail: `${t.cautionsScore} pts` }));
-        prize.contested  = candidates.length > 1;
-        prize.resolved   = false; // Always "Manual Check Required" until explicitly set
+        t.isChampion = false; t.isRunnerUp = false;
+        if (!t.reachedR16) t.status = 'Alive';
+        else t.status = 'Active';
       }
     }
 
-    else if (prize.key === 'latest_goal') {
-      const override = adm.latestGoal || prize.manualOverride;
-      if (override) {
-        const t = teamMap[override];
-        if (t) { prize.leaders = [{ team: t.name, owner: t.owner, detail: 'Regular + stoppage' }]; prize.resolved = true; }
-      }
-    }
-
-    else if (prize.key === 'goal_of_tournament') {
-      const override = adm.got || prize.manualOverride;
-      if (override) {
-        const t = teamMap[override];
-        if (t) { prize.leaders = [{ team: t.name, owner: t.owner, detail: 'Group consensus' }]; prize.resolved = true; }
-      }
-    }
-  }
-
-  // ── PLAYER STATS ─────────────────────────────────────────────────
-  for (const p of players) {
-    const myTeams = p.teams.map(n => teamMap[n]).filter(Boolean);
-
-    p.teamsAlive     = myTeams.filter(t => t.status !== 'Eliminated').length;
-    p.confirmedWin   = 0;
-    p.projectedWin   = 0;
-    p.maxUpside      = 0;
-    p.leadingPrizes  = [];
-    p.wonPrizes      = [];
+    const teamMap = Object.fromEntries(teams.map(t => [t.name, t]));
 
     for (const prize of prizes) {
-      const isLeading = prize.leaders.some(l => l.owner === p.name);
-      if (isLeading) {
-        const share = prize.value / prize.leaders.length;
-        p.leadingPrizes.push({ ...prize, share, contested: prize.contested });
-        p.projectedWin += share;
-        if (prize.resolved && !prize.contested) {
-          p.confirmedWin += share;
-          p.wonPrizes.push({ ...prize, share });
+      prize.leaders  = [];
+      prize.contested = false;
+      prize.resolved  = false;
+
+      if (prize.key === 'final_winner') {
+        if (adm.champion) {
+          const t = teamMap[adm.champion];
+          if (t) { prize.leaders = [{ team: t.name, owner: t.owner, detail: 'Champion' }]; prize.resolved = true; }
+        }
+      }
+
+      else if (prize.key === 'final_loser') {
+        if (adm.runnerUp) {
+          const t = teamMap[adm.runnerUp];
+          if (t) { prize.leaders = [{ team: t.name, owner: t.owner, detail: 'Runner-Up' }]; prize.resolved = true; }
+        }
+      }
+
+      else if (prize.key === 'lowest_ranked_r16') {
+        const r16 = teams.filter(t => t.reachedR16);
+        if (r16.length > 0) {
+          const maxRank = Math.max(...r16.map(t => t.fifaRankingStart));
+          const worst   = r16.filter(t => t.fifaRankingStart === maxRank);
+          prize.leaders   = worst.map(t => ({ team: t.name, owner: t.owner, detail: `Rank #${t.fifaRankingStart}` }));
+          prize.contested = worst.length > 1;
+          prize.resolved  = !prize.contested;
+        }
+      }
+
+      else if (prize.key === 'most_goals_conceded_group') {
+        const anyGoalsConceded = teams.some(t => t.groupGoalsConceded > 0);
+        if (anyGoalsConceded) {
+          const maxGoals = Math.max(...teams.map(t => t.groupGoalsConceded));
+          const winners  = teams.filter(t => t.groupGoalsConceded === maxGoals);
+          prize.leaders   = winners.map(t => ({ team: t.name, owner: t.owner, detail: `${t.groupGoalsConceded} goals` }));
+          prize.contested = winners.length > 1;
+          prize.resolved  = !prize.contested;
+        }
+      }
+
+      else if (prize.key === 'most_cautions_group') {
+        const override = adm.cautions || prize.manualOverride;
+        if (override) {
+          const t = teamMap[override];
+          if (t) { prize.leaders = [{ team: t.name, owner: t.owner, detail: 'Manual assignment' }]; prize.resolved = true; }
+        } else {
+          const anyCautions = teams.some(t => t.cautionsScore > 0);
+          if (anyCautions) {
+            const maxPts = Math.max(...teams.map(t => t.cautionsScore));
+            const candidates = teams.filter(t => t.cautionsScore === maxPts);
+            prize.leaders    = candidates.map(t => ({ team: t.name, owner: t.owner, detail: `${t.cautionsScore} pts` }));
+            prize.contested  = candidates.length > 1;
+            prize.resolved   = false;
+          }
+        }
+      }
+
+      else if (prize.key === 'latest_goal') {
+        const override = adm.latestGoal || prize.manualOverride;
+        if (override) {
+          const t = teamMap[override];
+          if (t) { prize.leaders = [{ team: t.name, owner: t.owner, detail: 'Regular + stoppage' }]; prize.resolved = true; }
+        }
+      }
+
+      else if (prize.key === 'goal_of_tournament') {
+        const override = adm.got || prize.manualOverride;
+        if (override) {
+          const t = teamMap[override];
+          if (t) { prize.leaders = [{ team: t.name, owner: t.owner, detail: 'Group consensus' }]; prize.resolved = true; }
         }
       }
     }
 
-    // Max upside: confirmed + all prizes still winnable
-    p.maxUpside = p.confirmedWin;
-    for (const prize of prizes) {
-      const isLeading = prize.leaders.some(l => l.owner === p.name);
-      if (isLeading) {
-        // Already included in confirmed if settled, else add share
-        if (!(prize.resolved && !prize.contested)) {
-          p.maxUpside += prize.value / prize.leaders.length;
+    for (const p of players) {
+      const myTeams = p.teams.map(n => teamMap[n]).filter(Boolean);
+
+      p.teamsAlive     = myTeams.filter(t => t.status !== 'Eliminated').length;
+      p.confirmedWin   = 0;
+      p.projectedWin   = 0;
+      p.maxUpside      = 0;
+      p.leadingPrizes  = [];
+      p.wonPrizes      = [];
+
+      for (const prize of prizes) {
+        const isLeading = prize.leaders.some(l => l.owner === p.name);
+        if (isLeading) {
+          const share = prize.value / prize.leaders.length;
+          p.leadingPrizes.push({ ...prize, share, contested: prize.contested });
+          p.projectedWin += share;
+          if (prize.resolved && !prize.contested) {
+            p.confirmedWin += share;
+            p.wonPrizes.push({ ...prize, share });
+          }
         }
-      } else {
-        // Could this player win this prize via a live team?
-        const stillOpen = !prize.resolved || prize.contested;
-        if (stillOpen) {
-          const canWin = prize.key === 'final_winner' || prize.key === 'final_loser'
-            ? p.teamsAlive > 0
-            : true; // any team could theoretically win manual prizes
-          if (canWin) p.maxUpside += prize.value;
+      }
+
+      p.maxUpside = p.confirmedWin;
+      for (const prize of prizes) {
+        const isLeading = prize.leaders.some(l => l.owner === p.name);
+        if (isLeading) {
+          if (!(prize.resolved && !prize.contested)) {
+            p.maxUpside += prize.value / prize.leaders.length;
+          }
+        } else {
+          const stillOpen = !prize.resolved || prize.contested;
+          if (stillOpen) {
+            const canWin = prize.key === 'final_winner' || prize.key === 'final_loser'
+              ? p.teamsAlive > 0
+              : true; 
+            if (canWin) p.maxUpside += prize.value;
+          }
         }
       }
     }
+
+    players.sort((a, b) => b.projectedWin - a.projectedWin || b.teamsAlive - a.teamsAlive);
+
+    state = { teams, players, prizes, meta: RAW_DATA._meta };
   }
 
-  // Sort players by projected winnings
-  players.sort((a, b) => b.projectedWin - a.projectedWin || b.teamsAlive - a.teamsAlive);
+  function renderAll(alerts) {
+    renderKPIs();
+    renderStandings();
+    renderPrizes();
+    renderTeams();
+    renderAlerts(alerts || []);
+    
+    const count = (alerts || []).filter(a => a.type === 'warn').length;
+    const badge = document.getElementById('alert-count-badge');
+    if (count > 0) { badge.style.display = 'inline'; badge.textContent = count; }
+    else badge.style.display = 'none';
+  }
 
-  state = { teams, players, prizes, meta: RAW_DATA._meta };
-}
+  function renderKPIs() {
+    const { teams, players, prizes } = state;
+    const alive    = teams.filter(t => t.status !== 'Eliminated').length;
+    const elim     = teams.length - alive;
+    const settled  = prizes.filter(p => p.resolved && !p.contested).length;
+    const contested= prizes.filter(p => p.contested).length;
+    const leader   = players[0];
 
-// ── RENDER ALL ─────────────────────────────────────────────────────────
-function renderAll(alerts) {
-  renderKPIs();
-  renderStandings();
-  renderPrizes();
-  renderTeams();
-  renderAlerts(alerts || []);
-  // Update alert badge
-  const count = (alerts || []).filter(a => a.type === 'warn').length;
-  const badge = document.getElementById('alert-count-badge');
-  if (count > 0) { badge.style.display = 'inline'; badge.textContent = count; }
-  else badge.style.display = 'none';
-}
+    document.getElementById('kpi-alive').textContent     = `${alive} / ${teams.length}`;
+    document.getElementById('kpi-eliminated').textContent= `${elim} eliminated`;
+    document.getElementById('kpi-settled').textContent   = `${settled} / ${prizes.length}`;
+    document.getElementById('kpi-contested').textContent = `${contested} tied`;
+    document.getElementById('kpi-leader').textContent    = leader?.name || '–';
+    document.getElementById('kpi-leader-sub').textContent= leader ? `$${leader.projectedWin.toFixed(2)} projected` : '–';
+  }
 
-// ── KPIs ──────────────────────────────────────────────────────────────
-function renderKPIs() {
-  const { teams, players, prizes } = state;
-  const alive    = teams.filter(t => t.status !== 'Eliminated').length;
-  const elim     = teams.length - alive;
-  const settled  = prizes.filter(p => p.resolved && !p.contested).length;
-  const contested= prizes.filter(p => p.contested).length;
-  const leader   = players[0];
+  function renderStandings() {
+    const list = document.getElementById('standings-list');
+    list.innerHTML = '';
 
-  document.getElementById('kpi-alive').textContent     = `${alive} / ${teams.length}`;
-  document.getElementById('kpi-eliminated').textContent= `${elim} eliminated`;
-  document.getElementById('kpi-settled').textContent   = `${settled} / ${prizes.length}`;
-  document.getElementById('kpi-contested').textContent = `${contested} tied/contested`;
-  document.getElementById('kpi-leader').textContent    = leader?.name || '–';
-  document.getElementById('kpi-leader-sub').textContent= leader ? `$${leader.projectedWin.toFixed(2)} projected` : '–';
-}
+    state.players.forEach((p, idx) => {
+      const isChampPlayer = p.wonPrizes.some(w => w.key === 'final_winner');
+      const card = document.createElement('div');
+      card.className = 'standings-card' + (isChampPlayer ? ' champion-card' : '');
+      card.setAttribute('role', 'button');
+      card.setAttribute('tabindex', '0');
+      card.onclick = () => openDrawer(p.name);
+      card.onkeydown = e => { if (e.key === 'Enter' || e.key === ' ') openDrawer(p.name); };
 
-// ── STANDINGS ─────────────────────────────────────────────────────────
-function renderStandings() {
-  const list = document.getElementById('standings-list');
-  list.innerHTML = '';
+      const rankColor = idx === 0 ? 'var(--champ-gold)' : idx === 1 ? 'var(--data-grey)' : idx === 2 ? '#cd7f32' : 'var(--data-grey)';
 
-  state.players.forEach((p, idx) => {
-    const isChampPlayer = p.wonPrizes.some(w => w.key === 'final_winner');
-    const card = document.createElement('div');
-    card.className = 'standings-card' + (isChampPlayer ? ' champion-card' : '');
-    card.setAttribute('role', 'button');
-    card.setAttribute('tabindex', '0');
-    card.setAttribute('aria-label', `View details for ${p.name}`);
-    card.onclick = () => openDrawer(p.name);
-    card.onkeydown = e => { if (e.key === 'Enter' || e.key === ' ') openDrawer(p.name); };
+      const pillsHTML = p.teams.map(tName => {
+        const t = state.teams.find(tm => tm.name === tName);
+        let cls = 'team-pill';
+        if (t?.isChampion) cls += ' champion';
+        else if (t?.isRunnerUp) cls += ' runnerup';
+        else if (t?.status !== 'Eliminated') cls += ' alive';
+        return `<span class="${cls}" title="${tName}">${tName}</span>`;
+      }).join('');
 
-    // Position medal colours
-    const rankColor = idx === 0 ? 'var(--champ-gold)' : idx === 1 ? 'var(--data-grey)' : idx === 2 ? '#cd7f32' : 'var(--data-grey)';
+      const prizeTagsHTML = p.leadingPrizes.map(lp => {
+        const cls = lp.share !== lp.value ? 'prize-tag prize-tag-contested' :
+                    (lp.resolved && !lp.contested) ? 'prize-tag prize-tag-won' : 'prize-tag prize-tag-lead';
+        const label = lp.label.length > 22 ? lp.label.substring(0, 22) + '…' : lp.label;
+        return `<span class="${cls}">${label} <strong>$${lp.share.toFixed(0)}</strong></span>`;
+      }).join('');
 
-    // Team pills
-    const pillsHTML = p.teams.map(tName => {
-      const t = state.teams.find(tm => tm.name === tName);
-      let cls = 'team-pill';
-      if (t?.isChampion) cls += ' champion';
-      else if (t?.isRunnerUp) cls += ' runnerup';
-      else if (t?.status !== 'Eliminated') cls += ' alive';
-      return `<span class="${cls}" title="${tName}">${tName}</span>`;
-    }).join('');
+      card.innerHTML = `
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:8px;">
+          <div style="display:flex;align-items:center;gap:10px;">
+            <span style="font-size:13px;font-weight:800;color:${rankColor};min-width:20px;font-variant-numeric:tabular-nums;">#${idx + 1}</span>
+            <div>
+              <div style="display:flex;align-items:center;gap:6px;">
+                <span style="font-weight:700;font-size:14px;color:var(--spotlight);">${p.name}</span>
+                ${isChampPlayer ? '<i data-lucide="trophy" style="width:13px;height:13px;color:var(--champ-gold);flex-shrink:0;"></i>' : ''}
+              </div>
+              <div style="font-size:10px;color:var(--data-grey);margin-top:1px;">
+                Alive: <strong style="color:var(--pitch-green);">${p.teamsAlive}</strong> / ${p.teams.length} teams
+              </div>
+            </div>
+          </div>
+          <div style="text-align:right;flex-shrink:0;">
+            <div style="font-size:10px;color:var(--data-grey);">Projected</div>
+            <div style="font-size:16px;font-weight:800;color:var(--pitch-green);font-variant-numeric:tabular-nums;">$${p.projectedWin.toFixed(2)}</div>
+            ${p.confirmedWin > 0 ? `<div style="font-size:9px;color:var(--champ-gold);">$${p.confirmedWin.toFixed(2)} confirmed</div>` : ''}
+          </div>
+        </div>
+        <div style="display:flex;gap:4px;flex-wrap:wrap;margin-top:10px;">${pillsHTML}</div>
+        ${prizeTagsHTML ? `<div style="display:flex;flex-wrap:wrap;gap:4px;margin-top:8px;">${prizeTagsHTML}</div>` : ''}
+      `;
+      list.appendChild(card);
+    });
+    lucide.createIcons();
+  }
 
-    // Prize tags (leading)
-    const prizeTagsHTML = p.leadingPrizes.map(lp => {
-      const cls = lp.share !== lp.value ? 'prize-tag prize-tag-contested' :
-                  (lp.resolved && !lp.contested) ? 'prize-tag prize-tag-won' : 'prize-tag prize-tag-lead';
-      const label = lp.label.length > 22 ? lp.label.substring(0, 22) + '…' : lp.label;
-      return `<span class="${cls}">${label} <strong>$${lp.share.toFixed(0)}</strong></span>`;
-    }).join('');
+  function renderPrizes() {
+    const list = document.getElementById('prizes-list');
+    list.innerHTML = '';
 
-    card.innerHTML = `
-      <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:8px;">
+    for (const prize of state.prizes) {
+      const isChampPrize = prize.key === 'final_winner';
+      const card = document.createElement('div');
+      card.className = 'card' + (isChampPrize && prize.resolved ? ' champion-card' : '');
+      card.style.padding = '12px';
+
+      let statusChip;
+      if (prize.resolved && !prize.contested) {
+        statusChip = `<span class="chip chip-green">Settled</span>`;
+      } else if (prize.contested) {
+        statusChip = `<span class="chip chip-red">Tied (${prize.leaders.length})</span>`;
+      } else if (!prize.autoCalculated && prize.leaders.length === 0) {
+        statusChip = `<span class="chip chip-grey">Manual</span>`;
+      } else {
+        statusChip = `<span class="chip chip-blue">In Progress</span>`;
+      }
+
+      let leadersHTML;
+      if (prize.leaders.length === 0) {
+        leadersHTML = `<div style="font-size:11px;color:var(--data-grey);font-style:italic;">No data yet</div>`;
+      } else {
+        leadersHTML = prize.leaders.map(l => {
+          const isChampT = prize.key === 'final_winner' && l.team === adm.champion;
+          return `
+            <div class="card-inner" style="display:flex;align-items:center;justify-content:space-between;padding:7px 10px;">
+              <span style="font-weight:700;font-size:12px;color:${isChampT ? 'var(--champ-gold)' : 'var(--spotlight)'};display:flex;align-items:center;gap:5px;">
+                ${isChampT ? '<i data-lucide="trophy" style="width:12px;height:12px;color:var(--champ-gold);"></i>' : ''}
+                ${l.team}
+              </span>
+              <span style="font-size:11px;color:var(--data-grey);">${l.owner} <span style="color:var(--std-blue);">(${l.detail})</span></span>
+            </div>`;
+        }).join('');
+      }
+
+      card.innerHTML = `
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px;margin-bottom:8px;">
+          <div style="flex:1;">
+            <div style="font-weight:700;font-size:13px;color:${isChampPrize && prize.resolved ? 'var(--champ-gold)' : 'var(--spotlight)'};">${prize.label}</div>
+            <div style="font-size:10px;color:var(--data-grey);margin-top:3px;line-height:1.4;">${prize.rule}</div>
+          </div>
+          <div style="text-align:right;flex-shrink:0;">
+            <div style="font-size:9px;color:var(--data-grey);text-transform:uppercase;letter-spacing:0.05em;">Value</div>
+            <div style="font-size:16px;font-weight:800;color:var(--pitch-green);">$${prize.value}</div>
+          </div>
+        </div>
+        <div style="border-top:1px solid var(--border-subtle);padding-top:8px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+            <span style="font-size:9px;color:var(--data-grey);text-transform:uppercase;letter-spacing:0.05em;">Current leader</span>
+            ${statusChip}
+          </div>
+          <div style="display:flex;flex-direction:column;gap:4px;">${leadersHTML}</div>
+        </div>
+      `;
+      list.appendChild(card);
+    }
+    lucide.createIcons();
+  }
+
+  function renderTeams() {
+    const list = document.getElementById('teams-list');
+    list.innerHTML = '';
+    const q = searchQuery.trim().toLowerCase();
+
+    const clearBtn = document.getElementById('clear-search-btn');
+    clearBtn.style.display = q ? 'block' : 'none';
+
+    const filtered = state.teams.filter(t => {
+      const matchesQ = !q || t.name.toLowerCase().includes(q)
+                            || t.owner.toLowerCase().includes(q)
+                            || t.status.toLowerCase().includes(q);
+      if (!matchesQ) return false;
+      if (teamFilter === 'alive')     return t.status !== 'Eliminated';
+      if (teamFilter === 'r16')       return t.reachedR16;
+      if (teamFilter === 'eliminated')return t.status === 'Eliminated';
+      return true;
+    });
+
+    if (filtered.length === 0) {
+      list.innerHTML = `<div style="text-align:center;padding:24px;font-size:12px;color:var(--data-grey);">No teams match your search</div>`;
+      return;
+    }
+
+    filtered.sort((a, b) => {
+      if (a.isChampion && !b.isChampion) return -1;
+      if (b.isChampion && !a.isChampion) return 1;
+      if (a.isRunnerUp && !b.isRunnerUp) return -1;
+      if (b.isRunnerUp && !a.isRunnerUp) return 1;
+      if (a.status !== 'Eliminated' && b.status === 'Eliminated') return -1;
+      if (b.status !== 'Eliminated' && a.status === 'Eliminated') return 1;
+      return a.fifaRankingStart - b.fifaRankingStart;
+    });
+
+    for (const t of filtered) {
+      let statusChip;
+      if (t.isChampion)                statusChip = `<span class="chip chip-gold"><i data-lucide="award" style="width:10px;height:10px;"></i> Champion</span>`;
+      else if (t.isRunnerUp)           statusChip = `<span class="chip chip-purple">Runner-Up</span>`;
+      else if (t.status === 'Eliminated') statusChip = `<span class="chip chip-grey">${t.eliminatedRound || 'Out'}</span>`;
+      else if (t.reachedR16)           statusChip = `<span class="chip chip-green">R16+</span>`;
+      else                             statusChip = `<span class="chip chip-green">Alive</span>`;
+
+      const card = document.createElement('div');
+      card.className = 'card' + (t.isChampion ? ' champion-card' : '');
+      card.style.cssText = 'padding:10px 12px;display:flex;align-items:center;justify-content:space-between;gap:8px;';
+
+      card.innerHTML = `
         <div style="display:flex;align-items:center;gap:10px;">
-          <span style="font-size:13px;font-weight:800;color:${rankColor};min-width:20px;font-variant-numeric:tabular-nums;">#${idx + 1}</span>
+          <div class="card-inner" style="text-align:center;padding:4px 8px;min-width:44px;">
+            <div style="font-size:8px;color:var(--data-grey);text-transform:uppercase;letter-spacing:0.05em;">Rank</div>
+            <div style="font-size:14px;font-weight:800;color:var(--spotlight);font-variant-numeric:tabular-nums;">${t.fifaRankingStart}</div>
+          </div>
           <div>
-            <div style="display:flex;align-items:center;gap:6px;">
-              <span style="font-weight:700;font-size:14px;color:var(--spotlight);">${p.name}</span>
-              ${isChampPlayer ? '<i data-lucide="trophy" style="width:13px;height:13px;color:var(--champ-gold);flex-shrink:0;"></i>' : ''}
+            <div style="font-weight:700;font-size:13px;color:${t.isChampion ? 'var(--champ-gold)' : 'var(--spotlight)'};display:flex;align-items:center;gap:4px;">
+              ${t.isChampion ? '<i data-lucide="trophy" style="width:12px;height:12px;color:var(--champ-gold);"></i>' : ''}
+              ${t.name}
             </div>
             <div style="font-size:10px;color:var(--data-grey);margin-top:1px;">
-              Alive: <strong style="color:var(--pitch-green);">${p.teamsAlive}</strong> / ${p.teams.length} teams
+              <span style="color:var(--spotlight);font-weight:600;">${t.owner}</span>
             </div>
           </div>
         </div>
-        <div style="text-align:right;flex-shrink:0;">
-          <div style="font-size:10px;color:var(--data-grey);">Projected</div>
-          <div style="font-size:16px;font-weight:800;color:var(--pitch-green);font-variant-numeric:tabular-nums;">$${p.projectedWin.toFixed(2)}</div>
-          ${p.confirmedWin > 0 ? `<div style="font-size:9px;color:var(--champ-gold);">$${p.confirmedWin.toFixed(2)} confirmed</div>` : ''}
-        </div>
-      </div>
-      <div style="display:flex;gap:4px;flex-wrap:wrap;margin-top:10px;">${pillsHTML}</div>
-      ${prizeTagsHTML ? `<div style="display:flex;flex-wrap:wrap;gap:4px;margin-top:8px;">${prizeTagsHTML}</div>` : ''}
-    `;
-    list.appendChild(card);
-  });
-  lucide.createIcons();
-}
-
-// ── PRIZES ────────────────────────────────────────────────────────────
-function renderPrizes() {
-  const list = document.getElementById('prizes-list');
-  list.innerHTML = '';
-
-  for (const prize of state.prizes) {
-    const isChampPrize = prize.key === 'final_winner';
-    const card = document.createElement('div');
-    card.className = 'card' + (isChampPrize && prize.resolved ? ' champion-card' : '');
-    card.style.padding = '12px';
-
-    // Status chip
-    let statusChip;
-    if (prize.resolved && !prize.contested) {
-      statusChip = `<span class="chip chip-green">Settled</span>`;
-    } else if (prize.contested) {
-      statusChip = `<span class="chip chip-red">Tied (${prize.leaders.length})</span>`;
-    } else if (!prize.autoCalculated && prize.leaders.length === 0) {
-      statusChip = `<span class="chip chip-grey">Manual</span>`;
-    } else {
-      statusChip = `<span class="chip chip-blue">In Progress</span>`;
-    }
-
-    // Leaders rows
-    let leadersHTML;
-    if (prize.leaders.length === 0) {
-      leadersHTML = `<div style="font-size:11px;color:var(--data-grey);font-style:italic;">No data yet</div>`;
-    } else {
-      leadersHTML = prize.leaders.map(l => {
-        const isChampT = prize.key === 'final_winner' && l.team === adm.champion;
-        return `
-          <div class="card-inner" style="display:flex;align-items:center;justify-content:space-between;padding:7px 10px;">
-            <span style="font-weight:700;font-size:12px;color:${isChampT ? 'var(--champ-gold)' : 'var(--spotlight)'};display:flex;align-items:center;gap:5px;">
-              ${isChampT ? '<i data-lucide="trophy" style="width:12px;height:12px;color:var(--champ-gold);"></i>' : ''}
-              ${l.team}
-            </span>
-            <span style="font-size:11px;color:var(--data-grey);">${l.owner} <span style="color:var(--std-blue);">(${l.detail})</span></span>
-          </div>`;
-      }).join('');
-    }
-
-    card.innerHTML = `
-      <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px;margin-bottom:8px;">
-        <div style="flex:1;">
-          <div style="font-weight:700;font-size:13px;color:${isChampPrize && prize.resolved ? 'var(--champ-gold)' : 'var(--spotlight)'};">${prize.label}</div>
-          <div style="font-size:10px;color:var(--data-grey);margin-top:3px;line-height:1.4;">${prize.rule}</div>
-        </div>
-        <div style="text-align:right;flex-shrink:0;">
-          <div style="font-size:9px;color:var(--data-grey);text-transform:uppercase;letter-spacing:0.05em;">Value</div>
-          <div style="font-size:16px;font-weight:800;color:var(--pitch-green);">$${prize.value}</div>
-        </div>
-      </div>
-      <div style="border-top:1px solid var(--border-subtle);padding-top:8px;">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
-          <span style="font-size:9px;color:var(--data-grey);text-transform:uppercase;letter-spacing:0.05em;">Current leader</span>
+        <div style="text-align:right;">
           ${statusChip}
+          <div style="font-size:9px;color:var(--data-grey);margin-top:4px;">Conceded: <strong style="color:var(--spotlight);">${t.groupGoalsConceded}</strong></div>
         </div>
-        <div style="display:flex;flex-direction:column;gap:4px;">${leadersHTML}</div>
-      </div>
-    `;
-    list.appendChild(card);
-  }
-  lucide.createIcons();
-}
-
-// ── TEAMS ─────────────────────────────────────────────────────────────
-function renderTeams() {
-  const list = document.getElementById('teams-list');
-  list.innerHTML = '';
-  const q = searchQuery.trim().toLowerCase();
-
-  const clearBtn = document.getElementById('clear-search-btn');
-  clearBtn.style.display = q ? 'block' : 'none';
-
-  const filtered = state.teams.filter(t => {
-    const matchesQ = !q || t.name.toLowerCase().includes(q)
-                          || t.owner.toLowerCase().includes(q)
-                          || t.status.toLowerCase().includes(q);
-    if (!matchesQ) return false;
-    if (teamFilter === 'alive')     return t.status !== 'Eliminated';
-    if (teamFilter === 'r16')       return t.reachedR16;
-    if (teamFilter === 'eliminated')return t.status === 'Eliminated';
-    return true;
-  });
-
-  if (filtered.length === 0) {
-    list.innerHTML = `<div style="text-align:center;padding:24px;font-size:12px;color:var(--data-grey);">No teams match your search</div>`;
-    return;
+      `;
+      list.appendChild(card);
+    }
+    lucide.createIcons();
   }
 
-  // Sort: champions first, then runners-up, then alive, then eliminated by rank
-  filtered.sort((a, b) => {
-    if (a.isChampion && !b.isChampion) return -1;
-    if (b.isChampion && !a.isChampion) return 1;
-    if (a.isRunnerUp && !b.isRunnerUp) return -1;
-    if (b.isRunnerUp && !a.isRunnerUp) return 1;
-    if (a.status !== 'Eliminated' && b.status === 'Eliminated') return -1;
-    if (b.status !== 'Eliminated' && a.status === 'Eliminated') return 1;
-    return a.fifaRankingStart - b.fifaRankingStart;
-  });
+  function renderAlerts(alerts) {
+    const list  = document.getElementById('alerts-detail-list');
+    const topEl = document.getElementById('alerts-container');
+    list.innerHTML = '';
+    topEl.innerHTML = '';
 
-  for (const t of filtered) {
-    let statusChip;
-    if (t.isChampion)                statusChip = `<span class="chip chip-gold"><i data-lucide="award" style="width:10px;height:10px;"></i> Champion</span>`;
-    else if (t.isRunnerUp)           statusChip = `<span class="chip chip-purple">Runner-Up</span>`;
-    else if (t.status === 'Eliminated') statusChip = `<span class="chip chip-grey">${t.eliminatedRound || 'Out'}</span>`;
-    else if (t.reachedR16)           statusChip = `<span class="chip chip-green">R16+</span>`;
-    else                             statusChip = `<span class="chip chip-green">Alive</span>`;
+    if (alerts.length === 0) {
+      list.innerHTML = `
+        <div class="alert-item alert-ok" style="justify-content:center;gap:8px;">
+          <i data-lucide="check-circle" style="width:14px;height:14px;color:var(--pitch-green);flex-shrink:0;"></i>
+          <span style="color:var(--pitch-green);">No issues detected — data looks clean</span>
+        </div>`;
+      lucide.createIcons();
+      return;
+    }
 
-    const card = document.createElement('div');
-    card.className = 'card' + (t.isChampion ? ' champion-card' : '');
-    card.style.cssText = 'padding:10px 12px;display:flex;align-items:center;justify-content:space-between;gap:8px;';
+    const firstWarn = alerts.find(a => a.type === 'warn');
+    if (firstWarn) {
+      topEl.innerHTML = `<div class="alert-item alert-warn" style="margin-bottom:8px;">
+        <i data-lucide="alert-triangle" style="width:14px;height:14px;color:var(--kickoff-red);flex-shrink:0;"></i>
+        <span style="color:var(--kickoff-red);">${firstWarn.msg}</span>
+      </div>`;
+    }
 
-    card.innerHTML = `
-      <div style="display:flex;align-items:center;gap:10px;">
-        <div class="card-inner" style="text-align:center;padding:4px 8px;min-width:44px;">
-          <div style="font-size:8px;color:var(--data-grey);text-transform:uppercase;letter-spacing:0.05em;">Rank</div>
-          <div style="font-size:14px;font-weight:800;color:var(--spotlight);font-variant-numeric:tabular-nums;">${t.fifaRankingStart}</div>
+    for (const a of alerts) {
+      const cls = a.type === 'warn' ? 'alert-warn' : a.type === 'ok' ? 'alert-ok' : 'alert-info';
+      const iconName = a.type === 'warn' ? 'alert-triangle' : a.type === 'ok' ? 'check-circle' : 'info';
+      const col = a.type === 'warn' ? 'var(--kickoff-red)' : a.type === 'ok' ? 'var(--pitch-green)' : 'var(--std-blue)';
+      const el = document.createElement('div');
+      el.className = `alert-item ${cls}`;
+      el.innerHTML = `<i data-lucide="${iconName}" style="width:14px;height:14px;color:${col};flex-shrink:0;margin-top:1px;"></i>
+        <span style="color:${col};">${a.msg}</span>`;
+      list.appendChild(el);
+    }
+    lucide.createIcons();
+  }
+
+  function openDrawer(playerName) {
+    const p = state.players.find(pl => pl.name === playerName);
+    if (!p) return;
+
+    document.getElementById('drawer-name').textContent = p.name;
+    const content = document.getElementById('drawer-content');
+    
+    const finHTML = `
+      <div class="card-inner" style="display:grid;grid-template-columns:1fr 1fr 1fr;text-align:center;padding:12px;margin-bottom:16px;gap:8px;">
+        <div>
+          <div style="font-size:9px;color:var(--data-grey);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:4px;">Confirmed</div>
+          <div style="font-size:17px;font-weight:800;color:var(--pitch-green);font-variant-numeric:tabular-nums;">$${p.confirmedWin.toFixed(2)}</div>
         </div>
         <div>
-          <div style="font-weight:700;font-size:13px;color:${t.isChampion ? 'var(--champ-gold)' : 'var(--spotlight)'};display:flex;align-items:center;gap:4px;">
-            ${t.isChampion ? '<i data-lucide="trophy" style="width:12px;height:12px;color:var(--champ-gold);"></i>' : ''}
-            ${t.name}
-          </div>
-          <div style="font-size:10px;color:var(--data-grey);margin-top:1px;">
-            <span style="color:var(--spotlight);font-weight:600;">${t.owner}</span>
-          </div>
+          <div style="font-size:9px;color:var(--data-grey);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:4px;">Projected</div>
+          <div style="font-size:17px;font-weight:800;color:var(--spotlight);font-variant-numeric:tabular-nums;">$${p.projectedWin.toFixed(2)}</div>
         </div>
-      </div>
-      <div style="text-align:right;">
-        ${statusChip}
-        <div style="font-size:9px;color:var(--data-grey);margin-top:4px;">Conceded: <strong style="color:var(--spotlight);">${t.groupGoalsConceded}</strong></div>
-      </div>
+        <div>
+          <div style="font-size:9px;color:var(--data-grey);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:4px;">Max Upside</div>
+          <div style="font-size:17px;font-weight:800;color:var(--finals-purple);font-variant-numeric:tabular-nums;">$${p.maxUpside.toFixed(2)}</div>
+        </div>
+      </div>`;
+
+    const teamsHTML = p.teams.map(tName => {
+      const t = state.teams.find(tm => tm.name === tName);
+      let borderCol = 'var(--border-subtle)';
+      let statusText = '–';
+      let statusCol  = 'var(--data-grey)';
+      if (t?.isChampion)    { borderCol = 'rgba(225,193,110,0.4)'; statusText = '🏆 Champion'; statusCol = 'var(--champ-gold)'; }
+      else if (t?.isRunnerUp){ borderCol = 'rgba(142,46,255,0.3)'; statusText = '🥈 Runner-Up'; statusCol = 'var(--finals-purple)'; }
+      else if (t?.reachedR16){ borderCol = 'rgba(174,255,0,0.25)'; statusText = '🟢 Active'; statusCol = 'var(--pitch-green)'; }
+      else if (t)            { statusText = t.eliminatedRound || 'Alive'; }
+      return `
+        <div class="card-inner" style="padding:10px;border-color:${borderCol};">
+          <div style="font-weight:700;font-size:12px;color:var(--spotlight);">${tName}</div>
+          <div style="display:flex;justify-content:space-between;margin-top:5px;">
+            <span style="font-size:9px;color:var(--data-grey);">Rank #${t?.fifaRankingStart ?? '–'}</span>
+            <span style="font-size:9px;color:${statusCol};font-weight:600;">${statusText}</span>
+          </div>
+        </div>`;
+    }).join('');
+
+    const prizesHTML = p.leadingPrizes.length === 0
+      ? `<div style="font-size:11px;color:var(--data-grey);font-style:italic;">Not currently leading any prize</div>`
+      : p.leadingPrizes.map(lp => {
+          const chip = lp.contested
+            ? `<span class="chip chip-red">Tied</span>`
+            : lp.resolved
+              ? `<span class="chip chip-green">Settled</span>`
+              : `<span class="chip chip-blue">Leading</span>`;
+          return `
+            <div class="card-inner" style="padding:9px 12px;display:flex;justify-content:space-between;align-items:center;">
+              <div>
+                <div style="font-size:12px;font-weight:600;color:var(--spotlight);">${lp.label}</div>
+                <div style="margin-top:3px;">${chip}</div>
+              </div>
+              <div style="font-size:16px;font-weight:800;color:var(--pitch-green);font-variant-numeric:tabular-nums;">$${lp.share.toFixed(2)}</div>
+            </div>`;
+        }).join('');
+
+    content.innerHTML = `
+      ${finHTML}
+      <span class="section-label">Team Allocation</span>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px;">${teamsHTML}</div>
+      <span class="section-label">Prize Standings</span>
+      <div style="display:flex;flex-direction:column;gap:6px;">${prizesHTML}</div>
     `;
-    list.appendChild(card);
-  }
-  lucide.createIcons();
-}
 
-// ── ALERTS TAB ────────────────────────────────────────────────────────
-function renderAlerts(alerts) {
-  const list  = document.getElementById('alerts-detail-list');
-  const topEl = document.getElementById('alerts-container');
-  list.innerHTML = '';
-  topEl.innerHTML = '';
-
-  if (alerts.length === 0) {
-    list.innerHTML = `
-      <div class="alert-item alert-ok" style="justify-content:center;gap:8px;">
-        <i data-lucide="check-circle" style="width:14px;height:14px;color:var(--pitch-green);flex-shrink:0;"></i>
-        <span style="color:var(--pitch-green);">No issues detected — data looks clean</span>
-      </div>`;
+    const drawer = document.getElementById('detail-drawer');
+    drawer.classList.add('open');
+    document.body.style.overflow = 'hidden';
     lucide.createIcons();
-    return;
   }
 
-  // Show first warning in top banner
-  const firstWarn = alerts.find(a => a.type === 'warn');
-  if (firstWarn) {
-    topEl.innerHTML = `<div class="alert-item alert-warn" style="margin-bottom:8px;">
-      <i data-lucide="alert-triangle" style="width:14px;height:14px;color:var(--kickoff-red);flex-shrink:0;"></i>
-      <span style="color:var(--kickoff-red);">${firstWarn.msg}</span>
-    </div>`;
-  }
-
-  // Full list in alerts tab
-  for (const a of alerts) {
-    const cls = a.type === 'warn' ? 'alert-warn' : a.type === 'ok' ? 'alert-ok' : 'alert-info';
-    const iconName = a.type === 'warn' ? 'alert-triangle' : a.type === 'ok' ? 'check-circle' : 'info';
-    const col = a.type === 'warn' ? 'var(--kickoff-red)' : a.type === 'ok' ? 'var(--pitch-green)' : 'var(--std-blue)';
-    const el = document.createElement('div');
-    el.className = `alert-item ${cls}`;
-    el.innerHTML = `<i data-lucide="${iconName}" style="width:14px;height:14px;color:${col};flex-shrink:0;margin-top:1px;"></i>
-      <span style="color:${col};">${a.msg}</span>`;
-    list.appendChild(el);
-  }
-  lucide.createIcons();
-}
-
-// ── DETAIL DRAWER ─────────────────────────────────────────────────────
-function openDrawer(playerName) {
-  const p = state.players.find(pl => pl.name === playerName);
-  if (!p) return;
-
-  document.getElementById('drawer-name').textContent = p.name;
-
-  const content = document.getElementById('drawer-content');
-  // Financials
-  const finHTML = `
-    <div class="card-inner" style="display:grid;grid-template-columns:1fr 1fr 1fr;text-align:center;padding:12px;margin-bottom:16px;gap:8px;">
-      <div>
-        <div style="font-size:9px;color:var(--data-grey);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:4px;">Confirmed</div>
-        <div style="font-size:17px;font-weight:800;color:var(--pitch-green);font-variant-numeric:tabular-nums;">$${p.confirmedWin.toFixed(2)}</div>
-      </div>
-      <div>
-        <div style="font-size:9px;color:var(--data-grey);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:4px;">Projected</div>
-        <div style="font-size:17px;font-weight:800;color:var(--spotlight);font-variant-numeric:tabular-nums;">$${p.projectedWin.toFixed(2)}</div>
-      </div>
-      <div>
-        <div style="font-size:9px;color:var(--data-grey);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:4px;">Max Upside</div>
-        <div style="font-size:17px;font-weight:800;color:var(--finals-purple);font-variant-numeric:tabular-nums;">$${p.maxUpside.toFixed(2)}</div>
-      </div>
-    </div>`;
-
-  // Teams grid
-  const teamsHTML = p.teams.map(tName => {
-    const t = state.teams.find(tm => tm.name === tName);
-    let borderCol = 'var(--border-subtle)';
-    let statusText = '–';
-    let statusCol  = 'var(--data-grey)';
-    if (t?.isChampion)    { borderCol = 'rgba(225,193,110,0.4)'; statusText = '🏆 Champion'; statusCol = 'var(--champ-gold)'; }
-    else if (t?.isRunnerUp){ borderCol = 'rgba(142,46,255,0.3)'; statusText = '🥈 Runner-Up'; statusCol = 'var(--finals-purple)'; }
-    else if (t?.reachedR16){ borderCol = 'rgba(174,255,0,0.25)'; statusText = '🟢 Active'; statusCol = 'var(--pitch-green)'; }
-    else if (t)            { statusText = t.eliminatedRound || 'Eliminated'; }
-    return `
-      <div class="card-inner" style="padding:10px;border-color:${borderCol};">
-        <div style="font-weight:700;font-size:12px;color:var(--spotlight);">${tName}</div>
-        <div style="display:flex;justify-content:space-between;margin-top:5px;">
-          <span style="font-size:9px;color:var(--data-grey);">Rank #${t?.fifaRankingStart ?? '–'}</span>
-          <span style="font-size:9px;color:${statusCol};font-weight:600;">${statusText}</span>
-        </div>
-      </div>`;
-  }).join('');
-
-  // Prize chances
-  const prizesHTML = p.leadingPrizes.length === 0
-    ? `<div style="font-size:11px;color:var(--data-grey);font-style:italic;">Not currently leading any prize</div>`
-    : p.leadingPrizes.map(lp => {
-        const chip = lp.contested
-          ? `<span class="chip chip-red">Tied</span>`
-          : lp.resolved
-            ? `<span class="chip chip-green">Settled</span>`
-            : `<span class="chip chip-blue">Leading</span>`;
-        return `
-          <div class="card-inner" style="padding:9px 12px;display:flex;justify-content:space-between;align-items:center;">
-            <div>
-              <div style="font-size:12px;font-weight:600;color:var(--spotlight);">${lp.label}</div>
-              <div style="margin-top:3px;">${chip}</div>
-            </div>
-            <div style="font-size:16px;font-weight:800;color:var(--pitch-green);font-variant-numeric:tabular-nums;">$${lp.share.toFixed(2)}</div>
-          </div>`;
-      }).join('');
-
-  content.innerHTML = `
-    ${finHTML}
-    <span class="section-label">Team Allocation</span>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px;">${teamsHTML}</div>
-    <span class="section-label">Prize Standings</span>
-    <div style="display:flex;flex-direction:column;gap:6px;">${prizesHTML}</div>
-  `;
-
-  const drawer = document.getElementById('detail-drawer');
-  drawer.classList.add('open');
-  document.body.style.overflow = 'hidden';
-  lucide.createIcons();
-}
-
-function closeDrawer() {
-  document.getElementById('detail-drawer').classList.remove('open');
-  document.body.style.overflow = '';
-}
-
-function drawerBackdropClick(e) {
-  if (e.target === document.getElementById('detail-drawer')) closeDrawer();
-}
-
-// ── TABS ──────────────────────────────────────────────────────────────
-function switchTab(id) {
-  ['standings', 'prizes', 'teams', 'alerts'].forEach(t => {
-    document.getElementById(`section-${t}`).style.display  = t === id ? '' : 'none';
-    const btn = document.getElementById(`tab-${t}`);
-    btn.classList.toggle('active', t === id);
+  // --- BOOT PROCESS ---
+  document.addEventListener('DOMContentLoaded', () => {
+    loadData();
   });
-  activeTab = id;
-  if (id === 'teams') renderTeams();
-}
 
-// ── TEAM FILTER & SEARCH ──────────────────────────────────────────────
-function setFilter(f) {
-  teamFilter = f;
-  ['all','alive','r16','eliminated'].forEach(id => {
-    document.getElementById(`fp-${id}`).classList.toggle('active', id === f);
+  function closeDrawer() {
+    document.getElementById('detail-drawer').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  function drawerBackdropClick(e) {
+    if (e.target === document.getElementById('detail-drawer')) closeDrawer();
+  }
+
+  function switchTab(id) {
+    ['standings', 'prizes', 'teams', 'alerts'].forEach(t => {
+      document.getElementById(`section-${t}`).style.display  = t === id ? '' : 'none';
+      const btn = document.getElementById(`tab-${t}`);
+      btn.classList.toggle('active', t === id);
+    });
+    activeTab = id;
+    if (id === 'teams') renderTeams();
+  }
+
+  function setFilter(f) {
+    teamFilter = f;
+    ['all','alive','r16','eliminated'].forEach(id => {
+      document.getElementById(`fp-${id}`).classList.toggle('active', id === f);
+    });
+    renderTeams();
+  }
+
+  document.getElementById('team-search').addEventListener('input', e => {
+    searchQuery = e.target.value;
+    renderTeams();
   });
-  renderTeams();
-}
 
-document.getElementById('team-search').addEventListener('input', e => {
-  searchQuery = e.target.value;
-  renderTeams();
-});
+  function clearTeamSearch() {
+    document.getElementById('team-search').value = '';
+    searchQuery = '';
+    renderTeams();
+  }
 
-function clearTeamSearch() {
-  document.getElementById('team-search').value = '';
-  searchQuery = '';
-  renderTeams();
-}
+  function toggleAdmin() {
+    const panel = document.getElementById('admin-panel');
+    panel.style.display = panel.style.display === 'none' ? 'block' : 'none';
+  }
 
-// ── ADMIN PANEL ───────────────────────────────────────────────────────
-function toggleAdmin() {
-  const panel = document.getElementById('admin-panel');
-  panel.style.display = panel.style.display === 'none' ? 'block' : 'none';
-}
+  function populateAdminSelects() {
+    const teams = [...RAW_DATA.teams].sort((a, b) => a.name.localeCompare(b.name));
+    const selIds = ['sim-champion', 'sim-runnerup', 'sim-latest-goal', 'sim-cautions', 'sim-got'];
 
-function populateAdminSelects() {
-  const teams = [...RAW_DATA.teams].sort((a, b) => a.name.localeCompare(b.name));
-  const selIds = ['sim-champion', 'sim-runnerup', 'sim-latest-goal', 'sim-cautions', 'sim-got'];
+    for (const selId of selIds) {
+      const el = document.getElementById(selId);
+      const hasBlank = selId !== 'sim-champion' && selId !== 'sim-runnerup';
+      el.innerHTML = hasBlank ? '<option value="">– Unresolved –</option>' : '';
+      for (const t of teams) {
+        const opt = document.createElement('option');
+        opt.value = t.name;
+        opt.textContent = t.name;
+        el.appendChild(opt);
+      }
+    }
 
-  for (const selId of selIds) {
-    const el = document.getElementById(selId);
-    const hasBlank = selId !== 'sim-champion' && selId !== 'sim-runnerup';
-    el.innerHTML = hasBlank ? '<option value="">– Unresolved –</option>' : '';
+    if (adm.champion)   document.getElementById('sim-champion').value   = adm.champion;
+    if (adm.runnerUp)   document.getElementById('sim-runnerup').value   = adm.runnerUp;
+    if (adm.latestGoal) document.getElementById('sim-latest-goal').value= adm.latestGoal;
+    if (adm.cautions)   document.getElementById('sim-cautions').value   = adm.cautions;
+    if (adm.got)        document.getElementById('sim-got').value        = adm.got;
+
+    const grid = document.getElementById('admin-r16-grid');
+    grid.innerHTML = '';
     for (const t of teams) {
-      const opt = document.createElement('option');
-      opt.value = t.name;
-      opt.textContent = t.name;
-      el.appendChild(opt);
+      const label = document.createElement('label');
+      label.style.cssText = 'display:flex;align-items:center;gap:4px;padding:4px 6px;background:var(--deep-stadium);border-radius:6px;font-size:10px;color:var(--spotlight);cursor:pointer;';
+      const cb = document.createElement('input');
+      cb.type = 'checkbox';
+      cb.value = t.name;
+      cb.checked = t.reachedR16;
+      cb.style.accentColor = 'var(--pitch-green)';
+      cb.onchange = () => {
+        const found = RAW_DATA.teams.find(tm => tm.name === t.name);
+        if (found) found.reachedR16 = cb.checked;
+        applyAdmin();
+      };
+      label.appendChild(cb);
+      label.appendChild(document.createTextNode(t.name));
+      grid.appendChild(label);
     }
   }
 
-  // Set current values
-  if (adm.champion)   document.getElementById('sim-champion').value   = adm.champion;
-  if (adm.runnerUp)   document.getElementById('sim-runnerup').value   = adm.runnerUp;
-  if (adm.latestGoal) document.getElementById('sim-latest-goal').value= adm.latestGoal;
-  if (adm.cautions)   document.getElementById('sim-cautions').value   = adm.cautions;
-  if (adm.got)        document.getElementById('sim-got').value        = adm.got;
-
-  // R16 checkboxes
-  const grid = document.getElementById('admin-r16-grid');
-  grid.innerHTML = '';
-  for (const t of teams) {
-    const label = document.createElement('label');
-    label.style.cssText = 'display:flex;align-items:center;gap:4px;padding:4px 6px;background:var(--deep-stadium);border-radius:6px;font-size:10px;color:var(--spotlight);cursor:pointer;';
-    const cb = document.createElement('input');
-    cb.type = 'checkbox';
-    cb.value = t.name;
-    cb.checked = t.reachedR16;
-    cb.style.accentColor = 'var(--pitch-green)';
-    cb.onchange = () => {
-      const found = RAW_DATA.teams.find(tm => tm.name === t.name);
-      if (found) found.reachedR16 = cb.checked;
-      applyAdmin();
-    };
-    label.appendChild(cb);
-    label.appendChild(document.createTextNode(t.name));
-    grid.appendChild(label);
+  function applyAdmin() {
+    adm.champion   = document.getElementById('sim-champion').value   || null;
+    adm.runnerUp   = document.getElementById('sim-runnerup').value   || null;
+    adm.latestGoal = document.getElementById('sim-latest-goal').value|| null;
+    adm.cautions   = document.getElementById('sim-cautions').value   || null;
+    adm.got        = document.getElementById('sim-got').value        || null;
+    compute();
+    renderAll([]);
   }
-}
 
-function applyAdmin() {
-  adm.champion   = document.getElementById('sim-champion').value   || null;
-  adm.runnerUp   = document.getElementById('sim-runnerup').value   || null;
-  adm.latestGoal = document.getElementById('sim-latest-goal').value|| null;
-  adm.cautions   = document.getElementById('sim-cautions').value   || null;
-  adm.got        = document.getElementById('sim-got').value        || null;
-  compute();
-  renderAll([]);
-}
-
-function resetAdmin() {
-  // Restore original R16 values
-  const orig = RAW_DATA.teams;
-  for (const t of orig) {
-    const cb = document.querySelector(`#admin-r16-grid input[value="${t.name}"]`);
-    // Re-read from pristine INITIAL data — we use a flag set on first load
-    if (cb) cb.checked = t._origR16 ?? t.reachedR16;
-    t.reachedR16 = t._origR16 ?? t.reachedR16;
+  function resetAdmin() {
+    const orig = RAW_DATA.teams;
+    for (const t of orig) {
+      const cb = document.querySelector(`#admin-r16-grid input[value="${t.name}"]`);
+      if (cb) cb.checked = t._origR16 ?? t.reachedR16;
+      t.reachedR16 = t._origR16 ?? t.reachedR16;
+    }
+    adm = { champion: null, runnerUp: null, latestGoal: null, cautions: null, got: null };
+    for (const t of RAW_DATA.teams) {
+      if (t.isChampion) adm.champion = t.name;
+      if (t.isRunnerUp) adm.runnerUp = t.name;
+    }
+    populateAdminSelects();
+    compute();
+    renderAll([]);
   }
-  adm = { champion: null, runnerUp: null, latestGoal: null, cautions: null, got: null };
-  // Reset JSON champion/runnerUp state
-  for (const t of RAW_DATA.teams) {
-    if (t.isChampion) adm.champion = t.name;
-    if (t.isRunnerUp) adm.runnerUp = t.name;
-  }
-  populateAdminSelects();
-  compute();
-  renderAll([]);
-}
 
-// ── THEME TOGGLE ──────────────────────────────────────────────────────
-function toggleTheme() {
-  const html = document.documentElement;
-  const isDark = html.getAttribute('data-theme') === 'dark';
-  html.setAttribute('data-theme', isDark ? 'light' : 'dark');
-  document.getElementById('theme-icon-sun').style.display  = isDark ? 'block' : 'none';
-  document.getElementById('theme-icon-moon').style.display = isDark ? 'none'  : 'block';
-}
+  function toggleTheme() {
+    const html = document.documentElement;
+    const isDark = html.getAttribute('data-theme') === 'dark';
+    html.setAttribute('data-theme', isDark ? 'light' : 'dark');
+    document.getElementById('theme-icon-sun').style.display  = isDark ? 'block' : 'none';
+    document.getElementById('theme-icon-moon').style.display = isDark ? 'none'  : 'block';
+  }
 </script>
+</body>
+</html>
