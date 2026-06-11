@@ -1,6 +1,6 @@
 {
   "_meta": {
-    "lastUpdated": "2026-06-11T17:58:53.897Z",
+    "lastUpdated": "2026-06-11T23:11:22.280Z",
     "source": "football-data.org (Cached)",
     "updateStatus": "ok",
     "cacheAgeMinutes": 0,
@@ -458,7 +458,7 @@
     {
       "name": "South Africa",
       "fifaRankingStart": 59,
-      "groupGoalsConceded": 0,
+      "groupGoalsConceded": 2,
       "cautionsScore": 8,
       "status": "Alive",
       "reachedR16": false,
