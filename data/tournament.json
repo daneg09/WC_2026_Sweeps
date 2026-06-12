@@ -1,6 +1,6 @@
 {
   "_meta": {
-    "lastUpdated": "2026-06-11T23:11:22.280Z",
+    "lastUpdated": "2026-06-12T16:34:55.846Z",
     "source": "football-data.org (Cached)",
     "updateStatus": "ok",
     "cacheAgeMinutes": 0,
@@ -447,7 +447,7 @@
     {
       "name": "Czechia",
       "fifaRankingStart": 36,
-      "groupGoalsConceded": 0,
+      "groupGoalsConceded": 2,
       "cautionsScore": 0,
       "status": "Alive",
       "reachedR16": false,
@@ -491,7 +491,7 @@
     {
       "name": "South Korea",
       "fifaRankingStart": 22,
-      "groupGoalsConceded": 0,
+      "groupGoalsConceded": 1,
       "cautionsScore": 0,
       "status": "Alive",
       "reachedR16": false,
