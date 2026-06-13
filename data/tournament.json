@@ -1,6 +1,6 @@
 {
   "_meta": {
-    "lastUpdated": "2026-06-13T12:10:39.936Z",
+    "lastUpdated": "2026-06-13T21:54:09.993Z",
     "source": "football-data.org (Cached)",
     "updateStatus": "ok",
     "cacheAgeMinutes": 0,
@@ -304,7 +304,7 @@
     {
       "name": "Qatar",
       "fifaRankingStart": 58,
-      "groupGoalsConceded": 0,
+      "groupGoalsConceded": 1,
       "cautionsScore": 0,
       "status": "Alive",
       "reachedR16": false,
@@ -359,7 +359,7 @@
     {
       "name": "Switzerland",
       "fifaRankingStart": 19,
-      "groupGoalsConceded": 0,
+      "groupGoalsConceded": 1,
       "cautionsScore": 0,
       "status": "Alive",
       "reachedR16": false,
