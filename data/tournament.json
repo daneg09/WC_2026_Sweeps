@@ -1,6 +1,6 @@
 {
   "_meta": {
-    "lastUpdated": "2026-06-12T23:03:28.339Z",
+    "lastUpdated": "2026-06-13T12:10:39.936Z",
     "source": "football-data.org (Cached)",
     "updateStatus": "ok",
     "cacheAgeMinutes": 0,
@@ -216,7 +216,7 @@
     {
       "name": "Paraguay",
       "fifaRankingStart": 56,
-      "groupGoalsConceded": 0,
+      "groupGoalsConceded": 4,
       "cautionsScore": 2,
       "status": "Alive",
       "reachedR16": false,
@@ -414,7 +414,7 @@
     {
       "name": "United States",
       "fifaRankingStart": 13,
-      "groupGoalsConceded": 0,
+      "groupGoalsConceded": 1,
       "cautionsScore": 1,
       "status": "Alive",
       "reachedR16": false,
