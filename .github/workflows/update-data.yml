@@ -8,8 +8,8 @@ name: Update Tournament Data
 # ─────────────────────────────────────────────────────────────────
 on:
   schedule:
-    - cron: '0 6 * * *'   # 06:00 UTC daily  (morning update)
-    - cron: '0 18 * * *'  # 18:00 UTC daily  (evening update)
+    - cron: '0 22 * * *'   # 06:00 UTC daily  (morning update)
+    - cron: '0 8 * * *'  # 18:00 UTC daily  (evening update)
   workflow_dispatch:        # Manual trigger from GitHub Actions tab
 
 jobs:
