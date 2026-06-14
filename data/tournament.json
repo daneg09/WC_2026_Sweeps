@@ -1,6 +1,6 @@
 {
   "_meta": {
-    "lastUpdated": "2026-06-13T21:54:09.993Z",
+    "lastUpdated": "2026-06-14T10:06:47.386Z",
     "source": "football-data.org (Cached)",
     "updateStatus": "ok",
     "cacheAgeMinutes": 0,
@@ -183,7 +183,7 @@
     {
       "name": "Türkiye",
       "fifaRankingStart": 35,
-      "groupGoalsConceded": 0,
+      "groupGoalsConceded": 2,
       "cautionsScore": 1,
       "status": "Alive",
       "reachedR16": false,
@@ -271,7 +271,7 @@
     {
       "name": "Brazil",
       "fifaRankingStart": 4,
-      "groupGoalsConceded": 0,
+      "groupGoalsConceded": 1,
       "cautionsScore": 2,
       "status": "Alive",
       "reachedR16": false,
@@ -403,7 +403,7 @@
     {
       "name": "Haiti",
       "fifaRankingStart": 85,
-      "groupGoalsConceded": 0,
+      "groupGoalsConceded": 1,
       "cautionsScore": 3,
       "status": "Alive",
       "reachedR16": false,
@@ -590,7 +590,7 @@
     {
       "name": "Morocco",
       "fifaRankingStart": 14,
-      "groupGoalsConceded": 0,
+      "groupGoalsConceded": 1,
       "cautionsScore": 0,
       "status": "Alive",
       "reachedR16": false,
