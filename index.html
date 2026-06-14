@@ -819,8 +819,8 @@ function compute() {
       t.isChampion = false; t.isRunnerUp = true; t.status = 'Runner-Up'; t.reachedR16 = true;
     } else {
       t.isChampion = false; t.isRunnerUp = false;
-      if (!t.reachedR16) t.status = 'Eliminated';
-      else t.status = 'Active';
+      // Use the status from the JSON — 'Alive', 'Eliminated', etc.
+      // reachedR16:false just means they haven't made R16 yet, NOT that they're out.
     }
   }
 
