@@ -1,49 +1,33 @@
 name: Update Tournament Data
 
-# ─────────────────────────────────────────────────────────────────
-# SCHEDULE: Runs automatically twice daily during the tournament.
-# Can also be triggered manually from the GitHub Actions tab.
-# Normal public viewers CANNOT trigger this – it only runs on
-# schedule or via the GitHub UI by repo collaborators.
-# ─────────────────────────────────────────────────────────────────
 on:
   schedule:
     - cron: '0 22 * * *'  # 06:00 AWST Perth
     - cron: '0 8 * * *'   # 16:00 AWST Perth
-  workflow_dispatch:        # Manual run
+  workflow_dispatch:        # Manual run from GitHub Actions tab
 
 jobs:
   update-data:
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # ── FETCH & NORMALISE ─────────────────────────────────────────
-      # The API key is stored as a GitHub Secret (Settings → Secrets).
-      # It is NEVER written to the public repository or exposed to
-      # the front-end dashboard. The dashboard only reads the output
-      # JSON files, never calls the API directly.
-      # ─────────────────────────────────────────────────────────────
-      - name: Set up Node.js
+      - name: Set up Node.js 20
         uses: actions/setup-node@v4
         with:
           node-version: '20'
 
-      - name: Install dependencies
-        run: npm install node-fetch
+      - name: Create package.json
+        run: |
+          echo '{"type":"module"}' > package.json
 
-      - name: Fetch and normalise tournament data
+      - name: Fetch and update tournament data
         env:
           FOOTBALL_DATA_API_KEY: ${{ secrets.FOOTBALL_DATA_API_KEY }}
         run: node scripts/fetch-tournament-data.js
 
-      # ── COMMIT RESULT ─────────────────────────────────────────────
-      # If the script succeeded and changed the data, commit it.
-      # If there's no change (same data), the commit is skipped.
-      # If the script failed, the old cached data is untouched.
-      # ─────────────────────────────────────────────────────────────
       - name: Commit updated data
         run: |
           git config --local user.email "action@github.com"
