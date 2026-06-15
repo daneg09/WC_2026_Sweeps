@@ -1,6 +1,6 @@
 {
   "_meta": {
-    "lastUpdated": "2026-06-14T10:06:47.386Z",
+    "lastUpdated": "2026-06-15T03:19:33.289Z",
     "source": "football-data.org (Cached)",
     "updateStatus": "ok",
     "cacheAgeMinutes": 0,
@@ -194,7 +194,7 @@
     {
       "name": "Netherlands",
       "fifaRankingStart": 8,
-      "groupGoalsConceded": 0,
+      "groupGoalsConceded": 2,
       "cautionsScore": 0,
       "status": "Alive",
       "reachedR16": false,
@@ -260,7 +260,7 @@
     {
       "name": "Japan",
       "fifaRankingStart": 18,
-      "groupGoalsConceded": 0,
+      "groupGoalsConceded": 2,
       "cautionsScore": 0,
       "status": "Alive",
       "reachedR16": false,
@@ -293,7 +293,7 @@
     {
       "name": "Ecuador",
       "fifaRankingStart": 23,
-      "groupGoalsConceded": 0,
+      "groupGoalsConceded": 1,
       "cautionsScore": 0,
       "status": "Alive",
       "reachedR16": false,
@@ -513,7 +513,7 @@
     {
       "name": "Germany",
       "fifaRankingStart": 10,
-      "groupGoalsConceded": 0,
+      "groupGoalsConceded": 1,
       "cautionsScore": 0,
       "status": "Alive",
       "reachedR16": false,
@@ -557,7 +557,7 @@
     {
       "name": "Curaçao",
       "fifaRankingStart": 82,
-      "groupGoalsConceded": 0,
+      "groupGoalsConceded": 7,
       "cautionsScore": 0,
       "status": "Alive",
       "reachedR16": false,
@@ -700,5 +700,6 @@
       "autoCalculated": true,
       "manualOverride": null
     }
-  ]
+  ],
+  "groups": []
 }
