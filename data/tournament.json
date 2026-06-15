@@ -1,6 +1,6 @@
 {
   "_meta": {
-    "lastUpdated": "2026-06-15T20:35:08.504Z",
+    "lastUpdated": "2026-06-15T22:24:39.388Z",
     "source": "football-data.org (Cached)",
     "updateStatus": "ok",
     "cacheAgeMinutes": 0,
@@ -436,7 +436,7 @@
     {
       "name": "Belgium",
       "fifaRankingStart": 9,
-      "groupGoalsConceded": 0,
+      "groupGoalsConceded": 1,
       "cautionsScore": 2,
       "status": "Alive",
       "reachedR16": false,
@@ -535,7 +535,7 @@
     {
       "name": "Egypt",
       "fifaRankingStart": 29,
-      "groupGoalsConceded": 0,
+      "groupGoalsConceded": 1,
       "cautionsScore": 2,
       "status": "Alive",
       "reachedR16": false,
