@@ -1,6 +1,6 @@
 {
   "_meta": {
-    "lastUpdated": "2026-06-15T03:19:33.289Z",
+    "lastUpdated": "2026-06-15T10:37:15.590Z",
     "source": "football-data.org (Cached)",
     "updateStatus": "ok",
     "cacheAgeMinutes": 0,
@@ -370,7 +370,7 @@
     {
       "name": "Sweden",
       "fifaRankingStart": 38,
-      "groupGoalsConceded": 0,
+      "groupGoalsConceded": 1,
       "cautionsScore": 0,
       "status": "Alive",
       "reachedR16": false,
@@ -623,7 +623,7 @@
     {
       "name": "Tunisia",
       "fifaRankingStart": 45,
-      "groupGoalsConceded": 0,
+      "groupGoalsConceded": 5,
       "cautionsScore": 0,
       "status": "Alive",
       "reachedR16": false,
