@@ -1,37 +1,25 @@
 /**
  * scripts/fetch-tournament-data.js
  *
- * Run by GitHub Actions on a schedule. Fetches World Cup data from
- * football-data.org, normalises it into the app's data model, merges
- * any manual overrides, and writes the result to data/tournament.json.
- *
- * NEVER called from the browser. The API key is only available inside
- * the GitHub Actions environment via a repository secret.
+ * Run by GitHub Actions on a schedule. Uses Node 18+ built-in fetch
+ * (no npm dependencies needed). Never called from the browser.
  *
  * SAFE MERGE POLICY:
- *   - If the API returns no matches (tournament not started), the cached
- *     team data is preserved exactly as-is. Nothing gets wiped.
- *   - API data only UPDATES values — it never resets them to zero/null.
- *   - If the API call itself fails, the script exits with an error and
- *     the cached file is left completely untouched.
- *
- * football-data.org free tier endpoints used:
- *   GET /v4/competitions/WC/standings   → group tables (goals conceded)
- *   GET /v4/competitions/WC/matches     → match results (status, scores)
+ * - If no matches played yet, only updates timestamp. Nothing else changes.
+ * - API data only updates values — never resets them to zero/null.
+ * - If the API call fails, script exits non-zero and cached file is untouched.
  */
 
-import fetch from 'node-fetch';
-import fs from 'fs';
+import fs   from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const DATA_FILE = path.join(__dirname, '../data/tournament.json');
+const API_KEY   = process.env.FOOTBALL_DATA_API_KEY;
+const BASE_URL  = 'https://api.football-data.org/v4';
 
-const API_KEY  = process.env.FOOTBALL_DATA_API_KEY;
-const BASE_URL = 'https://api.football-data.org/v4';
-
-// ─── ALIAS MAP ────────────────────────────────────────────────────────────────
+// ── ALIAS MAP ─────────────────────────────────────────────────────────────────
 const ALIAS_MAP = {
   'IR Iran':                    'Iran',
   'Iran (Islamic Republic of)': 'Iran',
@@ -45,77 +33,80 @@ const ALIAS_MAP = {
   'Bosnia':                     'Bosnia & Herzegovina',
   'Cape Verde':                 'Cabo Verde',
 };
+const resolve = name => ALIAS_MAP[name] || name;
 
-function resolveAlias(name) {
-  return ALIAS_MAP[name] || name;
-}
-
-// ─── API HELPERS ──────────────────────────────────────────────────────────────
+// ── API HELPER ────────────────────────────────────────────────────────────────
 async function apiFetch(endpoint) {
   const res = await fetch(`${BASE_URL}${endpoint}`, {
     headers: { 'X-Auth-Token': API_KEY },
   });
-  if (!res.ok) throw new Error(`API error ${res.status} for ${endpoint}`);
+  if (!res.ok) {
+    const body = await res.text();
+    throw new Error(`API ${res.status} for ${endpoint}: ${body.slice(0, 200)}`);
+  }
   return res.json();
 }
 
-// ─── MAIN ─────────────────────────────────────────────────────────────────────
+// ── MAIN ──────────────────────────────────────────────────────────────────────
 async function main() {
-  // Always load the existing cached file first.
-  // If the API has nothing useful, we keep this data intact.
+  console.log('Reading cached data…');
   const cached = JSON.parse(fs.readFileSync(DATA_FILE, 'utf8'));
 
-  console.log('Fetching matches from football-data.org…');
-  const matchData = await apiFetch('/competitions/WC/matches?season=2026');
+  // ── FETCH MATCHES ──────────────────────────────────────────────────────────
+  console.log('Fetching matches…');
+  const matchData      = await apiFetch('/competitions/WC/matches?season=2026');
+  const allMatches     = matchData.matches ?? [];
+  const finishedMatches = allMatches.filter(m => m.status === 'FINISHED');
+  console.log(`Finished matches: ${finishedMatches.length} of ${allMatches.length}`);
 
-  const finishedMatches = (matchData.matches ?? []).filter(m => m.status === 'FINISHED');
-  console.log(`Found ${finishedMatches.length} finished matches.`);
-
-  // ── GUARD: No matches played yet ─────────────────────────────────────────
-  // If the tournament hasn't started (zero finished matches), just update the
-  // timestamp and exit. Don't touch any team data.
-  if (finishedMatches.length === 0) {
-    console.log('No finished matches yet — tournament has not started. Preserving cached team data.');
-    const output = {
-      ...cached,
-      _meta: {
-        ...cached._meta,
-        lastUpdated:     new Date().toISOString(),
-        updateStatus:    'ok',
-        cacheAgeMinutes: 0,
-        note:            'No matches played yet. Team data preserved from seed.',
-      },
-    };
-    fs.writeFileSync(DATA_FILE, JSON.stringify(output, null, 2));
-    console.log('✓ Timestamp updated. Seed data preserved.');
-    return;
-  }
-
-  // ── FETCH STANDINGS (only useful once group games have been played) ────────
+  // ── FETCH STANDINGS ────────────────────────────────────────────────────────
   console.log('Fetching standings…');
   const standingsData = await apiFetch('/competitions/WC/standings?season=2026');
 
-  // Build goals-conceded map from group stage standings
-  const goalsConcededMap = {};
+  // Parse goals conceded + group standings from API
+  const goalsConcededMap  = {};  // teamName -> goalsAgainst
+  const groupStandingsMap = {};  // "GROUP_A" -> [{name, played, won, drawn, lost, points}]
+
   for (const group of standingsData.standings ?? []) {
+    const key = group.group ?? group.stage ?? null;
+    const rows = [];
     for (const entry of group.table ?? []) {
-      const name = resolveAlias(entry.team.name);
-      // Only update if the API value is greater than zero (real data)
-      if (entry.goalsAgainst > 0) {
-        goalsConcededMap[name] = entry.goalsAgainst;
-      }
+      const name = resolve(entry.team?.name ?? '');
+      if (!name) continue;
+      if ((entry.goalsAgainst ?? 0) > 0) goalsConcededMap[name] = entry.goalsAgainst;
+      rows.push({
+        name,
+        played: entry.playedGames ?? 0,
+        won:    entry.won         ?? 0,
+        drawn:  entry.draw        ?? 0,
+        lost:   entry.lost        ?? 0,
+        points: entry.points      ?? 0,
+      });
     }
+    if (key && rows.length) groupStandingsMap[key] = rows;
   }
 
-  // ── BUILD ROUND PROGRESS FROM FINISHED MATCHES ────────────────────────────
-  const roundMap = {};
+  // ── GUARD: tournament not started ─────────────────────────────────────────
+  if (finishedMatches.length === 0) {
+    console.log('No finished matches — preserving seed data, updating timestamp only.');
+    const out = {
+      ...cached,
+      _meta: { ...cached._meta, lastUpdated: new Date().toISOString(), updateStatus: 'ok', cacheAgeMinutes: 0 },
+    };
+    fs.writeFileSync(DATA_FILE, JSON.stringify(out, null, 2));
+    console.log('✓ Done (no matches yet).');
+    return;
+  }
+
+  // ── KNOCKOUT ROUND PROGRESS FROM FINISHED MATCHES ─────────────────────────
+  const roundMap = {}; // teamName -> { reachedR16, eliminatedRound, isChampion, isRunnerUp, status }
 
   for (const match of finishedMatches) {
-    const home  = resolveAlias(match.homeTeam.name);
-    const away  = resolveAlias(match.awayTeam.name);
+    const home  = resolve(match.homeTeam?.name ?? '');
+    const away  = resolve(match.awayTeam?.name ?? '');
     const stage = match.stage;
+    if (!home || !away) continue;
 
-    // Mark both teams as having reached R16 once a R16 match is played
     if (stage === 'LAST_16') {
       roundMap[home] = roundMap[home] || {};
       roundMap[away] = roundMap[away] || {};
@@ -123,86 +114,75 @@ async function main() {
       roundMap[away].reachedR16 = true;
     }
 
-    // Determine knockout winner/loser
-    if (['LAST_16', 'QUARTER_FINALS', 'SEMI_FINALS', 'FINAL'].includes(stage)) {
-      const hs = (match.score.fullTime.home ?? 0) + (match.score.extraTime?.home ?? 0);
-      const as = (match.score.fullTime.away ?? 0) + (match.score.extraTime?.away ?? 0);
+    if (['LAST_16','QUARTER_FINALS','SEMI_FINALS','FINAL'].includes(stage)) {
+      const hs = (match.score?.fullTime?.home ?? 0) + (match.score?.extraTime?.home ?? 0);
+      const as = (match.score?.fullTime?.away ?? 0) + (match.score?.extraTime?.away ?? 0);
       let winner, loser;
-
-      if (hs > as)      { winner = home; loser = away; }
+      if      (hs > as) { winner = home; loser = away; }
       else if (as > hs) { winner = away; loser = home; }
       else {
-        // Penalties
-        const hp = match.score.penalties?.home ?? 0;
-        const ap = match.score.penalties?.away ?? 0;
+        const hp = match.score?.penalties?.home ?? 0;
+        const ap = match.score?.penalties?.away ?? 0;
         winner = hp >= ap ? home : away;
         loser  = hp >= ap ? away : home;
       }
-
-      const roundLabel = {
-        LAST_16:        'Round of 16',
-        QUARTER_FINALS: 'Quarter-Final',
-        SEMI_FINALS:    'Semi-Final',
-        FINAL:          'Final',
-      }[stage];
-
+      const label = { LAST_16:'Round of 16', QUARTER_FINALS:'Quarter-Final', SEMI_FINALS:'Semi-Final', FINAL:'Final' }[stage];
       if (stage === 'FINAL') {
-        roundMap[winner] = { ...roundMap[winner], isChampion: true, status: 'Champion' };
-        roundMap[loser]  = { ...roundMap[loser],  isRunnerUp: true, status: 'Runner-Up', eliminatedRound: 'Final' };
+        roundMap[winner] = { ...roundMap[winner], isChampion: true,  status: 'Champion'  };
+        roundMap[loser]  = { ...roundMap[loser],  isRunnerUp: true,  status: 'Runner-Up', eliminatedRound: 'Final' };
       } else {
-        roundMap[loser] = { ...roundMap[loser], status: 'Eliminated', eliminatedRound: roundLabel };
+        roundMap[loser]  = { ...roundMap[loser],  status: 'Eliminated', eliminatedRound: label };
       }
     }
-
-    // Mark group stage eliminations (teams with 0 points after 3 games — 
-    // handled below via standings, not match-by-match)
   }
 
-  // ── MERGE API DATA INTO CACHED TEAMS ─────────────────────────────────────
-  // IMPORTANT: We only update a field if the API gives us a real value.
-  // We never reset a field to null/false/0 just because the API is silent on it.
+  // ── MERGE INTO TEAMS ───────────────────────────────────────────────────────
   const updatedTeams = cached.teams.map(team => {
     const prog     = roundMap[team.name] || {};
     const conceded = goalsConcededMap[team.name];
-
     return {
       ...team,
-      // Only update goals conceded if the API returned a real number
-      groupGoalsConceded: conceded !== undefined ? conceded : team.groupGoalsConceded,
-      // Only update round progress if the API has new info
-      reachedR16:      prog.reachedR16      !== undefined ? prog.reachedR16      : team.reachedR16,
-      eliminatedRound: prog.eliminatedRound !== undefined ? prog.eliminatedRound : team.eliminatedRound,
-      isChampion:      prog.isChampion      !== undefined ? prog.isChampion      : team.isChampion,
-      isRunnerUp:      prog.isRunnerUp      !== undefined ? prog.isRunnerUp      : team.isRunnerUp,
-      status:          prog.status          !== undefined ? prog.status          : team.status,
+      groupGoalsConceded: conceded     !== undefined ? conceded            : team.groupGoalsConceded,
+      reachedR16:         prog.reachedR16 !== undefined ? prog.reachedR16  : team.reachedR16,
+      eliminatedRound:    prog.eliminatedRound ?? team.eliminatedRound,
+      isChampion:         prog.isChampion  ?? team.isChampion,
+      isRunnerUp:         prog.isRunnerUp  ?? team.isRunnerUp,
+      status:             prog.status      ?? team.status,
     };
   });
 
-  // Preserve manual prize overrides exactly as they are
-  const updatedPrizes = cached.prizes.map(prize => ({ ...prize }));
+  // ── MERGE INTO GROUPS ──────────────────────────────────────────────────────
+  const updatedGroups = (cached.groups || []).map(group => {
+    // API uses keys like "GROUP_A" — match against our "Group A"
+    const letter  = group.name.replace('Group ', '').trim().toUpperCase();
+    const apiKey  = Object.keys(groupStandingsMap).find(k =>
+      k.replace(/[^A-Z]/gi, '').toUpperCase() === letter
+    );
+    if (!apiKey) return group;
 
-  // ── WRITE OUTPUT ──────────────────────────────────────────────────────────
+    const apiRows     = groupStandingsMap[apiKey];
+    const updatedTeams = group.teams.map(t => {
+      const row = apiRows.find(r => r.name === t.name);
+      return row ? { ...t, ...row } : t;
+    });
+    updatedTeams.sort((a, b) => b.points - a.points || b.won - a.won);
+    return { ...group, teams: updatedTeams };
+  });
+
+  // ── WRITE ──────────────────────────────────────────────────────────────────
   const output = {
     ...cached,
-    _meta: {
-      ...cached._meta,
-      lastUpdated:     new Date().toISOString(),
-      updateStatus:    'ok',
-      cacheAgeMinutes: 0,
-    },
+    _meta:  { ...cached._meta, lastUpdated: new Date().toISOString(), updateStatus: 'ok', cacheAgeMinutes: 0 },
     teams:  updatedTeams,
-    prizes: updatedPrizes,
+    prizes: cached.prizes,   // manual overrides preserved as-is
+    groups: updatedGroups,
   };
 
   fs.writeFileSync(DATA_FILE, JSON.stringify(output, null, 2));
-  console.log(`✓ data/tournament.json updated at ${output._meta.lastUpdated}`);
-  console.log(`  Goals conceded updated for: ${Object.keys(goalsConcededMap).join(', ') || 'none yet'}`);
-  console.log(`  Round progress updated for: ${Object.keys(roundMap).join(', ') || 'none yet'}`);
+  console.log(`✓ Updated at ${output._meta.lastUpdated}`);
 }
 
 main().catch(err => {
-  console.error('Fetch script failed:', err.message);
-  // Exit non-zero so GitHub Actions marks the run as failed.
-  // The cached JSON file is NOT modified on failure.
+  console.error('FAILED:', err.message);
   process.exit(1);
 });
