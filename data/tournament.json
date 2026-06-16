@@ -1,6 +1,6 @@
 {
   "_meta": {
-    "lastUpdated": "2026-06-15T22:24:39.388Z",
+    "lastUpdated": "2026-06-16T11:01:23.348Z",
     "source": "football-data.org (Cached)",
     "updateStatus": "ok",
     "cacheAgeMinutes": 0,
@@ -139,7 +139,7 @@
     {
       "name": "Iran",
       "fifaRankingStart": 20,
-      "groupGoalsConceded": 0,
+      "groupGoalsConceded": 2,
       "cautionsScore": 0,
       "status": "Alive",
       "reachedR16": false,
@@ -161,7 +161,7 @@
     {
       "name": "Saudi Arabia",
       "fifaRankingStart": 61,
-      "groupGoalsConceded": 0,
+      "groupGoalsConceded": 1,
       "cautionsScore": 0,
       "status": "Alive",
       "reachedR16": false,
@@ -205,7 +205,7 @@
     {
       "name": "Uruguay",
       "fifaRankingStart": 16,
-      "groupGoalsConceded": 0,
+      "groupGoalsConceded": 1,
       "cautionsScore": 0,
       "status": "Alive",
       "reachedR16": false,
@@ -326,7 +326,7 @@
     {
       "name": "New Zealand",
       "fifaRankingStart": 85,
-      "groupGoalsConceded": 0,
+      "groupGoalsConceded": 2,
       "cautionsScore": 0,
       "status": "Alive",
       "reachedR16": false,
