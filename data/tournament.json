@@ -1,6 +1,6 @@
 {
   "_meta": {
-    "lastUpdated": "2026-06-17T18:00:53.732Z",
+    "lastUpdated": "2026-06-18T12:00:08.076Z",
     "source": "football-data.org (Cached)",
     "updateStatus": "ok",
     "cacheAgeMinutes": 0,
@@ -117,7 +117,7 @@
     {
       "name": "England",
       "fifaRankingStart": 4,
-      "groupGoalsConceded": 0,
+      "groupGoalsConceded": 2,
       "cautionsScore": 0,
       "status": "Alive",
       "reachedR16": false,
@@ -128,7 +128,7 @@
     {
       "name": "Croatia",
       "fifaRankingStart": 11,
-      "groupGoalsConceded": 0,
+      "groupGoalsConceded": 4,
       "cautionsScore": 0,
       "status": "Alive",
       "reachedR16": false,
@@ -172,7 +172,7 @@
     {
       "name": "Uzbekistan",
       "fifaRankingStart": 50,
-      "groupGoalsConceded": 0,
+      "groupGoalsConceded": 3,
       "cautionsScore": 0,
       "status": "Alive",
       "reachedR16": false,
@@ -282,7 +282,7 @@
     {
       "name": "Colombia",
       "fifaRankingStart": 13,
-      "groupGoalsConceded": 0,
+      "groupGoalsConceded": 1,
       "cautionsScore": 0,
       "status": "Alive",
       "reachedR16": false,
@@ -315,7 +315,7 @@
     {
       "name": "Panama",
       "fifaRankingStart": 34,
-      "groupGoalsConceded": 0,
+      "groupGoalsConceded": 1,
       "cautionsScore": 0,
       "status": "Alive",
       "reachedR16": false,
@@ -502,7 +502,7 @@
     {
       "name": "Portugal",
       "fifaRankingStart": 5,
-      "groupGoalsConceded": 0,
+      "groupGoalsConceded": 1,
       "cautionsScore": 0,
       "status": "Alive",
       "reachedR16": false,
