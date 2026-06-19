@@ -1,6 +1,6 @@
 {
   "_meta": {
-    "lastUpdated": "2026-06-18T18:16:20.577Z",
+    "lastUpdated": "2026-06-19T12:37:46.666Z",
     "source": "football-data.org (Cached)",
     "updateStatus": "ok",
     "cacheAgeMinutes": 0,
@@ -304,7 +304,7 @@
     {
       "name": "Qatar",
       "fifaRankingStart": 56,
-      "groupGoalsConceded": 1,
+      "groupGoalsConceded": 6,
       "cautionsScore": 1,
       "status": "Alive",
       "reachedR16": false,
