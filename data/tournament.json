@@ -1,6 +1,6 @@
 {
   "_meta": {
-    "lastUpdated": "2026-06-19T17:03:04.709Z",
+    "lastUpdated": "2026-06-20T00:49:13.530Z",
     "source": "football-data.org (Cached)",
     "updateStatus": "ok",
     "cacheAgeMinutes": 0,
@@ -381,7 +381,7 @@
     {
       "name": "Australia",
       "fifaRankingStart": 27,
-      "groupGoalsConceded": 0,
+      "groupGoalsConceded": 2,
       "cautionsScore": 4,
       "status": "Alive",
       "reachedR16": false,
@@ -634,7 +634,7 @@
     {
       "name": "Scotland",
       "fifaRankingStart": 42,
-      "groupGoalsConceded": 0,
+      "groupGoalsConceded": 1,
       "cautionsScore": 1,
       "status": "Alive",
       "reachedR16": false,
