@@ -1,6 +1,6 @@
 {
   "_meta": {
-    "lastUpdated": "2026-06-20T00:49:13.530Z",
+    "lastUpdated": "2026-06-20T08:15:39.398Z",
     "source": "football-data.org (Cached)",
     "updateStatus": "ok",
     "cacheAgeMinutes": 0,
@@ -403,7 +403,7 @@
     {
       "name": "Haiti",
       "fifaRankingStart": 83,
-      "groupGoalsConceded": 1,
+      "groupGoalsConceded": 3,
       "cautionsScore": 3,
       "status": "Alive",
       "reachedR16": false,
