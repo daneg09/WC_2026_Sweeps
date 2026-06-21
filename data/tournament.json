@@ -1,6 +1,6 @@
 {
   "_meta": {
-    "lastUpdated": "2026-06-21T15:19:42.063Z",
+    "lastUpdated": "2026-06-21T22:38:08.418Z",
     "source": "football-data.org (Cached)",
     "updateStatus": "ok",
     "cacheAgeMinutes": 0,
@@ -161,7 +161,7 @@
     {
       "name": "Saudi Arabia",
       "fifaRankingStart": 61,
-      "groupGoalsConceded": 1,
+      "groupGoalsConceded": 4,
       "cautionsScore": 3,
       "status": "Alive",
       "reachedR16": false,
