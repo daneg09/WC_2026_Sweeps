@@ -1,6 +1,6 @@
 {
   "_meta": {
-    "lastUpdated": "2026-06-20T13:16:17.870Z",
+    "lastUpdated": "2026-06-21T00:39:10.155Z",
     "source": "football-data.org (Cached)",
     "updateStatus": "ok",
     "cacheAgeMinutes": 0,
@@ -194,7 +194,7 @@
     {
       "name": "Netherlands",
       "fifaRankingStart": 8,
-      "groupGoalsConceded": 2,
+      "groupGoalsConceded": 3,
       "cautionsScore": 2,
       "status": "Alive",
       "reachedR16": false,
@@ -227,7 +227,7 @@
     {
       "name": "Côte d'Ivoire",
       "fifaRankingStart": 33,
-      "groupGoalsConceded": 0,
+      "groupGoalsConceded": 2,
       "cautionsScore": 3,
       "status": "Alive",
       "reachedR16": false,
@@ -370,7 +370,7 @@
     {
       "name": "Sweden",
       "fifaRankingStart": 38,
-      "groupGoalsConceded": 1,
+      "groupGoalsConceded": 5,
       "cautionsScore": 3,
       "status": "Alive",
       "reachedR16": false,
@@ -513,7 +513,7 @@
     {
       "name": "Germany",
       "fifaRankingStart": 10,
-      "groupGoalsConceded": 1,
+      "groupGoalsConceded": 2,
       "cautionsScore": 0,
       "status": "Alive",
       "reachedR16": false,
