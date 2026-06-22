@@ -1,6 +1,6 @@
 {
   "_meta": {
-    "lastUpdated": "2026-06-22T16:14:24.639Z",
+    "lastUpdated": "2026-06-22T19:58:21.369Z",
     "source": "football-data.org (Cached)",
     "updateStatus": "ok",
     "cacheAgeMinutes": 0,
@@ -612,7 +612,7 @@
     {
       "name": "Austria",
       "fifaRankingStart": 24,
-      "groupGoalsConceded": 1,
+      "groupGoalsConceded": 2,
       "cautionsScore": 0,
       "status": "Alive",
       "reachedR16": false,
