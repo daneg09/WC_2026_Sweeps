@@ -1,6 +1,6 @@
 {
   "_meta": {
-    "lastUpdated": "2026-06-21T22:38:08.418Z",
+    "lastUpdated": "2026-06-22T16:14:24.639Z",
     "source": "football-data.org (Cached)",
     "updateStatus": "ok",
     "cacheAgeMinutes": 0,
@@ -535,7 +535,7 @@
     {
       "name": "Egypt",
       "fifaRankingStart": 29,
-      "groupGoalsConceded": 1,
+      "groupGoalsConceded": 2,
       "cautionsScore": 2,
       "status": "Alive",
       "reachedR16": false,
