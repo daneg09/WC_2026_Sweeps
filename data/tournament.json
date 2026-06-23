@@ -1,6 +1,6 @@
 {
   "_meta": {
-    "lastUpdated": "2026-06-22T19:58:21.369Z",
+    "lastUpdated": "2026-06-23T10:46:40.630Z",
     "source": "football-data.org (Cached)",
     "updateStatus": "ok",
     "cacheAgeMinutes": 0,
@@ -150,7 +150,7 @@
     {
       "name": "Algeria",
       "fifaRankingStart": 28,
-      "groupGoalsConceded": 3,
+      "groupGoalsConceded": 4,
       "cautionsScore": 0,
       "status": "Alive",
       "reachedR16": false,
@@ -546,7 +546,7 @@
     {
       "name": "Iraq",
       "fifaRankingStart": 57,
-      "groupGoalsConceded": 4,
+      "groupGoalsConceded": 3,
       "cautionsScore": 0,
       "status": "Alive",
       "reachedR16": false,
@@ -568,7 +568,7 @@
     {
       "name": "Senegal",
       "fifaRankingStart": 15,
-      "groupGoalsConceded": 3,
+      "groupGoalsConceded": 6,
       "cautionsScore": 0,
       "status": "Alive",
       "reachedR16": false,
