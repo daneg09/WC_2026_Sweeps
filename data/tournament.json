@@ -1,6 +1,6 @@
 {
   "_meta": {
-    "lastUpdated": "2026-06-23T17:02:33.573Z",
+    "lastUpdated": "2026-06-24T05:39:33.966Z",
     "source": "football-data.org (Cached)",
     "updateStatus": "ok",
     "cacheAgeMinutes": 0,
@@ -172,7 +172,7 @@
     {
       "name": "Uzbekistan",
       "fifaRankingStart": 50,
-      "groupGoalsConceded": 3,
+      "groupGoalsConceded": 5,
       "cautionsScore": 1,
       "status": "Alive",
       "reachedR16": false,
