@@ -1,6 +1,6 @@
 {
   "_meta": {
-    "lastUpdated": "2026-06-24T16:34:40.355Z",
+    "lastUpdated": "2026-06-25T09:58:56.644Z",
     "source": "football-data.org (Cached)",
     "updateStatus": "ok",
     "cacheAgeMinutes": 0,
@@ -304,7 +304,7 @@
     {
       "name": "Qatar",
       "fifaRankingStart": 56,
-      "groupGoalsConceded": 6,
+      "groupGoalsConceded": 9,
       "cautionsScore": 11,
       "status": "Alive",
       "reachedR16": false,
@@ -403,7 +403,7 @@
     {
       "name": "Haiti",
       "fifaRankingStart": 83,
-      "groupGoalsConceded": 3,
+      "groupGoalsConceded": 7,
       "cautionsScore": 6,
       "status": "Alive",
       "reachedR16": false,
@@ -491,7 +491,7 @@
     {
       "name": "South Korea",
       "fifaRankingStart": 25,
-      "groupGoalsConceded": 1,
+      "groupGoalsConceded": 2,
       "cautionsScore": 3,
       "status": "Alive",
       "reachedR16": false,
@@ -524,7 +524,7 @@
     {
       "name": "Canada",
       "fifaRankingStart": 30,
-      "groupGoalsConceded": 1,
+      "groupGoalsConceded": 2,
       "cautionsScore": 5,
       "status": "Alive",
       "reachedR16": false,
@@ -634,7 +634,7 @@
     {
       "name": "Scotland",
       "fifaRankingStart": 42,
-      "groupGoalsConceded": 1,
+      "groupGoalsConceded": 4,
       "cautionsScore": 2,
       "status": "Alive",
       "reachedR16": false,
