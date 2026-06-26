@@ -1,6 +1,6 @@
 {
   "_meta": {
-    "lastUpdated": "2026-06-26T16:27:59.036Z",
+    "lastUpdated": "2026-06-26T22:56:37.792Z",
     "source": "football-data.org (Cached)",
     "updateStatus": "ok",
     "cacheAgeMinutes": 0,
@@ -546,7 +546,7 @@
     {
       "name": "Iraq",
       "fifaRankingStart": 57,
-      "groupGoalsConceded": 3,
+      "groupGoalsConceded": 8,
       "cautionsScore": 6,
       "status": "Alive",
       "reachedR16": false,
