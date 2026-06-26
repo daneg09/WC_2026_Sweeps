@@ -1,6 +1,6 @@
 {
   "_meta": {
-    "lastUpdated": "2026-06-25T16:39:09.539Z",
+    "lastUpdated": "2026-06-26T10:29:29.941Z",
     "source": "football-data.org (Cached)",
     "updateStatus": "ok",
     "cacheAgeMinutes": 0,
@@ -194,7 +194,7 @@
     {
       "name": "Netherlands",
       "fifaRankingStart": 8,
-      "groupGoalsConceded": 3,
+      "groupGoalsConceded": 1,
       "cautionsScore": 2,
       "status": "Alive",
       "reachedR16": false,
@@ -370,7 +370,7 @@
     {
       "name": "Sweden",
       "fifaRankingStart": 38,
-      "groupGoalsConceded": 5,
+      "groupGoalsConceded": 6,
       "cautionsScore": 3,
       "status": "Alive",
       "reachedR16": false,
@@ -414,7 +414,7 @@
     {
       "name": "United States",
       "fifaRankingStart": 17,
-      "groupGoalsConceded": 1,
+      "groupGoalsConceded": 3,
       "cautionsScore": 4,
       "status": "Alive",
       "reachedR16": false,
