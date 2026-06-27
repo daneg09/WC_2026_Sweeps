@@ -1,6 +1,6 @@
 {
   "_meta": {
-    "lastUpdated": "2026-06-26T22:56:37.792Z",
+    "lastUpdated": "2026-06-27T08:11:02.969Z",
     "source": "football-data.org (Cached)",
     "updateStatus": "ok",
     "cacheAgeMinutes": 0,
@@ -139,7 +139,7 @@
     {
       "name": "Iran",
       "fifaRankingStart": 20,
-      "groupGoalsConceded": 2,
+      "groupGoalsConceded": 1,
       "cautionsScore": 2,
       "status": "Alive",
       "reachedR16": false,
