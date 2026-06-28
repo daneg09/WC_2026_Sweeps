@@ -23,6 +23,13 @@ jobs:
         run: |
           echo '{"type":"module"}' > package.json
 
+      - name: Verify data file exists
+        run: |
+          if [ ! -f data/tournament.json ]; then
+            echo "::error::data/tournament.json not found — cannot run update. Make sure the file is committed to the repo first."
+            exit 1
+          fi
+
       - name: Fetch and update tournament data
         env:
           FOOTBALL_DATA_API_KEY: ${{ secrets.FOOTBALL_DATA_API_KEY }}
