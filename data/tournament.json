@@ -1,6 +1,6 @@
 {
   "_meta": {
-    "lastUpdated": "2026-06-27T12:13:42.269Z",
+    "lastUpdated": "2026-06-28T00:03:31.358Z",
     "source": "football-data.org (Cached)",
     "updateStatus": "ok",
     "cacheAgeMinutes": 0,
@@ -392,7 +392,7 @@
     {
       "name": "Ghana",
       "fifaRankingStart": 73,
-      "groupGoalsConceded": 0,
+      "groupGoalsConceded": 2,
       "cautionsScore": 2,
       "status": "Alive",
       "reachedR16": false,
