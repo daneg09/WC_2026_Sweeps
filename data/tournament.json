@@ -119,7 +119,7 @@
       "groupGoalsConceded": 2,
       "cautionsScore": 1,
       "status": "Alive",
-      "reachedR16": false,
+      "reachedR16": true,
       "eliminatedRound": null,
       "isChampion": false,
       "isRunnerUp": false
@@ -130,7 +130,7 @@
       "groupGoalsConceded": 4,
       "cautionsScore": 1,
       "status": "Alive",
-      "reachedR16": false,
+      "reachedR16": true,
       "eliminatedRound": null,
       "isChampion": false,
       "isRunnerUp": false
@@ -140,9 +140,9 @@
       "fifaRankingStart": 20,
       "groupGoalsConceded": 1,
       "cautionsScore": 6,
-      "status": "Alive",
+      "status": "Eliminated",
       "reachedR16": false,
-      "eliminatedRound": null,
+      "eliminatedRound": "Group Stage",
       "isChampion": false,
       "isRunnerUp": false
     },
@@ -152,7 +152,7 @@
       "groupGoalsConceded": 4,
       "cautionsScore": 0,
       "status": "Alive",
-      "reachedR16": false,
+      "reachedR16": true,
       "eliminatedRound": null,
       "isChampion": false,
       "isRunnerUp": false
@@ -162,9 +162,9 @@
       "fifaRankingStart": 61,
       "groupGoalsConceded": 4,
       "cautionsScore": 6,
-      "status": "Alive",
+      "status": "Eliminated",
       "reachedR16": false,
-      "eliminatedRound": null,
+      "eliminatedRound": "Group Stage",
       "isChampion": false,
       "isRunnerUp": false
     },
@@ -173,9 +173,9 @@
       "fifaRankingStart": 50,
       "groupGoalsConceded": 8,
       "cautionsScore": 2,
-      "status": "Alive",
+      "status": "Eliminated",
       "reachedR16": false,
-      "eliminatedRound": null,
+      "eliminatedRound": "Group Stage",
       "isChampion": false,
       "isRunnerUp": false
     },
@@ -184,9 +184,9 @@
       "fifaRankingStart": 22,
       "groupGoalsConceded": 2,
       "cautionsScore": 2,
-      "status": "Alive",
+      "status": "Eliminated",
       "reachedR16": false,
-      "eliminatedRound": null,
+      "eliminatedRound": "Group Stage",
       "isChampion": false,
       "isRunnerUp": false
     },
@@ -196,7 +196,7 @@
       "groupGoalsConceded": 1,
       "cautionsScore": 2,
       "status": "Alive",
-      "reachedR16": false,
+      "reachedR16": true,
       "eliminatedRound": null,
       "isChampion": false,
       "isRunnerUp": false
@@ -206,9 +206,9 @@
       "fifaRankingStart": 16,
       "groupGoalsConceded": 1,
       "cautionsScore": 9,
-      "status": "Alive",
+      "status": "Eliminated",
       "reachedR16": false,
-      "eliminatedRound": null,
+      "eliminatedRound": "Group Stage",
       "isChampion": false,
       "isRunnerUp": false
     },
@@ -218,7 +218,7 @@
       "groupGoalsConceded": 4,
       "cautionsScore": 8,
       "status": "Alive",
-      "reachedR16": false,
+      "reachedR16": true,
       "eliminatedRound": null,
       "isChampion": false,
       "isRunnerUp": false
@@ -229,7 +229,7 @@
       "groupGoalsConceded": 2,
       "cautionsScore": 4,
       "status": "Alive",
-      "reachedR16": false,
+      "reachedR16": true,
       "eliminatedRound": null,
       "isChampion": false,
       "isRunnerUp": false
@@ -240,7 +240,7 @@
       "groupGoalsConceded": 0,
       "cautionsScore": 2,
       "status": "Alive",
-      "reachedR16": false,
+      "reachedR16": true,
       "eliminatedRound": null,
       "isChampion": false,
       "isRunnerUp": false
@@ -250,9 +250,9 @@
       "fifaRankingStart": 63,
       "groupGoalsConceded": 3,
       "cautionsScore": 0,
-      "status": "Alive",
+      "status": "Eliminated",
       "reachedR16": false,
-      "eliminatedRound": null,
+      "eliminatedRound": "Group Stage",
       "isChampion": false,
       "isRunnerUp": false
     },
@@ -262,7 +262,7 @@
       "groupGoalsConceded": 2,
       "cautionsScore": 1,
       "status": "Alive",
-      "reachedR16": false,
+      "reachedR16": true,
       "eliminatedRound": null,
       "isChampion": false,
       "isRunnerUp": false
@@ -273,7 +273,7 @@
       "groupGoalsConceded": 1,
       "cautionsScore": 5,
       "status": "Alive",
-      "reachedR16": false,
+      "reachedR16": true,
       "eliminatedRound": null,
       "isChampion": false,
       "isRunnerUp": false
@@ -284,7 +284,7 @@
       "groupGoalsConceded": 1,
       "cautionsScore": 3,
       "status": "Alive",
-      "reachedR16": false,
+      "reachedR16": true,
       "eliminatedRound": null,
       "isChampion": false,
       "isRunnerUp": false
@@ -295,7 +295,7 @@
       "groupGoalsConceded": 1,
       "cautionsScore": 5,
       "status": "Alive",
-      "reachedR16": false,
+      "reachedR16": true,
       "eliminatedRound": null,
       "isChampion": false,
       "isRunnerUp": false
@@ -305,9 +305,9 @@
       "fifaRankingStart": 56,
       "groupGoalsConceded": 9,
       "cautionsScore": 11,
-      "status": "Alive",
+      "status": "Eliminated",
       "reachedR16": false,
-      "eliminatedRound": null,
+      "eliminatedRound": "Group Stage",
       "isChampion": false,
       "isRunnerUp": false
     },
@@ -316,9 +316,9 @@
       "fifaRankingStart": 34,
       "groupGoalsConceded": 1,
       "cautionsScore": 3,
-      "status": "Alive",
+      "status": "Eliminated",
       "reachedR16": false,
-      "eliminatedRound": null,
+      "eliminatedRound": "Group Stage",
       "isChampion": false,
       "isRunnerUp": false
     },
@@ -327,9 +327,9 @@
       "fifaRankingStart": 85,
       "groupGoalsConceded": 2,
       "cautionsScore": 4,
-      "status": "Alive",
+      "status": "Eliminated",
       "reachedR16": false,
-      "eliminatedRound": null,
+      "eliminatedRound": "Group Stage",
       "isChampion": false,
       "isRunnerUp": false
     },
@@ -339,7 +339,7 @@
       "groupGoalsConceded": 1,
       "cautionsScore": 1,
       "status": "Alive",
-      "reachedR16": false,
+      "reachedR16": true,
       "eliminatedRound": null,
       "isChampion": false,
       "isRunnerUp": false
@@ -350,7 +350,7 @@
       "groupGoalsConceded": 1,
       "cautionsScore": 0,
       "status": "Alive",
-      "reachedR16": false,
+      "reachedR16": true,
       "eliminatedRound": null,
       "isChampion": false,
       "isRunnerUp": false
@@ -361,7 +361,7 @@
       "groupGoalsConceded": 1,
       "cautionsScore": 2,
       "status": "Alive",
-      "reachedR16": false,
+      "reachedR16": true,
       "eliminatedRound": null,
       "isChampion": false,
       "isRunnerUp": false
@@ -372,7 +372,7 @@
       "groupGoalsConceded": 6,
       "cautionsScore": 5,
       "status": "Alive",
-      "reachedR16": false,
+      "reachedR16": true,
       "eliminatedRound": null,
       "isChampion": false,
       "isRunnerUp": false
@@ -383,7 +383,7 @@
       "groupGoalsConceded": 2,
       "cautionsScore": 5,
       "status": "Alive",
-      "reachedR16": false,
+      "reachedR16": true,
       "eliminatedRound": null,
       "isChampion": false,
       "isRunnerUp": false
@@ -394,7 +394,7 @@
       "groupGoalsConceded": 2,
       "cautionsScore": 2,
       "status": "Alive",
-      "reachedR16": false,
+      "reachedR16": true,
       "eliminatedRound": null,
       "isChampion": false,
       "isRunnerUp": false
@@ -404,9 +404,9 @@
       "fifaRankingStart": 83,
       "groupGoalsConceded": 7,
       "cautionsScore": 9,
-      "status": "Alive",
+      "status": "Eliminated",
       "reachedR16": false,
-      "eliminatedRound": null,
+      "eliminatedRound": "Group Stage",
       "isChampion": false,
       "isRunnerUp": false
     },
@@ -416,7 +416,7 @@
       "groupGoalsConceded": 3,
       "cautionsScore": 5,
       "status": "Alive",
-      "reachedR16": false,
+      "reachedR16": true,
       "eliminatedRound": null,
       "isChampion": false,
       "isRunnerUp": false
@@ -427,7 +427,7 @@
       "groupGoalsConceded": 1,
       "cautionsScore": 1,
       "status": "Alive",
-      "reachedR16": false,
+      "reachedR16": true,
       "eliminatedRound": null,
       "isChampion": false,
       "isRunnerUp": false
@@ -438,7 +438,7 @@
       "groupGoalsConceded": 1,
       "cautionsScore": 7,
       "status": "Alive",
-      "reachedR16": false,
+      "reachedR16": true,
       "eliminatedRound": null,
       "isChampion": false,
       "isRunnerUp": false
@@ -448,9 +448,9 @@
       "fifaRankingStart": 40,
       "groupGoalsConceded": 2,
       "cautionsScore": 1,
-      "status": "Alive",
+      "status": "Eliminated",
       "reachedR16": false,
-      "eliminatedRound": null,
+      "eliminatedRound": "Group Stage",
       "isChampion": false,
       "isRunnerUp": false
     },
@@ -460,7 +460,7 @@
       "groupGoalsConceded": 3,
       "cautionsScore": 13,
       "status": "Alive",
-      "reachedR16": false,
+      "reachedR16": true,
       "eliminatedRound": null,
       "isChampion": false,
       "isRunnerUp": false
@@ -471,7 +471,7 @@
       "groupGoalsConceded": 0,
       "cautionsScore": 4,
       "status": "Alive",
-      "reachedR16": false,
+      "reachedR16": true,
       "eliminatedRound": null,
       "isChampion": false,
       "isRunnerUp": false
@@ -482,7 +482,7 @@
       "groupGoalsConceded": 0,
       "cautionsScore": 4,
       "status": "Alive",
-      "reachedR16": false,
+      "reachedR16": true,
       "eliminatedRound": null,
       "isChampion": false,
       "isRunnerUp": false
@@ -492,9 +492,9 @@
       "fifaRankingStart": 25,
       "groupGoalsConceded": 2,
       "cautionsScore": 4,
-      "status": "Alive",
+      "status": "Eliminated",
       "reachedR16": false,
-      "eliminatedRound": null,
+      "eliminatedRound": "Group Stage",
       "isChampion": false,
       "isRunnerUp": false
     },
@@ -504,7 +504,7 @@
       "groupGoalsConceded": 1,
       "cautionsScore": 4,
       "status": "Alive",
-      "reachedR16": false,
+      "reachedR16": true,
       "eliminatedRound": null,
       "isChampion": false,
       "isRunnerUp": false
@@ -515,7 +515,7 @@
       "groupGoalsConceded": 2,
       "cautionsScore": 1,
       "status": "Alive",
-      "reachedR16": false,
+      "reachedR16": true,
       "eliminatedRound": null,
       "isChampion": false,
       "isRunnerUp": false
@@ -526,7 +526,7 @@
       "groupGoalsConceded": 2,
       "cautionsScore": 5,
       "status": "Alive",
-      "reachedR16": false,
+      "reachedR16": true,
       "eliminatedRound": null,
       "isChampion": false,
       "isRunnerUp": false
@@ -537,7 +537,7 @@
       "groupGoalsConceded": 2,
       "cautionsScore": 6,
       "status": "Alive",
-      "reachedR16": false,
+      "reachedR16": true,
       "eliminatedRound": null,
       "isChampion": false,
       "isRunnerUp": false
@@ -547,9 +547,9 @@
       "fifaRankingStart": 57,
       "groupGoalsConceded": 8,
       "cautionsScore": 6,
-      "status": "Alive",
+      "status": "Eliminated",
       "reachedR16": false,
-      "eliminatedRound": null,
+      "eliminatedRound": "Group Stage",
       "isChampion": false,
       "isRunnerUp": false
     },
@@ -558,9 +558,9 @@
       "fifaRankingStart": 82,
       "groupGoalsConceded": 7,
       "cautionsScore": 7,
-      "status": "Alive",
+      "status": "Eliminated",
       "reachedR16": false,
-      "eliminatedRound": null,
+      "eliminatedRound": "Group Stage",
       "isChampion": false,
       "isRunnerUp": false
     },
@@ -570,7 +570,7 @@
       "groupGoalsConceded": 6,
       "cautionsScore": 2,
       "status": "Alive",
-      "reachedR16": false,
+      "reachedR16": true,
       "eliminatedRound": null,
       "isChampion": false,
       "isRunnerUp": false
@@ -581,7 +581,7 @@
       "groupGoalsConceded": 0,
       "cautionsScore": 2,
       "status": "Alive",
-      "reachedR16": false,
+      "reachedR16": true,
       "eliminatedRound": null,
       "isChampion": false,
       "isRunnerUp": false
@@ -592,7 +592,7 @@
       "groupGoalsConceded": 1,
       "cautionsScore": 1,
       "status": "Alive",
-      "reachedR16": false,
+      "reachedR16": true,
       "eliminatedRound": null,
       "isChampion": false,
       "isRunnerUp": false
@@ -603,7 +603,7 @@
       "groupGoalsConceded": 0,
       "cautionsScore": 6,
       "status": "Alive",
-      "reachedR16": false,
+      "reachedR16": true,
       "eliminatedRound": null,
       "isChampion": false,
       "isRunnerUp": false
@@ -614,7 +614,7 @@
       "groupGoalsConceded": 5,
       "cautionsScore": 0,
       "status": "Alive",
-      "reachedR16": false,
+      "reachedR16": true,
       "eliminatedRound": null,
       "isChampion": false,
       "isRunnerUp": false
@@ -624,9 +624,9 @@
       "fifaRankingStart": 45,
       "groupGoalsConceded": 5,
       "cautionsScore": 1,
-      "status": "Alive",
+      "status": "Eliminated",
       "reachedR16": false,
-      "eliminatedRound": null,
+      "eliminatedRound": "Group Stage",
       "isChampion": false,
       "isRunnerUp": false
     },
@@ -635,9 +635,9 @@
       "fifaRankingStart": 42,
       "groupGoalsConceded": 4,
       "cautionsScore": 3,
-      "status": "Alive",
+      "status": "Eliminated",
       "reachedR16": false,
-      "eliminatedRound": null,
+      "eliminatedRound": "Group Stage",
       "isChampion": false,
       "isRunnerUp": false
     }
@@ -706,34 +706,34 @@
       "teams": [
         {
           "name": "Mexico",
-          "played": 0,
-          "won": 0,
+          "played": 3,
+          "won": 3,
           "drawn": 0,
           "lost": 0,
-          "points": 0
-        },
-        {
-          "name": "South Korea",
-          "played": 0,
-          "won": 0,
-          "drawn": 0,
-          "lost": 0,
-          "points": 0
+          "points": 9
         },
         {
           "name": "South Africa",
-          "played": 0,
-          "won": 0,
-          "drawn": 0,
-          "lost": 0,
-          "points": 0
+          "played": 3,
+          "won": 1,
+          "drawn": 1,
+          "lost": 1,
+          "points": 4
+        },
+        {
+          "name": "South Korea",
+          "played": 3,
+          "won": 1,
+          "drawn": 1,
+          "lost": 1,
+          "points": 4
         },
         {
           "name": "Czechia",
-          "played": 0,
+          "played": 3,
           "won": 0,
           "drawn": 0,
-          "lost": 0,
+          "lost": 3,
           "points": 0
         }
       ]
@@ -742,36 +742,36 @@
       "name": "Group B",
       "teams": [
         {
-          "name": "Canada",
-          "played": 0,
-          "won": 0,
-          "drawn": 0,
-          "lost": 0,
-          "points": 0
-        },
-        {
           "name": "Switzerland",
-          "played": 0,
-          "won": 0,
-          "drawn": 0,
+          "played": 3,
+          "won": 2,
+          "drawn": 1,
           "lost": 0,
-          "points": 0
+          "points": 7
         },
         {
-          "name": "Qatar",
-          "played": 0,
-          "won": 0,
-          "drawn": 0,
-          "lost": 0,
-          "points": 0
+          "name": "Canada",
+          "played": 3,
+          "won": 1,
+          "drawn": 1,
+          "lost": 1,
+          "points": 4
         },
         {
           "name": "Bosnia & Herzegovina",
-          "played": 0,
+          "played": 3,
+          "won": 1,
+          "drawn": 1,
+          "lost": 1,
+          "points": 4
+        },
+        {
+          "name": "Qatar",
+          "played": 3,
           "won": 0,
-          "drawn": 0,
-          "lost": 0,
-          "points": 0
+          "drawn": 1,
+          "lost": 2,
+          "points": 1
         }
       ]
     },
@@ -780,34 +780,34 @@
       "teams": [
         {
           "name": "Brazil",
-          "played": 0,
-          "won": 0,
-          "drawn": 0,
+          "played": 3,
+          "won": 2,
+          "drawn": 1,
           "lost": 0,
-          "points": 0
+          "points": 7
         },
         {
           "name": "Morocco",
-          "played": 0,
-          "won": 0,
-          "drawn": 0,
+          "played": 3,
+          "won": 2,
+          "drawn": 1,
           "lost": 0,
-          "points": 0
-        },
-        {
-          "name": "Haiti",
-          "played": 0,
-          "won": 0,
-          "drawn": 0,
-          "lost": 0,
-          "points": 0
+          "points": 7
         },
         {
           "name": "Scotland",
-          "played": 0,
+          "played": 3,
+          "won": 1,
+          "drawn": 0,
+          "lost": 2,
+          "points": 3
+        },
+        {
+          "name": "Haiti",
+          "played": 3,
           "won": 0,
           "drawn": 0,
-          "lost": 0,
+          "lost": 3,
           "points": 0
         }
       ]
@@ -817,35 +817,35 @@
       "teams": [
         {
           "name": "United States",
-          "played": 0,
-          "won": 0,
+          "played": 3,
+          "won": 2,
           "drawn": 0,
-          "lost": 0,
-          "points": 0
-        },
-        {
-          "name": "Paraguay",
-          "played": 0,
-          "won": 0,
-          "drawn": 0,
-          "lost": 0,
-          "points": 0
+          "lost": 1,
+          "points": 6
         },
         {
           "name": "Australia",
-          "played": 0,
-          "won": 0,
-          "drawn": 0,
-          "lost": 0,
-          "points": 0
+          "played": 3,
+          "won": 1,
+          "drawn": 1,
+          "lost": 1,
+          "points": 4
+        },
+        {
+          "name": "Paraguay",
+          "played": 3,
+          "won": 1,
+          "drawn": 1,
+          "lost": 1,
+          "points": 4
         },
         {
           "name": "Türkiye",
-          "played": 0,
-          "won": 0,
+          "played": 3,
+          "won": 1,
           "drawn": 0,
-          "lost": 0,
-          "points": 0
+          "lost": 2,
+          "points": 3
         }
       ]
     },
@@ -854,35 +854,35 @@
       "teams": [
         {
           "name": "Germany",
-          "played": 0,
-          "won": 0,
+          "played": 3,
+          "won": 2,
           "drawn": 0,
-          "lost": 0,
-          "points": 0
-        },
-        {
-          "name": "Curaçao",
-          "played": 0,
-          "won": 0,
-          "drawn": 0,
-          "lost": 0,
-          "points": 0
+          "lost": 1,
+          "points": 6
         },
         {
           "name": "Côte d'Ivoire",
-          "played": 0,
-          "won": 0,
+          "played": 3,
+          "won": 2,
           "drawn": 0,
-          "lost": 0,
-          "points": 0
+          "lost": 1,
+          "points": 6
         },
         {
           "name": "Ecuador",
-          "played": 0,
+          "played": 3,
+          "won": 1,
+          "drawn": 1,
+          "lost": 1,
+          "points": 4
+        },
+        {
+          "name": "Curaçao",
+          "played": 3,
           "won": 0,
-          "drawn": 0,
-          "lost": 0,
-          "points": 0
+          "drawn": 1,
+          "lost": 2,
+          "points": 1
         }
       ]
     },
@@ -891,34 +891,34 @@
       "teams": [
         {
           "name": "Netherlands",
-          "played": 0,
-          "won": 0,
-          "drawn": 0,
+          "played": 3,
+          "won": 2,
+          "drawn": 1,
           "lost": 0,
-          "points": 0
+          "points": 7
         },
         {
           "name": "Japan",
-          "played": 0,
-          "won": 0,
-          "drawn": 0,
+          "played": 3,
+          "won": 1,
+          "drawn": 2,
           "lost": 0,
-          "points": 0
+          "points": 5
         },
         {
           "name": "Sweden",
-          "played": 0,
-          "won": 0,
-          "drawn": 0,
-          "lost": 0,
-          "points": 0
+          "played": 3,
+          "won": 1,
+          "drawn": 1,
+          "lost": 1,
+          "points": 4
         },
         {
           "name": "Tunisia",
-          "played": 0,
+          "played": 3,
           "won": 0,
           "drawn": 0,
-          "lost": 0,
+          "lost": 3,
           "points": 0
         }
       ]
@@ -928,35 +928,35 @@
       "teams": [
         {
           "name": "Belgium",
-          "played": 0,
-          "won": 0,
-          "drawn": 0,
+          "played": 3,
+          "won": 2,
+          "drawn": 1,
           "lost": 0,
-          "points": 0
-        },
-        {
-          "name": "Iran",
-          "played": 0,
-          "won": 0,
-          "drawn": 0,
-          "lost": 0,
-          "points": 0
+          "points": 7
         },
         {
           "name": "Egypt",
-          "played": 0,
-          "won": 0,
-          "drawn": 0,
+          "played": 3,
+          "won": 1,
+          "drawn": 2,
           "lost": 0,
-          "points": 0
+          "points": 5
+        },
+        {
+          "name": "Iran",
+          "played": 3,
+          "won": 1,
+          "drawn": 1,
+          "lost": 1,
+          "points": 4
         },
         {
           "name": "New Zealand",
-          "played": 0,
+          "played": 3,
           "won": 0,
-          "drawn": 0,
-          "lost": 0,
-          "points": 0
+          "drawn": 1,
+          "lost": 2,
+          "points": 1
         }
       ]
     },
@@ -965,35 +965,35 @@
       "teams": [
         {
           "name": "Spain",
-          "played": 0,
-          "won": 0,
-          "drawn": 0,
+          "played": 3,
+          "won": 2,
+          "drawn": 1,
           "lost": 0,
-          "points": 0
-        },
-        {
-          "name": "Uruguay",
-          "played": 0,
-          "won": 0,
-          "drawn": 0,
-          "lost": 0,
-          "points": 0
-        },
-        {
-          "name": "Saudi Arabia",
-          "played": 0,
-          "won": 0,
-          "drawn": 0,
-          "lost": 0,
-          "points": 0
+          "points": 7
         },
         {
           "name": "Cabo Verde",
-          "played": 0,
+          "played": 3,
           "won": 0,
-          "drawn": 0,
+          "drawn": 3,
           "lost": 0,
-          "points": 0
+          "points": 3
+        },
+        {
+          "name": "Uruguay",
+          "played": 3,
+          "won": 0,
+          "drawn": 2,
+          "lost": 1,
+          "points": 2
+        },
+        {
+          "name": "Saudi Arabia",
+          "played": 3,
+          "won": 0,
+          "drawn": 2,
+          "lost": 1,
+          "points": 2
         }
       ]
     },
@@ -1002,34 +1002,34 @@
       "teams": [
         {
           "name": "France",
-          "played": 0,
-          "won": 0,
+          "played": 3,
+          "won": 2,
           "drawn": 0,
-          "lost": 0,
-          "points": 0
-        },
-        {
-          "name": "Senegal",
-          "played": 0,
-          "won": 0,
-          "drawn": 0,
-          "lost": 0,
-          "points": 0
-        },
-        {
-          "name": "Iraq",
-          "played": 0,
-          "won": 0,
-          "drawn": 0,
-          "lost": 0,
-          "points": 0
+          "lost": 1,
+          "points": 6
         },
         {
           "name": "Norway",
-          "played": 0,
+          "played": 3,
+          "won": 2,
+          "drawn": 0,
+          "lost": 1,
+          "points": 6
+        },
+        {
+          "name": "Senegal",
+          "played": 3,
+          "won": 1,
+          "drawn": 0,
+          "lost": 2,
+          "points": 3
+        },
+        {
+          "name": "Iraq",
+          "played": 3,
           "won": 0,
           "drawn": 0,
-          "lost": 0,
+          "lost": 3,
           "points": 0
         }
       ]
@@ -1039,34 +1039,34 @@
       "teams": [
         {
           "name": "Argentina",
-          "played": 0,
-          "won": 0,
+          "played": 3,
+          "won": 3,
           "drawn": 0,
           "lost": 0,
-          "points": 0
-        },
-        {
-          "name": "Algeria",
-          "played": 0,
-          "won": 0,
-          "drawn": 0,
-          "lost": 0,
-          "points": 0
+          "points": 9
         },
         {
           "name": "Austria",
-          "played": 0,
-          "won": 0,
-          "drawn": 0,
-          "lost": 0,
-          "points": 0
+          "played": 3,
+          "won": 1,
+          "drawn": 1,
+          "lost": 1,
+          "points": 4
+        },
+        {
+          "name": "Algeria",
+          "played": 3,
+          "won": 1,
+          "drawn": 1,
+          "lost": 1,
+          "points": 4
         },
         {
           "name": "Jordan",
-          "played": 0,
+          "played": 3,
           "won": 0,
           "drawn": 0,
-          "lost": 0,
+          "lost": 3,
           "points": 0
         }
       ]
@@ -1075,35 +1075,35 @@
       "name": "Group K",
       "teams": [
         {
-          "name": "Portugal",
-          "played": 0,
-          "won": 0,
-          "drawn": 0,
-          "lost": 0,
-          "points": 0
-        },
-        {
           "name": "Colombia",
-          "played": 0,
-          "won": 0,
-          "drawn": 0,
+          "played": 3,
+          "won": 2,
+          "drawn": 1,
           "lost": 0,
-          "points": 0
+          "points": 7
         },
         {
-          "name": "Uzbekistan",
-          "played": 0,
-          "won": 0,
-          "drawn": 0,
+          "name": "Portugal",
+          "played": 3,
+          "won": 1,
+          "drawn": 2,
           "lost": 0,
-          "points": 0
+          "points": 5
         },
         {
           "name": "DR Congo",
-          "played": 0,
+          "played": 3,
+          "won": 1,
+          "drawn": 1,
+          "lost": 1,
+          "points": 4
+        },
+        {
+          "name": "Uzbekistan",
+          "played": 3,
           "won": 0,
           "drawn": 0,
-          "lost": 0,
+          "lost": 3,
           "points": 0
         }
       ]
@@ -1113,34 +1113,34 @@
       "teams": [
         {
           "name": "England",
-          "played": 0,
-          "won": 0,
-          "drawn": 0,
+          "played": 3,
+          "won": 2,
+          "drawn": 1,
           "lost": 0,
-          "points": 0
+          "points": 7
         },
         {
           "name": "Croatia",
-          "played": 0,
-          "won": 0,
+          "played": 3,
+          "won": 2,
           "drawn": 0,
-          "lost": 0,
-          "points": 0
-        },
-        {
-          "name": "Panama",
-          "played": 0,
-          "won": 0,
-          "drawn": 0,
-          "lost": 0,
-          "points": 0
+          "lost": 1,
+          "points": 6
         },
         {
           "name": "Ghana",
-          "played": 0,
+          "played": 3,
+          "won": 1,
+          "drawn": 1,
+          "lost": 1,
+          "points": 4
+        },
+        {
+          "name": "Panama",
+          "played": 3,
           "won": 0,
           "drawn": 0,
-          "lost": 0,
+          "lost": 3,
           "points": 0
         }
       ]
