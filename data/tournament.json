@@ -1,6 +1,6 @@
 {
   "_meta": {
-    "lastUpdated": "2026-06-28T00:03:31.358Z",
+    "lastUpdated": "2026-06-28T04:20:26.364Z",
     "source": "football-data.org (Cached)",
     "updateStatus": "ok",
     "cacheAgeMinutes": 0,
@@ -172,7 +172,7 @@
     {
       "name": "Uzbekistan",
       "fifaRankingStart": 50,
-      "groupGoalsConceded": 5,
+      "groupGoalsConceded": 8,
       "cautionsScore": 2,
       "status": "Alive",
       "reachedR16": false,
@@ -348,7 +348,7 @@
     {
       "name": "Argentina",
       "fifaRankingStart": 1,
-      "groupGoalsConceded": 0,
+      "groupGoalsConceded": 1,
       "cautionsScore": 0,
       "status": "Alive",
       "reachedR16": false,
@@ -612,7 +612,7 @@
     {
       "name": "Austria",
       "fifaRankingStart": 24,
-      "groupGoalsConceded": 2,
+      "groupGoalsConceded": 5,
       "cautionsScore": 0,
       "status": "Alive",
       "reachedR16": false,
