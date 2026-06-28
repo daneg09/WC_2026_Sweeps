@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <title>World Cup Sweeps</title>
   <script src="https://cdn.tailwindcss.com"></script>
@@ -489,9 +489,10 @@
   </section>
 
   <!-- ── TABS ─────────────────────────────────────────────────────────────── -->
-  <nav style="display:flex;border-bottom:1px solid var(--border-subtle);margin-bottom:16px;">
+  <nav style="display:flex;border-bottom:1px solid var(--border-subtle);margin-bottom:16px;overflow-x:auto;">
     <button class="tab-btn active" id="tab-standings" onclick="switchTab('standings')">Standings</button>
     <button class="tab-btn" id="tab-prizes" onclick="switchTab('prizes')">Prizes</button>
+    <button class="tab-btn" id="tab-groups" onclick="switchTab('groups')">Groups</button>
     <button class="tab-btn" id="tab-teams" onclick="switchTab('teams')">Teams</button>
     <button class="tab-btn" id="tab-alerts" onclick="switchTab('alerts')">
       Alerts <span id="alert-count-badge" style="display:none;margin-left:3px;background:var(--kickoff-red);color:#fff;border-radius:999px;font-size:8px;padding:0 4px;line-height:1.6;">0</span>
@@ -514,6 +515,15 @@
       <span style="color:var(--finals-purple);">7 categories</span>
     </div>
     <div id="prizes-list" style="display:flex;flex-direction:column;gap:10px;padding-bottom:80px;"></div>
+  </section>
+
+  <!-- ══ TAB: GROUPS ═════════════════════════════════════════════════════════ -->
+  <section id="section-groups" style="display:none;">
+    <div style="font-size:10px;color:var(--data-grey);margin-bottom:10px;display:flex;justify-content:space-between;">
+      <span>Live group standings</span>
+      <span style="color:var(--pitch-green);">Green = qualifying · Gold = bubble</span>
+    </div>
+    <div id="groups-list" style="display:flex;flex-direction:column;gap:12px;padding-bottom:80px;"></div>
   </section>
 
   <!-- ══ TAB: TEAMS ══════════════════════════════════════════════════════════ -->
@@ -608,8 +618,8 @@
       </div>
       <pre style="font-size:10px;color:var(--data-grey);font-family:monospace;overflow-x:auto;line-height:1.6;margin:0;">on:
   schedule:
-    - cron: '0 6 * * *'   # 06:00 UTC
-    - cron: '0 18 * * *'  # 18:00 UTC
+    - cron: '0 22 * * *'  # 06:00 AWST Perth
+    - cron: '0 8 * * *'   # 16:00 AWST Perth
   workflow_dispatch:        # Manual run</pre>
     </div>
   </section>
@@ -717,6 +727,8 @@ function validateAndBoot() {
   for (const t of RAW_DATA.teams) {
     if (t.isChampion && !adm.champion) adm.champion = t.name;
     if (t.isRunnerUp && !adm.runnerUp) adm.runnerUp = t.name;
+    // Snapshot the pristine R16 value so Reset can restore it correctly
+    t._origR16 = t.reachedR16;
   }
   compute();
   populateAdminSelects();
@@ -1012,6 +1024,7 @@ function renderAll(alerts) {
   renderKPIs();
   renderStandings();
   renderPrizes();
+  renderGroups();
   renderTeams();
   renderAlerts(alerts || []);
   // Update alert badge
@@ -1171,6 +1184,66 @@ function renderPrizes() {
     list.appendChild(card);
   }
   lucide.createIcons();
+}
+
+// ── GROUPS ────────────────────────────────────────────────────────────
+function renderGroups() {
+  const list = document.getElementById('groups-list');
+  if (!list) return;
+  list.innerHTML = '';
+
+  const groups = (RAW_DATA && RAW_DATA.groups) || [];
+
+  if (groups.length === 0) {
+    list.innerHTML = `<div style="text-align:center;padding:24px;font-size:12px;color:var(--data-grey);line-height:1.6;">
+      Group standings haven't loaded yet.<br>They'll appear here once group data is added to <code style="color:var(--pitch-green);">tournament.json</code>.
+    </div>`;
+    return;
+  }
+
+  for (const group of groups) {
+    const teams = [...(group.teams || [])];
+    // Sort by points desc, then wins desc (in case the cached data isn't pre-sorted)
+    teams.sort((a, b) => (b.points - a.points) || (b.won - a.won));
+
+    const rowsHTML = teams.map((t, idx) => {
+      const ownerTeam = state.teams.find(st => st.name === t.name);
+      const owner = ownerTeam ? ownerTeam.owner : 'Unassigned';
+
+      // Top 2 = qualifying (green), 3rd = bubble (gold), 4th = grey
+      let rowStyle, posColor;
+      if (idx < 2) {
+        rowStyle = 'background:rgba(174,255,0,0.06);border:1px solid rgba(174,255,0,0.18);';
+        posColor = 'var(--pitch-green)';
+      } else if (idx === 2) {
+        rowStyle = 'background:rgba(225,193,110,0.06);border:1px solid rgba(225,193,110,0.18);';
+        posColor = 'var(--champ-gold)';
+      } else {
+        rowStyle = 'background:var(--deep-stadium);border:1px solid var(--border-subtle);';
+        posColor = 'var(--data-grey)';
+      }
+
+      return `
+        <div style="display:grid;grid-template-columns:20px 1fr auto auto;align-items:center;gap:8px;padding:7px 9px;border-radius:7px;${rowStyle}">
+          <div style="font-size:11px;font-weight:800;color:${posColor};text-align:center;">${idx + 1}</div>
+          <div>
+            <div style="font-size:12px;font-weight:700;color:var(--spotlight);">${t.name}</div>
+            <div style="font-size:9px;color:var(--data-grey);">${owner}</div>
+          </div>
+          <div style="font-size:10px;color:var(--data-grey);text-align:right;">P${t.played ?? 0}</div>
+          <div style="font-size:13px;font-weight:800;color:var(--spotlight);font-variant-numeric:tabular-nums;text-align:right;min-width:28px;">${t.points ?? 0}</div>
+        </div>`;
+    }).join('');
+
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.style.padding = '12px';
+    card.innerHTML = `
+      <div style="font-weight:700;font-size:13px;color:var(--spotlight);margin-bottom:8px;">${group.name}</div>
+      <div style="display:flex;flex-direction:column;gap:4px;">${rowsHTML}</div>
+    `;
+    list.appendChild(card);
+  }
 }
 
 // ── TEAMS ─────────────────────────────────────────────────────────────
@@ -1376,13 +1449,14 @@ function drawerBackdropClick(e) {
 
 // ── TABS ──────────────────────────────────────────────────────────────
 function switchTab(id) {
-  ['standings', 'prizes', 'teams', 'alerts'].forEach(t => {
+  ['standings', 'prizes', 'groups', 'teams', 'alerts'].forEach(t => {
     document.getElementById(`section-${t}`).style.display  = t === id ? '' : 'none';
     const btn = document.getElementById(`tab-${t}`);
     btn.classList.toggle('active', t === id);
   });
   activeTab = id;
-  if (id === 'teams') renderTeams();
+  if (id === 'teams')  renderTeams();
+  if (id === 'groups') renderGroups();
 }
 
 // ── TEAM FILTER & SEARCH ──────────────────────────────────────────────
@@ -1466,21 +1540,29 @@ function applyAdmin() {
   renderAll([]);
 }
 
+// Reset the admin simulator back to the state the JSON loaded with.
+// Uses t._origR16 (snapshotted once in validateAndBoot) to correctly
+// restore each team's pre-simulation Round of 16 status.
 function resetAdmin() {
-  // Restore original R16 values
-  const orig = RAW_DATA.teams;
-  for (const t of orig) {
-    const cb = document.querySelector(`#admin-r16-grid input[value="${t.name}"]`);
-    // Re-read from pristine INITIAL data — we use a flag set on first load
-    if (cb) cb.checked = t._origR16 ?? t.reachedR16;
+  for (const t of RAW_DATA.teams) {
     t.reachedR16 = t._origR16 ?? t.reachedR16;
   }
+
   adm = { champion: null, runnerUp: null, latestGoal: null, cautions: null, got: null };
-  // Reset JSON champion/runnerUp state
+
+  // Re-seed admin state from whatever is genuinely in the JSON
   for (const t of RAW_DATA.teams) {
     if (t.isChampion) adm.champion = t.name;
     if (t.isRunnerUp) adm.runnerUp = t.name;
   }
+  for (const prize of RAW_DATA.prizes) {
+    if (prize.manualOverride) {
+      if (prize.key === 'latest_goal')         adm.latestGoal = prize.manualOverride;
+      if (prize.key === 'most_cautions_group') adm.cautions   = prize.manualOverride;
+      if (prize.key === 'goal_of_tournament')  adm.got        = prize.manualOverride;
+    }
+  }
+
   populateAdminSelects();
   compute();
   renderAll([]);
