@@ -1,6 +1,6 @@
 {
   "_meta": {
-    "lastUpdated": "2026-06-28T22:05:04.361Z",
+    "lastUpdated": "2026-06-29T13:56:23.076Z",
     "source": "football-data.org (Cached)",
     "updateStatus": "ok",
     "cacheAgeMinutes": 0,
@@ -237,7 +237,7 @@
     {
       "name": "DR Congo",
       "fifaRankingStart": 46,
-      "groupGoalsConceded": 0,
+      "groupGoalsConceded": 2,
       "cautionsScore": 2,
       "status": "Alive",
       "reachedR16": true,
@@ -459,9 +459,9 @@
       "fifaRankingStart": 60,
       "groupGoalsConceded": 3,
       "cautionsScore": 13,
-      "status": "Alive",
+      "status": "Eliminated",
       "reachedR16": true,
-      "eliminatedRound": null,
+      "eliminatedRound": "Round of 32",
       "isChampion": false,
       "isRunnerUp": false
     },
