@@ -1,6 +1,6 @@
 {
   "_meta": {
-    "lastUpdated": "2026-07-03T02:54:52.856Z",
+    "lastUpdated": "2026-07-03T09:45:06.039Z",
     "source": "football-data.org (Cached)",
     "updateStatus": "ok",
     "cacheAgeMinutes": 0,
@@ -151,9 +151,9 @@
       "fifaRankingStart": 28,
       "groupGoalsConceded": 4,
       "cautionsScore": 0,
-      "status": "Alive",
+      "status": "Eliminated",
       "reachedR16": true,
-      "eliminatedRound": null,
+      "eliminatedRound": "Round of 32",
       "isChampion": false,
       "isRunnerUp": false
     },
