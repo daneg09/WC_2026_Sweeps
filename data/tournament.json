@@ -470,9 +470,9 @@
       "fifaRankingStart": 64,
       "groupGoalsConceded": 0,
       "cautionsScore": 4,
-      "status": "Alive",
+      "status": "Eliminated",
       "reachedR16": true,
-      "eliminatedRound": null,
+      "eliminatedRound": "Round of 32",
       "isChampion": false,
       "isRunnerUp": false
     },
@@ -481,9 +481,9 @@
       "fifaRankingStart": 67,
       "groupGoalsConceded": 0,
       "cautionsScore": 4,
-      "status": "Alive",
+      "status": "Eliminated",
       "reachedR16": true,
-      "eliminatedRound": null,
+      "eliminatedRound": "Round of 32",
       "isChampion": false,
       "isRunnerUp": false
     },
