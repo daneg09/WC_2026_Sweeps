@@ -538,7 +538,7 @@
     <div style="display:flex;gap:6px;overflow-x:auto;padding-bottom:8px;margin-bottom:4px;">
       <button class="filter-pill active" id="fp-all"       onclick="setFilter('all')">All</button>
       <button class="filter-pill"        id="fp-alive"     onclick="setFilter('alive')">Alive</button>
-      <button class="filter-pill"        id="fp-r16"       onclick="setFilter('r16')">R16+</button>
+      <button class="filter-pill"        id="fp-r16"       onclick="setFilter('r16')">R32+</button>
       <button class="filter-pill"        id="fp-eliminated"onclick="setFilter('eliminated')">Out</button>
     </div>
     <div id="teams-list" style="display:flex;flex-direction:column;gap:8px;padding-bottom:80px;max-height:60vh;overflow-y:auto;padding-right:2px;"></div>
@@ -593,7 +593,7 @@
     </div>
 
     <div class="divider"></div>
-    <span class="section-label">Round of 16 — Toggle Teams</span>
+    <span class="section-label">Round of 32 — Toggle Teams</span>
     <div id="admin-r16-grid" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;max-height:140px;overflow-y:auto;padding:4px;background:var(--deep-stadium);border-radius:8px;border:1px solid var(--border-subtle);margin-bottom:12px;"></div>
 
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
@@ -729,6 +729,7 @@ function validateAndBoot() {
     if (t.isRunnerUp && !adm.runnerUp) adm.runnerUp = t.name;
     // Snapshot the pristine R16 value so Reset can restore it correctly
     t._origR16 = t.reachedR16;
+    t._origR32 = t.reachedR32;
   }
   compute();
   populateAdminSelects();
@@ -832,7 +833,7 @@ function compute() {
     } else {
       t.isChampion = false; t.isRunnerUp = false;
       // Use the status from the JSON — 'Alive', 'Eliminated', etc.
-      // reachedR16:false just means they haven't made R16 yet, NOT that they're out.
+      // Status comes from JSON. reachedR32 = made knockout stage. reachedR16 = won R32 match.
     }
   }
 
@@ -1261,7 +1262,7 @@ function renderTeams() {
                           || t.status.toLowerCase().includes(q);
     if (!matchesQ) return false;
     if (teamFilter === 'alive')     return t.status !== 'Eliminated';
-    if (teamFilter === 'r16')       return t.reachedR16;
+    if (teamFilter === 'r16')       return t.reachedR32;
     if (teamFilter === 'eliminated')return t.status === 'Eliminated';
     return true;
   });
@@ -1287,7 +1288,7 @@ function renderTeams() {
     if (t.isChampion)                statusChip = `<span class="chip chip-gold"><i data-lucide="award" style="width:10px;height:10px;"></i> Champion</span>`;
     else if (t.isRunnerUp)           statusChip = `<span class="chip chip-purple">Runner-Up</span>`;
     else if (t.status === 'Eliminated') statusChip = `<span class="chip chip-grey">${t.eliminatedRound || 'Out'}</span>`;
-    else if (t.reachedR16)           statusChip = `<span class="chip chip-green">R16+</span>`;
+    else if (t.reachedR32)           statusChip = `<span class="chip chip-green">R32+</span>`;
     else                             statusChip = `<span class="chip chip-green">Alive</span>`;
 
     const card = document.createElement('div');
@@ -1393,7 +1394,7 @@ function openDrawer(playerName) {
     let statusCol  = 'var(--data-grey)';
     if (t?.isChampion)    { borderCol = 'rgba(225,193,110,0.4)'; statusText = '🏆 Champion'; statusCol = 'var(--champ-gold)'; }
     else if (t?.isRunnerUp){ borderCol = 'rgba(142,46,255,0.3)'; statusText = '🥈 Runner-Up'; statusCol = 'var(--finals-purple)'; }
-    else if (t?.reachedR16){ borderCol = 'rgba(174,255,0,0.25)'; statusText = '🟢 Active'; statusCol = 'var(--pitch-green)'; }
+    else if (t?.reachedR32){ borderCol = 'rgba(174,255,0,0.25)'; statusText = '🟢 Active'; statusCol = 'var(--pitch-green)'; }
     else if (t)            { statusText = t.eliminatedRound || 'Eliminated'; }
     return `
       <div class="card-inner" style="padding:10px;border-color:${borderCol};">
@@ -1517,11 +1518,11 @@ function populateAdminSelects() {
     const cb = document.createElement('input');
     cb.type = 'checkbox';
     cb.value = t.name;
-    cb.checked = t.reachedR16;
+    cb.checked = t.reachedR32 || t.reachedR16;
     cb.style.accentColor = 'var(--pitch-green)';
     cb.onchange = () => {
       const found = RAW_DATA.teams.find(tm => tm.name === t.name);
-      if (found) found.reachedR16 = cb.checked;
+      if (found) { found.reachedR32 = cb.checked; found.reachedR16 = cb.checked && found.reachedR16; }
       applyAdmin();
     };
     label.appendChild(cb);
@@ -1545,6 +1546,7 @@ function applyAdmin() {
 // restore each team's pre-simulation Round of 16 status.
 function resetAdmin() {
   for (const t of RAW_DATA.teams) {
+    t.reachedR32 = t._origR32 ?? t.reachedR32;
     t.reachedR16 = t._origR16 ?? t.reachedR16;
   }
 
