@@ -209,7 +209,8 @@ async function main() {
   // If the API never exposes an R32 stage at all (per docs uncertainty),
   // teams instead get flagged via group standings top-2 + best-third logic
   // as a fallback further below.
-  const reachedR16Set = new Set();
+  const reachedR32Set = new Set(); // reached knockout stage (won group stage)
+  const reachedR16Set = new Set(); // actually won their R32 match
   const roundMap = {}; // teamName -> { eliminatedRound, isChampion, isRunnerUp, status }
 
   for (const match of finishedMatches) {
@@ -218,6 +219,12 @@ async function main() {
     const stage = normaliseStage(match.stage);
     if (!home || !away || !stage) continue;
 
+    // Both teams in any R32 match have reached the knockout stage
+    if (['R32', 'R16', 'QF', 'SF', 'FINAL'].includes(stage)) {
+      reachedR32Set.add(home);
+      reachedR32Set.add(away);
+    }
+    // Both teams in any R16+ match have won their R32 match
     if (['R16', 'QF', 'SF', 'FINAL'].includes(stage)) {
       reachedR16Set.add(home);
       reachedR16Set.add(away);
@@ -256,11 +263,13 @@ async function main() {
   // Best-third-place teams are NOT inferred here (too complex/ambiguous
   // without official tiebreaker data) — those remain manual until the
   // API confirms it via an actual knockout match appearance.
+  // Fallback: infer R32 qualification from completed group standings (top 2 per group).
+  // reachedR16 cannot be inferred this way — it requires an actual R32 match win.
   for (const group of updatedGroups) {
     const allPlayed3 = (group.teams || []).every(t => (t.played ?? 0) >= 3);
     if (!allPlayed3) continue;
     const sorted = [...group.teams].sort((a, b) => (b.points - a.points) || (b.won - a.won));
-    sorted.slice(0, 2).forEach(t => reachedR16Set.add(t.name));
+    sorted.slice(0, 2).forEach(t => reachedR32Set.add(t.name));
   }
 
   // ── MERGE INTO TEAMS ───────────────────────────────────────────────────────
@@ -269,10 +278,14 @@ async function main() {
     const conceded = goalsConcededMap[team.name];
     const reached  = reachedR16Set.has(team.name);
 
+    const reachedR32 = reachedR32Set.has(team.name) || team.reachedR32;
+    const reachedR16 = reachedR16Set.has(team.name) || team.reachedR16;
+
     return {
       ...team,
       groupGoalsConceded: conceded !== undefined ? conceded : team.groupGoalsConceded,
-      reachedR16:         reached || team.reachedR16,  // never un-set this once true
+      reachedR32,          // reached knockout stage (R32)
+      reachedR16,          // actually won R32 match to reach R16
       eliminatedRound:    prog.eliminatedRound ?? team.eliminatedRound,
       isChampion:         prog.isChampion  ?? team.isChampion,
       isRunnerUp:         prog.isRunnerUp  ?? team.isRunnerUp,
@@ -296,6 +309,7 @@ async function main() {
 
   fs.writeFileSync(DATA_FILE, JSON.stringify(output, null, 2));
   console.log(`✓ Updated at ${output._meta.lastUpdated}`);
+  console.log(`  Teams marked reachedR32 this run: ${[...reachedR32Set].join(', ') || 'none'}`);
   console.log(`  Teams marked reachedR16 this run: ${[...reachedR16Set].join(', ') || 'none'}`);
   console.log(`  Teams eliminated/advanced this run: ${Object.keys(roundMap).join(', ') || 'none'}`);
 }
