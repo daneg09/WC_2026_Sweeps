@@ -1,6 +1,6 @@
 {
   "_meta": {
-    "lastUpdated": "2026-07-04T08:12:17.532Z",
+    "lastUpdated": "2026-06-28T22:05:04.361Z",
     "source": "football-data.org (Cached)",
     "updateStatus": "ok",
     "cacheAgeMinutes": 0,
@@ -122,7 +122,8 @@
       "reachedR16": true,
       "eliminatedRound": null,
       "isChampion": false,
-      "isRunnerUp": false
+      "isRunnerUp": false,
+      "reachedR32": true
     },
     {
       "name": "Croatia",
@@ -130,10 +131,11 @@
       "groupGoalsConceded": 4,
       "cautionsScore": 1,
       "status": "Eliminated",
-      "reachedR16": true,
+      "reachedR16": false,
       "eliminatedRound": "Round of 32",
       "isChampion": false,
-      "isRunnerUp": false
+      "isRunnerUp": false,
+      "reachedR32": true
     },
     {
       "name": "Iran",
@@ -144,7 +146,8 @@
       "reachedR16": false,
       "eliminatedRound": "Group Stage",
       "isChampion": false,
-      "isRunnerUp": false
+      "isRunnerUp": false,
+      "reachedR32": false
     },
     {
       "name": "Algeria",
@@ -152,10 +155,11 @@
       "groupGoalsConceded": 4,
       "cautionsScore": 0,
       "status": "Eliminated",
-      "reachedR16": true,
+      "reachedR16": false,
       "eliminatedRound": "Round of 32",
       "isChampion": false,
-      "isRunnerUp": false
+      "isRunnerUp": false,
+      "reachedR32": true
     },
     {
       "name": "Saudi Arabia",
@@ -166,7 +170,8 @@
       "reachedR16": false,
       "eliminatedRound": "Group Stage",
       "isChampion": false,
-      "isRunnerUp": false
+      "isRunnerUp": false,
+      "reachedR32": false
     },
     {
       "name": "Uzbekistan",
@@ -177,7 +182,8 @@
       "reachedR16": false,
       "eliminatedRound": "Group Stage",
       "isChampion": false,
-      "isRunnerUp": false
+      "isRunnerUp": false,
+      "reachedR32": false
     },
     {
       "name": "Türkiye",
@@ -188,7 +194,8 @@
       "reachedR16": false,
       "eliminatedRound": "Group Stage",
       "isChampion": false,
-      "isRunnerUp": false
+      "isRunnerUp": false,
+      "reachedR32": false
     },
     {
       "name": "Netherlands",
@@ -196,10 +203,11 @@
       "groupGoalsConceded": 1,
       "cautionsScore": 2,
       "status": "Eliminated",
-      "reachedR16": true,
+      "reachedR16": false,
       "eliminatedRound": "Round of 32",
       "isChampion": false,
-      "isRunnerUp": false
+      "isRunnerUp": false,
+      "reachedR32": true
     },
     {
       "name": "Uruguay",
@@ -210,7 +218,8 @@
       "reachedR16": false,
       "eliminatedRound": "Group Stage",
       "isChampion": false,
-      "isRunnerUp": false
+      "isRunnerUp": false,
+      "reachedR32": false
     },
     {
       "name": "Paraguay",
@@ -221,7 +230,8 @@
       "reachedR16": true,
       "eliminatedRound": null,
       "isChampion": false,
-      "isRunnerUp": false
+      "isRunnerUp": false,
+      "reachedR32": true
     },
     {
       "name": "Côte d'Ivoire",
@@ -229,21 +239,23 @@
       "groupGoalsConceded": 2,
       "cautionsScore": 4,
       "status": "Eliminated",
-      "reachedR16": true,
+      "reachedR16": false,
       "eliminatedRound": "Round of 32",
       "isChampion": false,
-      "isRunnerUp": false
+      "isRunnerUp": false,
+      "reachedR32": true
     },
     {
       "name": "DR Congo",
       "fifaRankingStart": 46,
-      "groupGoalsConceded": 2,
+      "groupGoalsConceded": 0,
       "cautionsScore": 2,
       "status": "Eliminated",
-      "reachedR16": true,
+      "reachedR16": false,
       "eliminatedRound": "Round of 32",
       "isChampion": false,
-      "isRunnerUp": false
+      "isRunnerUp": false,
+      "reachedR32": true
     },
     {
       "name": "Jordan",
@@ -254,7 +266,8 @@
       "reachedR16": false,
       "eliminatedRound": "Group Stage",
       "isChampion": false,
-      "isRunnerUp": false
+      "isRunnerUp": false,
+      "reachedR32": false
     },
     {
       "name": "Japan",
@@ -262,10 +275,11 @@
       "groupGoalsConceded": 2,
       "cautionsScore": 1,
       "status": "Eliminated",
-      "reachedR16": true,
+      "reachedR16": false,
       "eliminatedRound": "Round of 32",
       "isChampion": false,
-      "isRunnerUp": false
+      "isRunnerUp": false,
+      "reachedR32": true
     },
     {
       "name": "Brazil",
@@ -276,7 +290,8 @@
       "reachedR16": true,
       "eliminatedRound": null,
       "isChampion": false,
-      "isRunnerUp": false
+      "isRunnerUp": false,
+      "reachedR32": true
     },
     {
       "name": "Colombia",
@@ -287,7 +302,8 @@
       "reachedR16": true,
       "eliminatedRound": null,
       "isChampion": false,
-      "isRunnerUp": false
+      "isRunnerUp": false,
+      "reachedR32": true
     },
     {
       "name": "Ecuador",
@@ -295,10 +311,11 @@
       "groupGoalsConceded": 1,
       "cautionsScore": 5,
       "status": "Eliminated",
-      "reachedR16": true,
+      "reachedR16": false,
       "eliminatedRound": "Round of 32",
       "isChampion": false,
-      "isRunnerUp": false
+      "isRunnerUp": false,
+      "reachedR32": true
     },
     {
       "name": "Qatar",
@@ -309,7 +326,8 @@
       "reachedR16": false,
       "eliminatedRound": "Group Stage",
       "isChampion": false,
-      "isRunnerUp": false
+      "isRunnerUp": false,
+      "reachedR32": false
     },
     {
       "name": "Panama",
@@ -320,7 +338,8 @@
       "reachedR16": false,
       "eliminatedRound": "Group Stage",
       "isChampion": false,
-      "isRunnerUp": false
+      "isRunnerUp": false,
+      "reachedR32": false
     },
     {
       "name": "New Zealand",
@@ -331,7 +350,8 @@
       "reachedR16": false,
       "eliminatedRound": "Group Stage",
       "isChampion": false,
-      "isRunnerUp": false
+      "isRunnerUp": false,
+      "reachedR32": false
     },
     {
       "name": "Norway",
@@ -342,7 +362,8 @@
       "reachedR16": true,
       "eliminatedRound": null,
       "isChampion": false,
-      "isRunnerUp": false
+      "isRunnerUp": false,
+      "reachedR32": true
     },
     {
       "name": "Argentina",
@@ -353,7 +374,8 @@
       "reachedR16": true,
       "eliminatedRound": null,
       "isChampion": false,
-      "isRunnerUp": false
+      "isRunnerUp": false,
+      "reachedR32": true
     },
     {
       "name": "Switzerland",
@@ -364,7 +386,8 @@
       "reachedR16": true,
       "eliminatedRound": null,
       "isChampion": false,
-      "isRunnerUp": false
+      "isRunnerUp": false,
+      "reachedR32": true
     },
     {
       "name": "Sweden",
@@ -372,10 +395,11 @@
       "groupGoalsConceded": 6,
       "cautionsScore": 5,
       "status": "Eliminated",
-      "reachedR16": true,
+      "reachedR16": false,
       "eliminatedRound": "Round of 32",
       "isChampion": false,
-      "isRunnerUp": false
+      "isRunnerUp": false,
+      "reachedR32": true
     },
     {
       "name": "Australia",
@@ -383,10 +407,11 @@
       "groupGoalsConceded": 2,
       "cautionsScore": 5,
       "status": "Eliminated",
-      "reachedR16": true,
+      "reachedR16": false,
       "eliminatedRound": "Round of 32",
       "isChampion": false,
-      "isRunnerUp": false
+      "isRunnerUp": false,
+      "reachedR32": true
     },
     {
       "name": "Ghana",
@@ -394,10 +419,11 @@
       "groupGoalsConceded": 2,
       "cautionsScore": 2,
       "status": "Eliminated",
-      "reachedR16": true,
+      "reachedR16": false,
       "eliminatedRound": "Round of 32",
       "isChampion": false,
-      "isRunnerUp": false
+      "isRunnerUp": false,
+      "reachedR32": true
     },
     {
       "name": "Haiti",
@@ -408,7 +434,8 @@
       "reachedR16": false,
       "eliminatedRound": "Group Stage",
       "isChampion": false,
-      "isRunnerUp": false
+      "isRunnerUp": false,
+      "reachedR32": false
     },
     {
       "name": "United States",
@@ -419,7 +446,8 @@
       "reachedR16": true,
       "eliminatedRound": null,
       "isChampion": false,
-      "isRunnerUp": false
+      "isRunnerUp": false,
+      "reachedR32": true
     },
     {
       "name": "France",
@@ -430,7 +458,8 @@
       "reachedR16": true,
       "eliminatedRound": null,
       "isChampion": false,
-      "isRunnerUp": false
+      "isRunnerUp": false,
+      "reachedR32": true
     },
     {
       "name": "Belgium",
@@ -441,7 +470,8 @@
       "reachedR16": true,
       "eliminatedRound": null,
       "isChampion": false,
-      "isRunnerUp": false
+      "isRunnerUp": false,
+      "reachedR32": true
     },
     {
       "name": "Czechia",
@@ -452,7 +482,8 @@
       "reachedR16": false,
       "eliminatedRound": "Group Stage",
       "isChampion": false,
-      "isRunnerUp": false
+      "isRunnerUp": false,
+      "reachedR32": false
     },
     {
       "name": "South Africa",
@@ -460,10 +491,11 @@
       "groupGoalsConceded": 3,
       "cautionsScore": 13,
       "status": "Eliminated",
-      "reachedR16": true,
+      "reachedR16": false,
       "eliminatedRound": "Round of 32",
       "isChampion": false,
-      "isRunnerUp": false
+      "isRunnerUp": false,
+      "reachedR32": true
     },
     {
       "name": "Bosnia & Herzegovina",
@@ -471,10 +503,11 @@
       "groupGoalsConceded": 0,
       "cautionsScore": 4,
       "status": "Eliminated",
-      "reachedR16": true,
+      "reachedR16": false,
       "eliminatedRound": "Round of 32",
       "isChampion": false,
-      "isRunnerUp": false
+      "isRunnerUp": false,
+      "reachedR32": true
     },
     {
       "name": "Cabo Verde",
@@ -482,10 +515,11 @@
       "groupGoalsConceded": 0,
       "cautionsScore": 4,
       "status": "Eliminated",
-      "reachedR16": true,
+      "reachedR16": false,
       "eliminatedRound": "Round of 32",
       "isChampion": false,
-      "isRunnerUp": false
+      "isRunnerUp": false,
+      "reachedR32": true
     },
     {
       "name": "South Korea",
@@ -496,7 +530,8 @@
       "reachedR16": false,
       "eliminatedRound": "Group Stage",
       "isChampion": false,
-      "isRunnerUp": false
+      "isRunnerUp": false,
+      "reachedR32": false
     },
     {
       "name": "Portugal",
@@ -507,7 +542,8 @@
       "reachedR16": true,
       "eliminatedRound": null,
       "isChampion": false,
-      "isRunnerUp": false
+      "isRunnerUp": false,
+      "reachedR32": true
     },
     {
       "name": "Germany",
@@ -515,10 +551,11 @@
       "groupGoalsConceded": 2,
       "cautionsScore": 1,
       "status": "Eliminated",
-      "reachedR16": true,
+      "reachedR16": false,
       "eliminatedRound": "Round of 32",
       "isChampion": false,
-      "isRunnerUp": false
+      "isRunnerUp": false,
+      "reachedR32": true
     },
     {
       "name": "Canada",
@@ -529,7 +566,8 @@
       "reachedR16": true,
       "eliminatedRound": null,
       "isChampion": false,
-      "isRunnerUp": false
+      "isRunnerUp": false,
+      "reachedR32": true
     },
     {
       "name": "Egypt",
@@ -540,7 +578,8 @@
       "reachedR16": true,
       "eliminatedRound": null,
       "isChampion": false,
-      "isRunnerUp": false
+      "isRunnerUp": false,
+      "reachedR32": true
     },
     {
       "name": "Iraq",
@@ -551,7 +590,8 @@
       "reachedR16": false,
       "eliminatedRound": "Group Stage",
       "isChampion": false,
-      "isRunnerUp": false
+      "isRunnerUp": false,
+      "reachedR32": false
     },
     {
       "name": "Curaçao",
@@ -562,7 +602,8 @@
       "reachedR16": false,
       "eliminatedRound": "Group Stage",
       "isChampion": false,
-      "isRunnerUp": false
+      "isRunnerUp": false,
+      "reachedR32": false
     },
     {
       "name": "Senegal",
@@ -570,10 +611,11 @@
       "groupGoalsConceded": 6,
       "cautionsScore": 2,
       "status": "Eliminated",
-      "reachedR16": true,
+      "reachedR16": false,
       "eliminatedRound": "Round of 32",
       "isChampion": false,
-      "isRunnerUp": false
+      "isRunnerUp": false,
+      "reachedR32": true
     },
     {
       "name": "Spain",
@@ -584,7 +626,8 @@
       "reachedR16": true,
       "eliminatedRound": null,
       "isChampion": false,
-      "isRunnerUp": false
+      "isRunnerUp": false,
+      "reachedR32": true
     },
     {
       "name": "Morocco",
@@ -595,7 +638,8 @@
       "reachedR16": true,
       "eliminatedRound": null,
       "isChampion": false,
-      "isRunnerUp": false
+      "isRunnerUp": false,
+      "reachedR32": true
     },
     {
       "name": "Mexico",
@@ -606,7 +650,8 @@
       "reachedR16": true,
       "eliminatedRound": null,
       "isChampion": false,
-      "isRunnerUp": false
+      "isRunnerUp": false,
+      "reachedR32": true
     },
     {
       "name": "Austria",
@@ -614,10 +659,11 @@
       "groupGoalsConceded": 5,
       "cautionsScore": 0,
       "status": "Eliminated",
-      "reachedR16": true,
+      "reachedR16": false,
       "eliminatedRound": "Round of 32",
       "isChampion": false,
-      "isRunnerUp": false
+      "isRunnerUp": false,
+      "reachedR32": true
     },
     {
       "name": "Tunisia",
@@ -628,7 +674,8 @@
       "reachedR16": false,
       "eliminatedRound": "Group Stage",
       "isChampion": false,
-      "isRunnerUp": false
+      "isRunnerUp": false,
+      "reachedR32": false
     },
     {
       "name": "Scotland",
@@ -639,7 +686,8 @@
       "reachedR16": false,
       "eliminatedRound": "Group Stage",
       "isChampion": false,
-      "isRunnerUp": false
+      "isRunnerUp": false,
+      "reachedR32": false
     }
   ],
   "prizes": [
