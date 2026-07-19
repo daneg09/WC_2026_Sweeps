@@ -1,6 +1,6 @@
 {
   "_meta": {
-    "lastUpdated": "2026-07-19T09:43:01.174Z",
+    "lastUpdated": "2026-07-19T22:48:21.120Z",
     "source": "football-data.org (Cached)",
     "updateStatus": "ok",
     "cacheAgeMinutes": 0,
@@ -370,11 +370,11 @@
       "fifaRankingStart": 1,
       "groupGoalsConceded": 1,
       "cautionsScore": 0,
-      "status": "Alive",
+      "status": "Runner-Up",
       "reachedR16": true,
-      "eliminatedRound": null,
+      "eliminatedRound": "Final",
       "isChampion": false,
-      "isRunnerUp": false,
+      "isRunnerUp": true,
       "reachedR32": true
     },
     {
@@ -622,10 +622,10 @@
       "fifaRankingStart": 2,
       "groupGoalsConceded": 0,
       "cautionsScore": 2,
-      "status": "Alive",
+      "status": "Champion",
       "reachedR16": true,
       "eliminatedRound": null,
-      "isChampion": false,
+      "isChampion": true,
       "isRunnerUp": false,
       "reachedR32": true
     },
